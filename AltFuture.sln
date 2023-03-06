@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltFutureWebApp", "AltFutureWebApp\AltFutureWebApp.csproj", "{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30CB6E4B-AD3B-4F37-8552-2D1E767074CA}
+	EndGlobalSection
+EndGlobal
