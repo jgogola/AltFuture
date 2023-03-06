@@ -1,4 +1,4 @@
-namespace AltFutureWebApp.Models
+namespace AltFutureWebApp.ViewModels
 {
     public class ErrorViewModel
     {

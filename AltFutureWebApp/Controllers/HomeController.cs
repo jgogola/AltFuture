@@ -1,4 +1,5 @@
-﻿using AltFutureWebApp.Models;
+﻿
+using AltFutureWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
