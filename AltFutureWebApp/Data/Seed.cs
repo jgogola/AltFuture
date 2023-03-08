@@ -1,9 +1,8 @@
-﻿using AltFutureWebApp.Areas.Portfolios.Models;
-using AltFutureWebApp.Areas.Portfolios.Data.Enums;
-using AltFutureWebApp.Data;
-using System.Transactions;
+﻿using System.Transactions;
+using AltFutureWebApp.Data.Enums;
+using AltFutureWebApp.Models;
 
-namespace AltFutureWebApp.Areas.Portfolios.Data
+namespace AltFutureWebApp.Data
 {
     public class Seed
     {
@@ -15,16 +14,21 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
 
                 context.Database.EnsureCreated();
 
+                Console.WriteLine("*** Begin data seeding....");
+
                 //Seed AppUser table:
-                if(!context.AppUsers.Any())
+                if (!context.AppUsers.Any())
                 {
-                    context.AppUsers.AddRange(new List<AppUser>
+                    context.AppUsers.Add(new AppUser()
                     {
-                        new AppUser()
-                        {
-                            UserName = "JasonVoorhees"
-                        }
+                        UserName = "JasonVoorhees"
                     });
+                    context.SaveChanges();
+                    Console.WriteLine("*** Added 1 new AppUser.");
+                }
+                else
+                {
+                    Console.WriteLine("*** AppUser records already exist. Did not seed.");
                 }//End AppUser seed
 
                 //Seed Crypto table:
@@ -91,10 +95,16 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
                         {
                             CryptoName = "Polkadot",
                             TickerSymbol = "DOT"
-                        },
+                        }
 
 
                     });
+                    context.SaveChanges();
+                    Console.WriteLine("Added range of new Cryptos.");
+                }
+                else
+                {
+                    Console.WriteLine("*** Crypto records already exist. Did not seed.");
                 }//End Crypto seed
 
                 //Seed Exchange table:
@@ -128,6 +138,12 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
                         }
 
                     });
+                    context.SaveChanges();
+                    Console.WriteLine("*** Added range of new Exhcanges.");
+                }
+                else
+                {
+                    Console.WriteLine("*** Exchange records already exist. Did not seed.");
                 }//End Exchange seed
 
                 //Seed ExchangeTransactionTypes table:
@@ -136,13 +152,13 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
                     context.ExchangeTransactionTypes.AddRange(new List<ExchangeTransactionType>
                     {
                         //BUY
-                        new ExchangeTransactionType() 
+                        new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Buy",
                             ExchageId = 1, //Coinbase
                             CommonTransactionType = CommonTransactionType.Buy
                         },
-                        new ExchangeTransactionType() 
+                        new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "viban_purchase",
                             ExchageId = 2, //Crypto.com
@@ -154,20 +170,20 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
                             ExchageId = 3, //Kucoin
                             CommonTransactionType = CommonTransactionType.Buy
                         },
-                        new ExchangeTransactionType() 
+                        new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Open Position",
                             ExchageId = 4, //Etoro
                             CommonTransactionType = CommonTransactionType.Buy
                         },
                         //SELL
-                        new ExchangeTransactionType() 
+                        new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Sell",
                             ExchageId = 1, //Coinbase
                             CommonTransactionType = CommonTransactionType.Sell
                         },
-                        new ExchangeTransactionType() 
+                        new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Sell",
                             ExchageId = 2, //Crypto.com
@@ -179,17 +195,23 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
                             ExchageId = 3, //Kucoin
                             CommonTransactionType = CommonTransactionType.Sell
                         },
-                        new ExchangeTransactionType() 
+                        new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Sell",
                             ExchageId = 4, //Etoro
                             CommonTransactionType = CommonTransactionType.Sell
                         }
                     });
+                    context.SaveChanges();
+                    Console.WriteLine("*** Added range of new ExchangeTransactionTypes.");
+                }
+                else
+                {
+                    Console.WriteLine("*** ExchangeTransactionTypes records already exist. Did not seed.");
                 }//End ExchangeTransactionTypes seed
 
                 //Seed Transaction table
-                if(!context.Transactions.Any())
+                if (!context.Transactions.Any())
                 {
                     context.Transactions.AddRange(new List<Models.Transaction>
                     {
@@ -205,7 +227,7 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
                             TransactionDate = DateTime.Now.AddDays(-2),
                             FromExchangeId = 1,
                             ToExchangeId = null,
-                            CreatedDate = DateTime.Now                         
+                            CreatedDate = DateTime.Now
                         },
                         new Models.Transaction()
                         {
@@ -262,10 +284,18 @@ namespace AltFutureWebApp.Areas.Portfolios.Data
                             FromExchangeId = 1,
                             ToExchangeId = null,
                             CreatedDate = DateTime.Now
-                        },
+                        }
 
                     });
+                    context.SaveChanges();
+                    Console.WriteLine("*** Added range of new Transactions.");
+                }
+                else
+                {
+                    Console.WriteLine("*** Transaction records already exist. Did not seed.");
                 }//End Transaction seed
+
+                Console.WriteLine("*** Finished data seeding.");
             }
         }
     }

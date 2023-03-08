@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AltFutureWebApp.Areas.Portfolios.Models
+namespace AltFutureWebApp.Models
 {
     public class Transaction
     {
@@ -29,7 +29,7 @@ namespace AltFutureWebApp.Areas.Portfolios.Models
 
 
         [Column(TypeName = "decimal(18,10)")]
-        public decimal Quantity { get; set;} = decimal.Zero;
+        public decimal Quantity { get; set; } = decimal.Zero;
 
 
         [Column(TypeName = "decimal(18,10)")]
@@ -54,7 +54,7 @@ namespace AltFutureWebApp.Areas.Portfolios.Models
         public Exchange ToExchange { get; set; }
 
         public DateTime CreatedDate { get; set; }
- 
+
 
     }
 }

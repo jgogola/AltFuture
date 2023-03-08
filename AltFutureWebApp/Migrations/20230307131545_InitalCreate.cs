@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AltFutureWebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitalCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AppUser",
+                name: "AppUsers",
                 columns: table => new
                 {
                     AppUserId = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace AltFutureWebApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppUser", x => x.AppUserId);
+                    table.PrimaryKey("PK_AppUsers", x => x.AppUserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,17 +67,24 @@ namespace AltFutureWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionTypes",
+                name: "ExchangeTransactionTypes",
                 columns: table => new
                 {
                     ExchangeTransactionTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExchangeTransactionTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExchageId = table.Column<int>(type: "int", nullable: false),
                     CommonTransactionType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionTypes", x => x.ExchangeTransactionTypeId);
+                    table.PrimaryKey("PK_ExchangeTransactionTypes", x => x.ExchangeTransactionTypeId);
+                    table.ForeignKey(
+                        name: "FK_ExchangeTransactionTypes_Exchanges_ExchageId",
+                        column: x => x.ExchageId,
+                        principalTable: "Exchanges",
+                        principalColumn: "ExchangeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,8 +101,7 @@ namespace AltFutureWebApp.Migrations
                     TransactionTotal = table.Column<decimal>(type: "decimal(18,10)", nullable: false),
                     Fee = table.Column<decimal>(type: "decimal(18,10)", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FromExchangetId = table.Column<int>(type: "int", nullable: false),
-                    FromExchangeExchangeId = table.Column<int>(type: "int", nullable: false),
+                    FromExchangeId = table.Column<int>(type: "int", nullable: false),
                     ToExchangeId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -103,9 +109,9 @@ namespace AltFutureWebApp.Migrations
                 {
                     table.PrimaryKey("PK_Transactions", x => x.TransactionId);
                     table.ForeignKey(
-                        name: "FK_Transactions_AppUser_AppUserId",
+                        name: "FK_Transactions_AppUsers_AppUserId",
                         column: x => x.AppUserId,
-                        principalTable: "AppUser",
+                        principalTable: "AppUsers",
                         principalColumn: "AppUserId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -115,8 +121,8 @@ namespace AltFutureWebApp.Migrations
                         principalColumn: "CryptoId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Transactions_Exchanges_FromExchangeExchangeId",
-                        column: x => x.FromExchangeExchangeId,
+                        name: "FK_Transactions_Exchanges_FromExchangeId",
+                        column: x => x.FromExchangeId,
                         principalTable: "Exchanges",
                         principalColumn: "ExchangeId",
                         onDelete: ReferentialAction.Cascade);
@@ -126,6 +132,11 @@ namespace AltFutureWebApp.Migrations
                         principalTable: "Exchanges",
                         principalColumn: "ExchangeId");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExchangeTransactionTypes_ExchageId",
+                table: "ExchangeTransactionTypes",
+                column: "ExchageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_AppUserId",
@@ -138,9 +149,9 @@ namespace AltFutureWebApp.Migrations
                 column: "CryptoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_FromExchangeExchangeId",
+                name: "IX_Transactions_FromExchangeId",
                 table: "Transactions",
-                column: "FromExchangeExchangeId");
+                column: "FromExchangeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_ToExchangeId",
@@ -155,13 +166,13 @@ namespace AltFutureWebApp.Migrations
                 name: "CryptoPrices");
 
             migrationBuilder.DropTable(
+                name: "ExchangeTransactionTypes");
+
+            migrationBuilder.DropTable(
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "TransactionTypes");
-
-            migrationBuilder.DropTable(
-                name: "AppUser");
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
                 name: "Cryptos");

@@ -1,6 +1,6 @@
-﻿using AltFutureWebApp.Areas.Portfolios.Models;
-using AltFutureWebApp.Data;
+﻿using AltFutureWebApp.Data;
 using AltFutureWebApp.Interfaces;
+using AltFutureWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AltFutureWebApp.Repository
@@ -20,9 +20,14 @@ namespace AltFutureWebApp.Repository
             return await _context.ExchangeTransactionTypes.ToListAsync();
         }
 
-        public async Task<ExchangeTransactionType> GetAsync(int id)
+        public async Task<ExchangeTransactionType> GetByIdAsync(int id)
         {
             return await _context.ExchangeTransactionTypes.FirstOrDefaultAsync(e => e.ExchangeTransactionTypeId == id);
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _context.ExchangeTransactionTypes.CountAsync();
         }
 
 

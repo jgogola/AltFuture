@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AltFutureWebApp.Areas.Portfolios.Models
+namespace AltFutureWebApp.Models
 {
     public class CryptoPrice
     {

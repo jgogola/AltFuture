@@ -1,4 +1,4 @@
-﻿using AltFutureWebApp.Areas.Portfolios.Models;
+﻿using AltFutureWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AltFutureWebApp.Data

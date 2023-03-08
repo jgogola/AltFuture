@@ -36,7 +36,7 @@ namespace AltFutureWebApp.Migrations
 
                     b.HasKey("AppUserId");
 
-                    b.ToTable("AppUser");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("AltFutureWebApp.Areas.Portfolios.Models.Crypto", b =>
@@ -110,13 +110,18 @@ namespace AltFutureWebApp.Migrations
                     b.Property<int>("CommonTransactionType")
                         .HasColumnType("int");
 
+                    b.Property<int>("ExchageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ExchangeTransactionTypeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ExchangeTransactionTypeId");
 
-                    b.ToTable("TransactionTypes");
+                    b.HasIndex("ExchageId");
+
+                    b.ToTable("ExchangeTransactionTypes");
                 });
 
             modelBuilder.Entity("AltFutureWebApp.Areas.Portfolios.Models.Transaction", b =>
@@ -139,10 +144,7 @@ namespace AltFutureWebApp.Migrations
                     b.Property<decimal>("Fee")
                         .HasColumnType("decimal(18,10)");
 
-                    b.Property<int>("FromExchangeExchangeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FromExchangetId")
+                    b.Property<int>("FromExchangeId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -169,11 +171,22 @@ namespace AltFutureWebApp.Migrations
 
                     b.HasIndex("CryptoId");
 
-                    b.HasIndex("FromExchangeExchangeId");
+                    b.HasIndex("FromExchangeId");
 
                     b.HasIndex("ToExchangeId");
 
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("AltFutureWebApp.Areas.Portfolios.Models.ExchangeTransactionType", b =>
+                {
+                    b.HasOne("AltFutureWebApp.Areas.Portfolios.Models.Exchange", "Exchage")
+                        .WithMany()
+                        .HasForeignKey("ExchageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exchage");
                 });
 
             modelBuilder.Entity("AltFutureWebApp.Areas.Portfolios.Models.Transaction", b =>
@@ -192,7 +205,7 @@ namespace AltFutureWebApp.Migrations
 
                     b.HasOne("AltFutureWebApp.Areas.Portfolios.Models.Exchange", "FromExchange")
                         .WithMany()
-                        .HasForeignKey("FromExchangeExchangeId")
+                        .HasForeignKey("FromExchangeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,7 +1,7 @@
-﻿using AltFutureWebApp.Areas.Portfolios.Models;
-using AltFutureWebApp.Data;
+﻿using AltFutureWebApp.Data;
 using AltFutureWebApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using AltFutureWebApp.Models;
 
 namespace AltFutureWebApp.Repository
 {
@@ -20,9 +20,14 @@ namespace AltFutureWebApp.Repository
             return await _context.Cryptos.ToListAsync();
         }
 
-        public async Task<Crypto> GetAsync(int id)
+        public async Task<Crypto?> GetByIdAsync(int id)
         {
             return await _context.Cryptos.FirstOrDefaultAsync(c => c.CryptoId == id);
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _context.Cryptos.CountAsync();
         }
 
 

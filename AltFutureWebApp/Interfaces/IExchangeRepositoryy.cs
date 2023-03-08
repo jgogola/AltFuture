@@ -1,4 +1,4 @@
-﻿using AltFutureWebApp.Areas.Portfolios.Models;
+﻿using AltFutureWebApp.Models;
 
 namespace AltFutureWebApp.Interfaces
 {
@@ -6,9 +6,9 @@ namespace AltFutureWebApp.Interfaces
     {
         Task<IEnumerable<Exchange>> GetAllAsync();
 
-        Task<Exchange> GetAsync(int id);
+        Task<Exchange> GetByIdAsync(int id);
 
-
+        Task<int> GetCountAsync();
         bool Add(Exchange exchange);
 
         bool Update(Exchange exchange);

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AltFutureWebApp.Areas.Portfolios.Data.Enums
+namespace AltFutureWebApp.Data.Enums
 {
     public enum CommonTransactionType
     {

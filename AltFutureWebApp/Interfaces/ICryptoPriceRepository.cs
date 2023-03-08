@@ -1,4 +1,4 @@
-﻿using AltFutureWebApp.Areas.Portfolios.Models;
+﻿using AltFutureWebApp.Models;
 
 namespace AltFutureWebApp.Interfaces
 {
@@ -6,8 +6,9 @@ namespace AltFutureWebApp.Interfaces
     {
         Task<IEnumerable<CryptoPrice>> GetAllAsync();
 
-        Task<CryptoPrice> GetAsync(int id);
+        Task<CryptoPrice> GetByIdAsync(int id);
 
+        Task<int> GetCountAsync();
 
         bool Add(CryptoPrice cryptoPrice);
 

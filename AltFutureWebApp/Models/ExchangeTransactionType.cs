@@ -1,12 +1,12 @@
-﻿using AltFutureWebApp.Areas.Portfolios.Data.Enums;
+﻿using AltFutureWebApp.Data.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AltFutureWebApp.Areas.Portfolios.Models
+namespace AltFutureWebApp.Models
 {
     public class ExchangeTransactionType
     {
         public int ExchangeTransactionTypeId { get; set; }
-        public string ExchangeTransactionTypeName { get; set;}
+        public string ExchangeTransactionTypeName { get; set; }
 
         [ForeignKey(nameof(Exchange))]
         public int ExchageId { get; set; }
