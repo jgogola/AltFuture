@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Exchange>
+
+@{
+    ViewData["Title"] = "Exchange";
+}
+
+<h1>Exchange</h1>
+
+<p>
+    <a asp-action="Create">Create New Exchange</a>
+</p>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Exchange
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                 @item.ExchangeName
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ExchangeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ExchangeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ExchangeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@if (ViewBag.UserMessage != null)
+{
+    <partial name="_UserMessage" model="ViewBag.UserMessage" />
+}

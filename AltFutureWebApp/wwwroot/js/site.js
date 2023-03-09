@@ -2,3 +2,12 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+class UserMesssagePartial {
+
+    sayHello() {
+        alert("hello");
+    }
+
+}
+

@@ -1,0 +1,65 @@
+﻿@using AltFutureWebApp.Data.Enums
+@model UserMessageViewModel
+
+@*
+    
+*@
+@{
+    var msgTypeClass = "";
+    var msgIconClass = "";
+    switch (Model.UserMessageType)
+    {
+        case UserMessageTypes.Success:
+            msgTypeClass = "msgSuccess"; 
+            msgIconClass = "fa-solid fa-check-circle";
+            break;
+        case UserMessageTypes.Alert:
+            msgTypeClass = "msgAlert";
+            msgIconClass = "fa-solid fa-exclamation-circle";
+            break;
+        case UserMessageTypes.Warning:
+            msgTypeClass = "msgWarning";
+            msgIconClass = "fa-solid fa-exclamation-triangle";
+            break;
+        default:
+            msgTypeClass = "msgSystem";
+            msgIconClass = "fa-solid fa-comment-dots";
+            break;
+    }
+}
+
+<style>
+    .msgSystem {
+        background-color: blue;
+    }
+
+    .msgSuccess {
+        background-color: green;
+    }
+
+    .msgAlert {
+        background-color: red;
+    }
+</style>
+
+<div class="@msgTypeClass">
+    <fieldset id="fsSystemMsg" aria-label="User Message">
+
+        <div id="divField" class="divField">
+            <div class="iconDiv">
+                <i id="iMsgIcon" class="@msgIconClass"></i>
+            </div>
+            <div id="divSystemMsg" style="position: relative;" class="msgDiv">
+                <span>
+                    @Model.UserMessageType 
+                </span>
+                <div id="divMsg">
+                    @Model.UserMessage
+                </div>
+            </div>
+            <div id="divClose" class="msgCloseDiv">
+                <a id="lnkClose" class="fa-solid fa-times closeMsg" aria-label="Close User Message"></a>
+            </div>
+        </div>
+    </fieldset>
+</div>

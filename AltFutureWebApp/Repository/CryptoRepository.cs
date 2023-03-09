@@ -3,6 +3,7 @@ using AltFutureWebApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using AltFutureWebApp.Models;
 
+
 namespace AltFutureWebApp.Repository
 {
     public class CryptoRepository : ICryptoRepository
