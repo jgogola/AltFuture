@@ -1,4 +1,4 @@
-# AltFuture
+
  A passion project to create a crypto investment portfolio tacker.
 
  ## Daily Programming Journal:
@@ -49,3 +49,11 @@
   - This Area will contain all the Admin resources for an authenticated admin user.  
 - **Refactor:**
   - Moved location of data layer files.
+
+### 4/8/2023
+- **Created Admin Area**
+	- Created basic CRUD pages for maintaining Crypto data
+	- Created basic CRUD pages for maintaining Exchange data
+	- **Created Partial**
+    - _UserMessage.cshtml to handle displaying system messages back to the user to notifiy them of Succes, Alert, Warning, or System message.
+	- **Added FontAwesome CDN**
