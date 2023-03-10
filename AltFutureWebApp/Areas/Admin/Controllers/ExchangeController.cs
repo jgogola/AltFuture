@@ -14,6 +14,7 @@ using AltFutureWebApp.Data.Enums;
 using AltFutureWebApp.ViewModels;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using AltFutureWebApp.Helpers;
 
 namespace AltFutureWebApp.Areas.Admin.Controllers
 {
@@ -31,14 +32,6 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
         // GET: Admin/Exchange
         public async Task<IActionResult> Index()
         {
-            var userMessageJson = TempData["UserMessage"] as string;
-            
-            if(userMessageJson != null)
-            {
-                var userMessage = JsonConvert.DeserializeObject<UserMessageViewModel>(userMessageJson);
-                ViewBag.UserMessage = userMessage;
-            }
-
             return View(await _exchangeRepository.GetAllAsync());
         }
 
@@ -83,14 +76,13 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
 
                 _exchangeRepository.Add(exchange);
 
-                var userMessage = new UserMessageViewModel()
-                {
-                    UserMessageType = UserMessageTypes.Success,
-                    UserMessage = $"{exchange.ExchangeName} was successfully added.",
-                    FadeOutSeconds = 8
-                };
-
-                TempData["UserMessage"] = JsonConvert.SerializeObject(userMessage);
+                //* Display success message back to user on Index
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.Success,
+                    $"{exchange.ExchangeName} was successfully added.",
+                    8
+                );
 
                 return RedirectToAction(nameof(Index));
             }
@@ -142,14 +134,14 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
 
                 _exchangeRepository.Update(exchange);
 
-                var userMessage = new UserMessageViewModel()
-                {
-                    UserMessageType = UserMessageTypes.Success,
-                    UserMessage = $"{exchange.ExchangeName} was successfully updated.",
-                    FadeOutSeconds = 8
-                };
 
-                TempData["UserMessage"] = JsonConvert.SerializeObject(userMessage);
+                //* Display success message back to user on Index
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.Success,
+                    $"{exchange.ExchangeName} was successfully updated.",
+                    8
+                );
 
                 return RedirectToAction(nameof(Index));
             }
@@ -185,17 +177,16 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
 
             if (exchange != null)
             {
+                //* Display success message back to user on Index
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.Success,
+                    $"{exchange.ExchangeName} was successfully deleted.",
+                    8
+                );
+            
                 _exchangeRepository.Delete(exchange);
             }
-
-            var userMessage = new UserMessageViewModel()
-            {
-                UserMessageType = UserMessageTypes.Success,
-                UserMessage = $"{exchange.ExchangeName} was successfully deleted.",
-                FadeOutSeconds = 8
-            };
-
-            TempData["UserMessage"] = JsonConvert.SerializeObject(userMessage);
 
             return RedirectToAction(nameof(Index));
         }

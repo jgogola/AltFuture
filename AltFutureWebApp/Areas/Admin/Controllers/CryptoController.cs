@@ -13,6 +13,7 @@ using Microsoft.CodeAnalysis.Text;
 using AltFutureWebApp.Data.Enums;
 using AltFutureWebApp.ViewModels;
 using Newtonsoft.Json;
+using AltFutureWebApp.Helpers;
 
 namespace AltFutureWebApp.Areas.Admin.Controllers
 {
@@ -31,11 +32,12 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
         // GET: Admin/Crypto
         public async Task<IActionResult> Index()
         {
-            var userMsg = TempData["UserMessage"] as string;
-            if (userMsg != null)
+            var userMessageJson = TempData["UserMessage"] as string;
+
+            if (userMessageJson != null)
             {
-                ViewBag.UserMessageType = TempData["UserMessageType"] ?? UserMessageTypes.System; 
-                ViewBag.UserMessage = userMsg;
+                var userMessage = JsonConvert.DeserializeObject<UserMessageViewModel>(userMessageJson);
+                ViewBag.UserMessage = userMessage;
             }
 
             return View(await _cryptoRepository.GetAllAsync());
@@ -82,14 +84,13 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
 
                 _cryptoRepository.Add(crypto);
 
-                var userMessage = new UserMessageViewModel()
-                {
-                    UserMessageType = UserMessageTypes.Success,
-                    UserMessage = $"{crypto.CryptoName} was successfully added.",
-                    FadeOutSeconds = 8
-                };
-
-                TempData["UserMessage"] = JsonConvert.SerializeObject(userMessage);
+                //* Display success message back to user on Index
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.Success,
+                    $"{crypto.CryptoName} was successfully added.",
+                    8
+                );
 
                 return RedirectToAction(nameof(Index));
             }
@@ -143,14 +144,13 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
 
                 _cryptoRepository.Update(crypto);
 
-                var userMessage = new UserMessageViewModel()
-                {
-                    UserMessageType = UserMessageTypes.Success,
-                    UserMessage = $"{crypto.CryptoName} was successfully updated.",
-                    FadeOutSeconds = 8
-                };
-
-                TempData["UserMessage"] = userMessage;
+                //* Display success message back to user on Index
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.Success,
+                    $"{crypto.CryptoName} was successfully updated.",
+                    8
+                );
 
                 return RedirectToAction(nameof(Index));
             }
@@ -187,17 +187,16 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
 
             if (crypto != null)
             {
+                //* Display success message back to user on Index
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.Success,
+                    $"{crypto.CryptoName} was successfully deleted.",
+                    8
+                );
+
                 _cryptoRepository.Delete(crypto);
-            }
-
-            var userMessage = new UserMessageViewModel()
-            {
-                UserMessageType = UserMessageTypes.Success,
-                UserMessage = $"{crypto.CryptoName} was successfully deleted.",
-                FadeOutSeconds = 8
-            };
-
-            TempData["UserMessage"] = JsonConvert.SerializeObject(userMessage);
+            }            
 
             return RedirectToAction(nameof(Index));
         }

@@ -55,5 +55,11 @@
 	- Created basic CRUD pages for maintaining Crypto data
 	- Created basic CRUD pages for maintaining Exchange data
 	- **Created Partial**
-    - _UserMessage.cshtml to handle displaying system messages back to the user to notifiy them of Succes, Alert, Warning, or System message.
+    - _UserMessage.cshtml to handle displaying system messages back to the user to notify them of Success, Alert, Warning, or System message.
 	- **Added FontAwesome CDN**
+	
+### 4/9/2023
+- **Created new Helper Class**
+    - UserMessagePartial.cs: This class makes the job of passing the needed values to the UserMessage Partial cleaner and safer by abstracting away the need for the programmer to know the ViewModel, having to Serialize the object, and potentially putting a typo in the needed TempData name.	
+- **To Do**:
+	- Need to style the UserMessage partial and add JS so the user can close it.
