@@ -63,3 +63,14 @@
     - UserMessagePartial.cs: This class makes the job of passing the needed values to the UserMessage Partial cleaner and safer by abstracting away the need for the programmer to know the ViewModel, having to Serialize the object, and potentially putting a typo in the needed TempData name.	
 - **To Do**:
 	- Need to style the UserMessage partial and add JS so the user can close it.
+	
+### 4/10/2023
+-  **Created Portfolio Summary Feature**
+  - _This new feature will bind its data from a Stored Procedure, not a Table Entity
+  - Created new Stored Proc: dbo.PortfolioSummaryGetAll
+  - Created new /Model/StoredProcs/PortfolioSummaryGetAll.cs
+  - Changed AppDbContext into a partial class.
+  - Created AppDbContextStoredProcs partial class of AppDbContext
+    - Added a NoKey DbSet of PortfolioSummaryGetAll
+  - Created new repository PortfolioSummaryRepository.cs
+  - Created new Portfolios Area Controller and View for Assets

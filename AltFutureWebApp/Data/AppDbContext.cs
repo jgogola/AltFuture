@@ -1,9 +1,10 @@
 ﻿using AltFutureWebApp.Models;
+using AltFutureWebApp.Models.StoredProcs;
 using Microsoft.EntityFrameworkCore;
 
 namespace AltFutureWebApp.Data
 {
-    public class AppDbContext : DbContext
+    public partial class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -16,6 +17,8 @@ namespace AltFutureWebApp.Data
         public DbSet<ExchangeTransactionType> ExchangeTransactionTypes { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<CryptoPrice> CryptoPrices { get; set; }
+
+
 
     }
 }

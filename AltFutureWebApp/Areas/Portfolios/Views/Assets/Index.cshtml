@@ -1,0 +1,16 @@
+﻿@using AltFutureWebApp.Models.StoredProcs;
+@model IEnumerable<PortfolioSummaryGetAll>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<ul>
+@foreach(var crypto in Model){
+    <li>@crypto.CryptoName | @crypto.AverageBuyPrice</li>
+}
+
+
+</ul>
