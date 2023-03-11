@@ -4,6 +4,7 @@ using AltFutureWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AltFutureWebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230311163124_CreateForeignKey_Transactions_ExchangeTransactionTypeID")]
+    partial class CreateForeignKey_Transactions_ExchangeTransactionTypeID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,14 +402,14 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 1,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(854),
+                            CreatedDate = new DateTime(2023, 3, 11, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5251),
                             CryptoId = 1,
                             ExchangeTransactionTypeId = 1,
                             Fee = 0.80m,
                             FromExchangeId = 1,
                             Price = 23500.00m,
                             Quantity = 0.004m,
-                            TransactionDate = new DateTime(2023, 3, 9, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(809),
+                            TransactionDate = new DateTime(2023, 3, 9, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5207),
                             TransactionReferenceNum = 1000,
                             TransactionTotal = 97.00m
                         },
@@ -414,14 +417,14 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 2,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(863),
+                            CreatedDate = new DateTime(2023, 3, 11, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5260),
                             CryptoId = 1,
                             ExchangeTransactionTypeId = 1,
                             Fee = 0.85m,
                             FromExchangeId = 1,
                             Price = 23400.00m,
                             Quantity = 0.005m,
-                            TransactionDate = new DateTime(2023, 3, 10, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(860),
+                            TransactionDate = new DateTime(2023, 3, 10, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5257),
                             TransactionReferenceNum = 1001,
                             TransactionTotal = 117.00m
                         },
@@ -429,14 +432,14 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 3,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(870),
+                            CreatedDate = new DateTime(2023, 3, 11, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5271),
                             CryptoId = 1,
                             ExchangeTransactionTypeId = 1,
                             Fee = 0.84m,
                             FromExchangeId = 1,
                             Price = 23450.00m,
                             Quantity = 0.005m,
-                            TransactionDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(867),
+                            TransactionDate = new DateTime(2023, 3, 11, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5268),
                             TransactionReferenceNum = 1003,
                             TransactionTotal = 117.25m
                         },
@@ -444,14 +447,14 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 4,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(878),
+                            CreatedDate = new DateTime(2023, 3, 11, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5281),
                             CryptoId = 2,
                             ExchangeTransactionTypeId = 1,
                             Fee = 0.50m,
                             FromExchangeId = 1,
                             Price = 0.35m,
                             Quantity = 100m,
-                            TransactionDate = new DateTime(2023, 3, 6, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(876),
+                            TransactionDate = new DateTime(2023, 3, 6, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5278),
                             TransactionReferenceNum = 2001,
                             TransactionTotal = 35m
                         },
@@ -459,14 +462,14 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 5,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(885),
+                            CreatedDate = new DateTime(2023, 3, 11, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5289),
                             CryptoId = 2,
                             ExchangeTransactionTypeId = 1,
                             Fee = 0.75m,
                             FromExchangeId = 1,
                             Price = 0.40m,
                             Quantity = 150m,
-                            TransactionDate = new DateTime(2023, 3, 9, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(882),
+                            TransactionDate = new DateTime(2023, 3, 9, 11, 31, 23, 476, DateTimeKind.Local).AddTicks(5286),
                             TransactionReferenceNum = 2002,
                             TransactionTotal = 60m
                         });

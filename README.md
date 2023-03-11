@@ -30,8 +30,8 @@
 - Implemented CRUD Repository Pattern 
   - Created Interface and Repository for all data sets. 
   - Wired repositories into the Program.cs builder.Services  
-- Created Seed Data file 
-  - ./Data/Areas/Portfolios/Data/Seed.cs 
+- Created Seed Data file _NOTE: No longer using. See notes dated 4/11/2023_
+  - ./Data/Seed.cs 
     - File to seed data into the database. 
   - Run command: dotnet run seeddata 
  
@@ -54,23 +54,40 @@
 - **Created Admin Area**
 	- Created basic CRUD pages for maintaining Crypto data
 	- Created basic CRUD pages for maintaining Exchange data
-	- **Created Partial**
-    - _UserMessage.cshtml to handle displaying system messages back to the user to notify them of Success, Alert, Warning, or System message.
-	- **Added FontAwesome CDN**
-	
+- **Create new Partial**
+	- Created UserMessage.cshtml to handle displaying system messages back to the user to notify them of Success, Alert, Warning, or System message.
+-  **Added FontAwesome CDN**
+
 ### 4/9/2023
 - **Created new Helper Class**
-    - UserMessagePartial.cs: This class makes the job of passing the needed values to the UserMessage Partial cleaner and safer by abstracting away the need for the programmer to know the ViewModel, having to Serialize the object, and potentially putting a typo in the needed TempData name.	
+    - UserMessagePartial.cs: This class makes the job of passing the needed values to the UserMessage Partial cleaner and safer by abstracting away the need for the programmer to know the ViewModel, having to Serialize the object, and potentially putting a typo in the needed TempData name.
 - **To Do**:
 	- Need to style the UserMessage partial and add JS so the user can close it.
-	
+	- 
 ### 4/10/2023
 -  **Created Portfolio Summary Feature**
   - _This new feature will bind its data from a Stored Procedure, not a Table Entity
-  - Created new Stored Proc: dbo.PortfolioSummaryGetAll
+  - Stubbed out new Stored Proc: dbo.PortfolioSummaryGetAll
   - Created new /Model/StoredProcs/PortfolioSummaryGetAll.cs
   - Changed AppDbContext into a partial class.
   - Created AppDbContextStoredProcs partial class of AppDbContext
     - Added a NoKey DbSet of PortfolioSummaryGetAll
   - Created new repository PortfolioSummaryRepository.cs
   - Created new Portfolios Area Controller and View for Assets
+
+### 4/11/2023
+- **Created TransactionType Entity
+	- Created Model TransactionType
+	- Created ITransactionTypeRepository.cs & TransactionTypeRepository.cs
+	- Added DbSet TransactionType to AppDbContext.cs
+- **Setup EF Core Data Seed for Tables
+	- Created a separate Config file per table and added seed data.
+	- Applied Configs into the AppDbContext.cs > OnModelCreating method.
+	- _NOTE: No longer using the original manual /Data/Seed.cs file.
+- **Fully implemented SP: dbo.PortfolioSummaryGetAll
+	- Created Migration for SP for versioning.
+- **EF Migration Updates
+	- CreateTransactionTypeTable_AlterExchangeTransactionTypeTable.cs
+	- CreateForeignKey_Transactions_ExchangeTransactionTypeID.cs
+	- NewEFCoreSeedData.cs
+	- CreateStoredProc_PortfolioSummaryGetAll.cs

@@ -4,6 +4,7 @@ using AltFutureWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AltFutureWebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230311152750_CreateTransactionTypeTable_AlterExchangeTransactionTypeTable")]
+    partial class CreateTransactionTypeTable_AlterExchangeTransactionTypeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,7 +216,7 @@ namespace AltFutureWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExchangeTransactionTypeId"));
 
-                    b.Property<int>("ExchangeId")
+                    b.Property<int>("ExchageId")
                         .HasColumnType("int");
 
                     b.Property<string>("ExchangeTransactionTypeName")
@@ -225,7 +228,7 @@ namespace AltFutureWebApp.Migrations
 
                     b.HasKey("ExchangeTransactionTypeId");
 
-                    b.HasIndex("ExchangeId");
+                    b.HasIndex("ExchageId");
 
                     b.HasIndex("TransactionTypeId");
 
@@ -235,56 +238,56 @@ namespace AltFutureWebApp.Migrations
                         new
                         {
                             ExchangeTransactionTypeId = 1,
-                            ExchangeId = 1,
+                            ExchageId = 1,
                             ExchangeTransactionTypeName = "Buy",
                             TransactionTypeId = 1
                         },
                         new
                         {
                             ExchangeTransactionTypeId = 2,
-                            ExchangeId = 2,
+                            ExchageId = 2,
                             ExchangeTransactionTypeName = "viban_purchase",
                             TransactionTypeId = 1
                         },
                         new
                         {
                             ExchangeTransactionTypeId = 3,
-                            ExchangeId = 3,
+                            ExchageId = 3,
                             ExchangeTransactionTypeName = "Buy",
                             TransactionTypeId = 1
                         },
                         new
                         {
                             ExchangeTransactionTypeId = 4,
-                            ExchangeId = 4,
+                            ExchageId = 4,
                             ExchangeTransactionTypeName = "Open Position",
                             TransactionTypeId = 1
                         },
                         new
                         {
                             ExchangeTransactionTypeId = 5,
-                            ExchangeId = 1,
+                            ExchageId = 1,
                             ExchangeTransactionTypeName = "Sell",
                             TransactionTypeId = 2
                         },
                         new
                         {
                             ExchangeTransactionTypeId = 6,
-                            ExchangeId = 2,
+                            ExchageId = 2,
                             ExchangeTransactionTypeName = "Sell",
                             TransactionTypeId = 2
                         },
                         new
                         {
                             ExchangeTransactionTypeId = 7,
-                            ExchangeId = 3,
+                            ExchageId = 3,
                             ExchangeTransactionTypeName = "Sell",
                             TransactionTypeId = 2
                         },
                         new
                         {
                             ExchangeTransactionTypeId = 8,
-                            ExchangeId = 4,
+                            ExchageId = 4,
                             ExchangeTransactionTypeName = "Sell",
                             TransactionTypeId = 2
                         });
@@ -353,9 +356,6 @@ namespace AltFutureWebApp.Migrations
                     b.Property<int>("CryptoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ExchangeTransactionTypeId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Fee")
                         .HasColumnType("decimal(18,10)");
 
@@ -386,8 +386,6 @@ namespace AltFutureWebApp.Migrations
 
                     b.HasIndex("CryptoId");
 
-                    b.HasIndex("ExchangeTransactionTypeId");
-
                     b.HasIndex("FromExchangeId");
 
                     b.HasIndex("ToExchangeId");
@@ -399,14 +397,13 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 1,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(854),
+                            CreatedDate = new DateTime(2023, 3, 11, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4195),
                             CryptoId = 1,
-                            ExchangeTransactionTypeId = 1,
                             Fee = 0.80m,
                             FromExchangeId = 1,
                             Price = 23500.00m,
                             Quantity = 0.004m,
-                            TransactionDate = new DateTime(2023, 3, 9, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(809),
+                            TransactionDate = new DateTime(2023, 3, 9, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4148),
                             TransactionReferenceNum = 1000,
                             TransactionTotal = 97.00m
                         },
@@ -414,14 +411,13 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 2,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(863),
+                            CreatedDate = new DateTime(2023, 3, 11, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4205),
                             CryptoId = 1,
-                            ExchangeTransactionTypeId = 1,
                             Fee = 0.85m,
                             FromExchangeId = 1,
                             Price = 23400.00m,
                             Quantity = 0.005m,
-                            TransactionDate = new DateTime(2023, 3, 10, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(860),
+                            TransactionDate = new DateTime(2023, 3, 10, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4201),
                             TransactionReferenceNum = 1001,
                             TransactionTotal = 117.00m
                         },
@@ -429,14 +425,13 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 3,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(870),
+                            CreatedDate = new DateTime(2023, 3, 11, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4212),
                             CryptoId = 1,
-                            ExchangeTransactionTypeId = 1,
                             Fee = 0.84m,
                             FromExchangeId = 1,
                             Price = 23450.00m,
                             Quantity = 0.005m,
-                            TransactionDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(867),
+                            TransactionDate = new DateTime(2023, 3, 11, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4209),
                             TransactionReferenceNum = 1003,
                             TransactionTotal = 117.25m
                         },
@@ -444,14 +439,13 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 4,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(878),
+                            CreatedDate = new DateTime(2023, 3, 11, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4222),
                             CryptoId = 2,
-                            ExchangeTransactionTypeId = 1,
                             Fee = 0.50m,
                             FromExchangeId = 1,
                             Price = 0.35m,
                             Quantity = 100m,
-                            TransactionDate = new DateTime(2023, 3, 6, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(876),
+                            TransactionDate = new DateTime(2023, 3, 6, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4219),
                             TransactionReferenceNum = 2001,
                             TransactionTotal = 35m
                         },
@@ -459,14 +453,13 @@ namespace AltFutureWebApp.Migrations
                         {
                             TransactionId = 5,
                             AppUserId = 1,
-                            CreatedDate = new DateTime(2023, 3, 11, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(885),
+                            CreatedDate = new DateTime(2023, 3, 11, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4229),
                             CryptoId = 2,
-                            ExchangeTransactionTypeId = 1,
                             Fee = 0.75m,
                             FromExchangeId = 1,
                             Price = 0.40m,
                             Quantity = 150m,
-                            TransactionDate = new DateTime(2023, 3, 9, 11, 52, 29, 147, DateTimeKind.Local).AddTicks(882),
+                            TransactionDate = new DateTime(2023, 3, 9, 10, 27, 49, 988, DateTimeKind.Local).AddTicks(4226),
                             TransactionReferenceNum = 2002,
                             TransactionTotal = 60m
                         });
@@ -536,7 +529,7 @@ namespace AltFutureWebApp.Migrations
                 {
                     b.HasOne("AltFutureWebApp.Models.Exchange", "Exchange")
                         .WithMany()
-                        .HasForeignKey("ExchangeId")
+                        .HasForeignKey("ExchageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -565,12 +558,6 @@ namespace AltFutureWebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AltFutureWebApp.Models.ExchangeTransactionType", "ExchangeTransactionType")
-                        .WithMany()
-                        .HasForeignKey("ExchangeTransactionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AltFutureWebApp.Models.Exchange", "FromExchange")
                         .WithMany()
                         .HasForeignKey("FromExchangeId")
@@ -584,8 +571,6 @@ namespace AltFutureWebApp.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Crypto");
-
-                    b.Navigation("ExchangeTransactionType");
 
                     b.Navigation("FromExchange");
 

@@ -23,6 +23,12 @@ namespace AltFutureWebApp.Models
         public Crypto Crypto { get; set; }
 
 
+        [ForeignKey(nameof(ExchangeTransactionType))]
+        public int ExchangeTransactionTypeId { get; set; }
+
+        public ExchangeTransactionType ExchangeTransactionType { get; set; }
+
+
         [Column(TypeName = "decimal(18,10)")]
         [DefaultValue(0.00)]
         public decimal Price { get; set; } = decimal.Zero;
@@ -54,6 +60,7 @@ namespace AltFutureWebApp.Models
         public Exchange ToExchange { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
 
 
     }

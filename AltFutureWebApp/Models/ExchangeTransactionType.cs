@@ -9,10 +9,13 @@ namespace AltFutureWebApp.Models
         public string ExchangeTransactionTypeName { get; set; }
 
         [ForeignKey(nameof(Exchange))]
-        public int ExchageId { get; set; }
+        public int ExchangeId { get; set; }
 
-        public Exchange Exchage { get; set; }
+        public Exchange Exchange { get; set; }
 
-        public CommonTransactionType CommonTransactionType { get; set; }
+        [ForeignKey(nameof(TransactionType))]
+        public int TransactionTypeId { get; set; }
+
+        public TransactionType TransactionType { get; set; }
     }
 }

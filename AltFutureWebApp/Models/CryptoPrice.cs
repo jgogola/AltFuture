@@ -9,7 +9,7 @@ namespace AltFutureWebApp.Models
         [Key]
         public int CryptoPriceId { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime DateRecorded { get; set; }
 
         [ForeignKey(nameof(Crypto))]
         public int CryptoId { get; set; }

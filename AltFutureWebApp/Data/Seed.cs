@@ -155,51 +155,51 @@ namespace AltFutureWebApp.Data
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Buy",
-                            ExchageId = 1, //Coinbase
-                            CommonTransactionType = CommonTransactionType.Buy
+                            ExchangeId = 1, //Coinbase
+                            TransactionTypeId = (int)CommonTransactionType.Buy
                         },
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "viban_purchase",
-                            ExchageId = 2, //Crypto.com
-                            CommonTransactionType = CommonTransactionType.Buy
+                            ExchangeId = 2, //Crypto.com
+                            TransactionTypeId = (int)CommonTransactionType.Buy
                         },
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Buy",
-                            ExchageId = 3, //Kucoin
-                            CommonTransactionType = CommonTransactionType.Buy
+                            ExchangeId = 3, //Kucoin
+                            TransactionTypeId = (int)CommonTransactionType.Buy
                         },
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Open Position",
-                            ExchageId = 4, //Etoro
-                            CommonTransactionType = CommonTransactionType.Buy
+                            ExchangeId = 4, //Etoro
+                            TransactionTypeId = (int)CommonTransactionType.Buy
                         },
                         //SELL
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Sell",
-                            ExchageId = 1, //Coinbase
-                            CommonTransactionType = CommonTransactionType.Sell
+                            ExchangeId = 1, //Coinbase
+                            TransactionTypeId = (int)CommonTransactionType.Sell
                         },
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Sell",
-                            ExchageId = 2, //Crypto.com
-                            CommonTransactionType = CommonTransactionType.Sell
+                            ExchangeId = 2, //Crypto.com
+                            TransactionTypeId = (int)CommonTransactionType.Sell
                         },
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Sell",
-                            ExchageId = 3, //Kucoin
-                            CommonTransactionType = CommonTransactionType.Sell
+                            ExchangeId = 3, //Kucoin
+                            TransactionTypeId = (int)CommonTransactionType.Sell
                         },
                         new ExchangeTransactionType()
                         {
                             ExchangeTransactionTypeName = "Sell",
-                            ExchageId = 4, //Etoro
-                            CommonTransactionType = CommonTransactionType.Sell
+                            ExchangeId = 4, //Etoro
+                            TransactionTypeId = (int)CommonTransactionType.Sell
                         }
                     });
                     context.SaveChanges();
@@ -220,6 +220,7 @@ namespace AltFutureWebApp.Data
                             TransactionReferenceNum = 1000,
                             AppUserId = 1,
                             CryptoId = 1,
+                            ExchangeTransactionTypeId = 1,
                             Price = 23500.00m,
                             Quantity = 0.004m,
                             TransactionTotal = 97.00m,
@@ -234,6 +235,7 @@ namespace AltFutureWebApp.Data
                             TransactionReferenceNum = 1001,
                             AppUserId = 1,
                             CryptoId = 1,
+                            ExchangeTransactionTypeId = 1,
                             Price = 23400.00m,
                             Quantity = 0.005m,
                             TransactionTotal = 117.00m,
@@ -248,6 +250,7 @@ namespace AltFutureWebApp.Data
                             TransactionReferenceNum = 1003,
                             AppUserId = 1,
                             CryptoId = 1,
+                            ExchangeTransactionTypeId = 1,
                             Price = 23450.00m,
                             Quantity = 0.005m,
                             TransactionTotal = 117.25m,
@@ -262,6 +265,7 @@ namespace AltFutureWebApp.Data
                             TransactionReferenceNum = 2001,
                             AppUserId = 1,
                             CryptoId = 2,
+                             ExchangeTransactionTypeId = 1,
                             Price = 0.35m,
                             Quantity = 100m,
                             TransactionTotal = 35m,
@@ -276,6 +280,7 @@ namespace AltFutureWebApp.Data
                             TransactionReferenceNum = 2002,
                             AppUserId = 1,
                             CryptoId = 2,
+                            ExchangeTransactionTypeId = 1,
                             Price = 0.40m,
                             Quantity = 150m,
                             TransactionTotal = 60m,

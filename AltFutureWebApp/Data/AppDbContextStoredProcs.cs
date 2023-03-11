@@ -4,15 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AltFutureWebApp.Data
 {
-    public partial class AppDbContext : DbContext
+    public partial class AppDbContext 
     {
+        // Define all Stored Proc and View Entities in this partial class. 
+
         public DbSet<PortfolioSummaryGetAll> PortfolioSummaries { get; set; }
 
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<PortfolioSummaryGetAll>(entity => entity.HasNoKey());
-        }
 
     }
 }
