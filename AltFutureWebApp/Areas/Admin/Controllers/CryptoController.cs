@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AltFutureWebApp.Data;
-using AltFutureWebApp.Models;
-using AltFutureWebApp.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 using AltFutureWebApp.Areas.Admin.ViewModels;
-using Microsoft.CodeAnalysis.Text;
-using AltFutureWebApp.Data.Enums;
-using AltFutureWebApp.ViewModels;
-using Newtonsoft.Json;
 using AltFutureWebApp.Helpers;
+using AltFutureWebApp.Enums;
+using AltFuture.DataAccessLayer.Data;
+using AltFuture.DataAccessLayer.Interfaces;
+using AltFuture.Models;
 
 namespace AltFutureWebApp.Areas.Admin.Controllers
 {
@@ -33,12 +24,6 @@ namespace AltFutureWebApp.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var userMessageJson = TempData["UserMessage"] as string;
-
-            if (userMessageJson != null)
-            {
-                var userMessage = JsonConvert.DeserializeObject<UserMessageViewModel>(userMessageJson);
-                ViewBag.UserMessage = userMessage;
-            }
 
             return View(await _cryptoRepository.GetAllAsync());
         }

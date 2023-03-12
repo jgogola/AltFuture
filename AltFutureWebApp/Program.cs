@@ -1,6 +1,6 @@
-using AltFutureWebApp.Data;
-using AltFutureWebApp.Interfaces;
-using AltFutureWebApp.Repository;
+using AltFuture.DataAccessLayer.Data;
+using AltFuture.DataAccessLayer.Interfaces;
+using AltFuture.DataAccessLayer.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

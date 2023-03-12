@@ -1,4 +1,4 @@
-﻿using AltFutureWebApp.Data.Enums;
+﻿using AltFutureWebApp.Enums;
 
 namespace AltFutureWebApp.ViewModels
 {

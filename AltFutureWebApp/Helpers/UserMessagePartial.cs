@@ -1,4 +1,4 @@
-﻿using AltFutureWebApp.Data.Enums;
+﻿using AltFutureWebApp.Enums;
 using AltFutureWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;

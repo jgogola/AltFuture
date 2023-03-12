@@ -1,9 +1,5 @@
-﻿using AltFutureWebApp.Models;
-using AltFutureWebApp.Repository;
-using AltFutureWebApp.Data;
-using AltFutureWebApp.Interfaces;
+﻿using AltFuture.DataAccessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AltFutureWebApp.Areas.Portfolios.Controllers
 {

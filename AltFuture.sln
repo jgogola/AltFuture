@@ -4,8 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFutureWebApp", "AltFutureWebApp\AltFutureWebApp.csproj", "{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{935190DB-6BCF-4DA3-B959-28963F419008} = {935190DB-6BCF-4DA3-B959-28963F419008}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltFutureWebApp.Test", "AltFutureWebApp.Test\AltFutureWebApp.Test.csproj", "{941EFE4B-5709-419A-A2EA-F13555A15AEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFutureWebApp.Test", "AltFutureWebApp.Test\AltFutureWebApp.Test.csproj", "{941EFE4B-5709-419A-A2EA-F13555A15AEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFuture.DataAccessLayer", "AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj", "{BAF6BECA-3C02-44D7-B6D6-D498094A7124}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFuture.Models", "AltFuture.Models\AltFuture.Models.csproj", "{935190DB-6BCF-4DA3-B959-28963F419008}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFuture.DataAccessLayer.Test", "AltFuture.DataAccessLayer.Test\AltFuture.DataAccessLayer.Test.csproj", "{F9EC7DBB-E933-4D11-A978-646F99B34348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +30,18 @@ Global
 		{941EFE4B-5709-419A-A2EA-F13555A15AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941EFE4B-5709-419A-A2EA-F13555A15AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{941EFE4B-5709-419A-A2EA-F13555A15AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAF6BECA-3C02-44D7-B6D6-D498094A7124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF6BECA-3C02-44D7-B6D6-D498094A7124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF6BECA-3C02-44D7-B6D6-D498094A7124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF6BECA-3C02-44D7-B6D6-D498094A7124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935190DB-6BCF-4DA3-B959-28963F419008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935190DB-6BCF-4DA3-B959-28963F419008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935190DB-6BCF-4DA3-B959-28963F419008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935190DB-6BCF-4DA3-B959-28963F419008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9EC7DBB-E933-4D11-A978-646F99B34348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9EC7DBB-E933-4D11-A978-646F99B34348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9EC7DBB-E933-4D11-A978-646F99B34348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9EC7DBB-E933-4D11-A978-646F99B34348}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AltFutureWebApp.Data;
-using AltFutureWebApp.Models;
-using AltFutureWebApp.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using AltFuture.DataAccessLayer.Interfaces;
 using AltFutureWebApp.Areas.Admin.ViewModels;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
-using AltFutureWebApp.Data.Enums;
-using AltFutureWebApp.ViewModels;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 using AltFutureWebApp.Helpers;
+using AltFutureWebApp.Enums;
+using AltFuture.Models;
 
 namespace AltFutureWebApp.Areas.Admin.Controllers
 {

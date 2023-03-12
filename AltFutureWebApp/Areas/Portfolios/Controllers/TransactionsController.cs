@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AltFuture.DataAccessLayer.Data;
+using AltFuture.DataAccessLayer.Interfaces;
+using AltFuture.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AltFutureWebApp.Data;
-using AltFutureWebApp.Models;
 
 namespace AltFutureWebApp.Areas.Portfolios.Controllers
 {

@@ -91,3 +91,9 @@
 	- CreateForeignKey_Transactions_ExchangeTransactionTypeID.cs
 	- NewEFCoreSeedData.cs
 	- CreateStoredProc_PortfolioSummaryGetAll.cs
+	
+### 4/12/2023
+- **Architecture Overhaul
+	- Re-factored from 1-Tier to N-Tier architecture.
+	- Class Library AltFuture.DataAccessLayer
+	- Class Library AltFuture.Models	
