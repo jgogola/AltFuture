@@ -7,6 +7,10 @@
 @{
 }
 
+@ViewBag.Quotes
+
+<br /><br />
+
 <ul>
 @foreach(var crypto in Model){
     <li>@crypto.CryptoName | @crypto.AverageBuyPrice</li>

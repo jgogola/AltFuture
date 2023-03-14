@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>adc60bff-1696-4967-aede-952527bad4a2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\AltFuture.CoinMarketCapAPI\AltFuture.CoinMarketCapAPI.csproj" />
 		<ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
 	</ItemGroup>
 

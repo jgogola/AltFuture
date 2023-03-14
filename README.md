@@ -97,3 +97,19 @@
 	- Re-factored from 1-Tier to N-Tier architecture.
 	- Class Library AltFuture.DataAccessLayer
 	- Class Library AltFuture.Models	
+	
+### 4/13/2023
+- Created CoinMarketCapAPI Class Library in solution
+	- Used to retrieve crypto market data from CoinMarketCap.com
+	- Created custom Models to load API data.
+		- Due to API Json formatting issues I couldn't just deserialize returned response.
+	- Created appsettings.json: CoinMarketCapSettings
+		- Api Keys (Pro and Sandbox).
+			- The Pro Key value is in Secrets.
+		- Base Urls (Pro and Sandbox).
+		- EndPointsV2
+	- Used IOptions Pattern in Program.cs to make available strongly typed access to EndPointsV2
+	- Configured 2 named HttpClients in Program.cs. Pro and Sandbox versions.
+	- Implemented GetQuotesLatestAsync method
+		- Accepts an array of crypto symbols to request market data from API endpoint.
+		- Returns list of crypto info and price data.

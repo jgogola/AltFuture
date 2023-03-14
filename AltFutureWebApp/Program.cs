@@ -1,7 +1,10 @@
+using AltFuture.CoinMarketCapAPI;
+using AltFuture.CoinMarketCapAPI.Models;
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Repository;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,22 @@ builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IPortfolioSummaryRepository, PortfolioSummaryRepository>();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.Configure<CoinMarketCapEndPointsV2>(builder.Configuration.GetSection("CoinMarketCapSettings:EndPointsV2"));
+
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("CoinMarketCapPro", config =>
+{
+    config.BaseAddress = new Uri(builder.Configuration.GetValue<string>("CoinMarketCapSettings:BaseUrls:Pro"));
+    config.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", builder.Configuration.GetValue<string>("CoinMarketCapSettings:ApiKeys:Pro"));
+});
+builder.Services.AddHttpClient("CoinMarketCapSandbox", config =>
+{
+    config.BaseAddress = new Uri(builder.Configuration.GetValue<string>("CoinMarketCapSettings:BaseUrls:Sandbox"));
+    config.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", builder.Configuration.GetValue<string>("CoinMarketCapSettings:ApiKeys:Sandbox"));
+});
+
+builder.Services.AddScoped<CoinMarketCapAPI>();
 
 //builder.Services.AddMemoryCache();
 
