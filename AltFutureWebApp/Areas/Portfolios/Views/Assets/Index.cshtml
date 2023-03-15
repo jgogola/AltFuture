@@ -5,16 +5,54 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-}
-
-@ViewBag.Quotes
-
-<br /><br />
-
-<ul>
-@foreach(var crypto in Model){
-    <li>@crypto.CryptoName | @crypto.AverageBuyPrice</li>
+    var bodyData = Model.Where(crypto => crypto.RowType == 1).ToList();
+    var footerData = Model.Where(crypto => crypto.RowType == 99).ToList()[0];
 }
 
 
-</ul>
+
+<table class="table table-striped">
+    <caption>Asset Portfolios</caption>
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.CryptoName)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.TickerSymbol)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.NumberOfOrders)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Quantity)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.AverageBuyPrice)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.TotalInvested)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.UnrealizedProfit)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWorth)</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var crypto in bodyData)
+    {            
+    <tr>
+        <td>@crypto.CryptoName</td>
+        <th scope="row">@crypto.TickerSymbol</th>
+        <td>@crypto.NumberOfOrders</td>
+        <td>@crypto.Quantity</td>
+        <td>@crypto.AverageBuyPrice</td>
+        <td>@crypto.Price</td>
+        <td>@crypto.TotalInvested</td>
+        <td class="@(crypto.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@crypto.UnrealizedProfit</td>
+        <td>@crypto.CurrentWorth</td>
+    </tr>
+    }
+    </tbody>
+    <tfoot class="table-secondary">
+        <tr>
+            <td>@footerData.CryptoName</td>
+            <th scope="row">@footerData.TickerSymbol</th>
+            <td>@footerData.NumberOfOrders</td>
+            <td>@footerData.Quantity</td>
+            <td>@footerData.AverageBuyPrice</td>
+            <td>@footerData.Price</td>
+            <td>@footerData.TotalInvested</td>
+            <td class="@(footerData.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@footerData.UnrealizedProfit</td>
+            <td>@footerData.CurrentWorth</td>
+        </tr>
+    </tfoot>
+</table>

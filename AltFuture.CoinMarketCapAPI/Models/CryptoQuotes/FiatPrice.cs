@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace AltFuture.CoinMarketCapAPI.Models
+namespace AltFuture.CoinMarketCapAPI.Models.CryptoQuotes
 {
     public class FiatPrice
     {
         public string FiatSymbol { get; set; }
-        public decimal? Price { get; set; } = 0.00M;
+        public decimal Price { get; set; } = 0.00M;
 
         [JsonProperty("volume_24h")]
         public decimal? Volume24h { get; set; } = 0.00M;

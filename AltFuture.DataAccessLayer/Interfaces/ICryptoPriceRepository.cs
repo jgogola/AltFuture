@@ -12,6 +12,9 @@ namespace AltFuture.DataAccessLayer.Interfaces
 
         bool Add(CryptoPrice cryptoPrice);
 
+        Task<bool> AddRangeAsync(IEnumerable<CryptoPrice> cryptoPrice);
+
+
         bool Update(CryptoPrice cryptoPrice);
 
         bool Delete(CryptoPrice cryptoPrice);

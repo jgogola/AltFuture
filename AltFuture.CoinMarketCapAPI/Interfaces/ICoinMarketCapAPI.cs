@@ -1,17 +1,15 @@
-﻿using AltFuture.CoinMarketCapAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AltFuture.CoinMarketCapAPI.Models.CryptoQuotes;
+using AltFuture.CoinMarketCapAPI.Models.KeyInfo;
 
 namespace AltFuture.CoinMarketCapAPI.Interfaces
 {
-    internal interface ICoinMarketCapAPI
+    public interface ICoinMarketCapAPI
     {
-        Task<IEnumerable<CryptoQuote>> GetQuotesLatestAsync(string[] tickerSymbols, string[] fiatSymbols);
+        Task<IEnumerable<CryptoQuote>> GetQuotesLatestAsync(Dictionary<int, string> tickerDictionary, string[]? fiatSymbols = null);
 
-        Task<IEnumerable<CryptoQuote>> GetQuotesLatestSandboxAsync(string[] tickerSymbols, string[] fiatSymbols);
+        Task<IEnumerable<CryptoQuote>> GetQuotesLatestSandboxAsync(Dictionary<int, string> tickerDictionary, string[]? fiatSymbols = null);
+
+        Task<KeyInfo> GetKeyInfoAsync();
 
     }
 }

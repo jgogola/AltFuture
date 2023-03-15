@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 
-namespace AltFuture.CoinMarketCapAPI.Models
+namespace AltFuture.CoinMarketCapAPI.Models.CryptoQuotes
 {
     public class CryptoQuote
     {
-        public int Id { get; set; }
+        public int CryptoId { get; set; }
         public string Name { get; set; }
         public string Symbol { get; set; }
 

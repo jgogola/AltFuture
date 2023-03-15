@@ -1,10 +1,10 @@
-using AltFuture.CoinMarketCapAPI;
-using AltFuture.CoinMarketCapAPI.Models;
+using AltFuture.CoinMarketCapAPI.Interfaces;
+using AltFuture.CoinMarketCapAPI.Models.EndPoints;
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Repository;
 using Microsoft.EntityFrameworkCore;
-
+using AltFuture.CoinMarketCapAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,21 +19,23 @@ builder.Services.AddScoped<IPortfolioSummaryRepository, PortfolioSummaryReposito
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.Configure<CoinMarketCapEndPointsV2>(builder.Configuration.GetSection("CoinMarketCapSettings:EndPointsV2"));
+builder.Services.Configure<CoinMarketCapEndPoints>(builder.Configuration.GetSection("CoinMarketCapSettings:EndPoints"));
 
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient("CoinMarketCapPro", config =>
 {
     config.BaseAddress = new Uri(builder.Configuration.GetValue<string>("CoinMarketCapSettings:BaseUrls:Pro"));
     config.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", builder.Configuration.GetValue<string>("CoinMarketCapSettings:ApiKeys:Pro"));
+    //config.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip");
 });
 builder.Services.AddHttpClient("CoinMarketCapSandbox", config =>
 {
     config.BaseAddress = new Uri(builder.Configuration.GetValue<string>("CoinMarketCapSettings:BaseUrls:Sandbox"));
     config.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", builder.Configuration.GetValue<string>("CoinMarketCapSettings:ApiKeys:Sandbox"));
+    //config.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip");
 });
 
-builder.Services.AddScoped<CoinMarketCapAPI>();
+builder.Services.AddScoped<ICoinMarketCapAPI, CoinMarketCapAPI>();
 
 //builder.Services.AddMemoryCache();
 

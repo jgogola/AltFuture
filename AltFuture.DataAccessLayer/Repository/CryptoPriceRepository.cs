@@ -38,6 +38,12 @@ namespace AltFuture.DataAccessLayer.Repository
             return Save();
         }
 
+        public async Task<bool> AddRangeAsync(IEnumerable<CryptoPrice> cryptoPrices)
+        {
+            await _context.AddRangeAsync(cryptoPrices);
+            return Save();
+        }
+
         public bool Update(CryptoPrice cryptoPrice)
         {
             _context.Update(cryptoPrice);

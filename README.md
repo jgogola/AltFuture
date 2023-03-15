@@ -113,3 +113,10 @@
 	- Implemented GetQuotesLatestAsync method
 		- Accepts an array of crypto symbols to request market data from API endpoint.
 		- Returns list of crypto info and price data.
+		
+### 4/14/2023
+- Implemented a call to the CoinMarketCapAPI GetQuotesLatestAsync and store the result in the local database.
+- Ensured that the new price data reflects correctly in the Portfolio/Assets feature.
+- Clean up and refactoring of the API layer.
+- Created new API call of GetKeyInfoAsync to get usage data about the Pro account.
+- Created Admin page to view the KeyInfo
