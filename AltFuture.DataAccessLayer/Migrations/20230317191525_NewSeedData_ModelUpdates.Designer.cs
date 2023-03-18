@@ -4,6 +4,7 @@ using AltFuture.DataAccessLayer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AltFutureWebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230317191525_NewSeedData_ModelUpdates")]
+    partial class NewSeedData_ModelUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,12 +134,6 @@ namespace AltFutureWebApp.Migrations
                             CryptoId = 12,
                             CryptoName = "Polkadot",
                             TickerSymbol = "DOT"
-                        },
-                        new
-                        {
-                            CryptoId = 13,
-                            CryptoName = "USD Coin",
-                            TickerSymbol = "USDC"
                         });
                 });
 

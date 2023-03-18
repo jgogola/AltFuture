@@ -7,7 +7,20 @@
 }
 <h1>Dashboard</h1>
 
-<a asp-controller="Assets" asp-action="Index">Assets</a>
+
+<ul class="navbar-nav flex-grow-1">
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Assets" asp-action="Index">Assets</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="TransactionImports" asp-action="Index">Import Transactions</a>
+    </li>
+
+
+</ul>
+
+
 
 @Model.CryptoId <br />
 @Model.CryptoName

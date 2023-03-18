@@ -5,22 +5,37 @@ using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Repository;
 using Microsoft.EntityFrameworkCore;
 using AltFuture.CoinMarketCapAPI.Services;
+using AltFuture.BusinessLogicLayer.Interfaces;
+using AltFuture.BusinessLogicLayer.Services;
+using AltFuture.DataAccessLayer.Services;
+using AltFuture.DataAccessLayer.Interfaces.Services;
+using AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseTransactionHistoryToTransaction;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//* DB Context:
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//* Repositories:
 builder.Services.AddScoped<ICryptoRepository, CryptoRepository>();
-builder.Services.AddScoped<IExchangeRepository, ExchangeRepository>();
 builder.Services.AddScoped<ICryptoPriceRepository, CryptoPriceRepository>();
 builder.Services.AddScoped<IExchangeTransactionTypeRepository, ExchangeTransactionTypeRepository>();    
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IPortfolioSummaryRepository, PortfolioSummaryRepository>();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//* Singletons:
+builder.Services.AddSingleton<Func<IServiceScope>>(_ => () => builder.Services.BuildServiceProvider().CreateScope());
+builder.Services.AddSingleton<ExchangeTransactionTypeDataService>();
+builder.Services.AddSingleton<CryptoDataService>();
 
+//* IOptions:
 builder.Services.Configure<CoinMarketCapEndPoints>(builder.Configuration.GetSection("CoinMarketCapSettings:EndPoints"));
 
+
+//* Named HttpClients for API calls:
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient("CoinMarketCapPro", config =>
 {
@@ -35,9 +50,12 @@ builder.Services.AddHttpClient("CoinMarketCapSandbox", config =>
     //config.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip");
 });
 
-builder.Services.AddScoped<ICoinMarketCapAPI, CoinMarketCapAPI>();
 
-//builder.Services.AddMemoryCache();
+//* BLL Services:
+builder.Services.AddScoped<ICoinMarketCapAPI, CoinMarketCapAPI>();
+builder.Services.AddScoped<ITransactionCsvImports, TransactionCsvImports>();
+builder.Services.AddAutoMapper(typeof(CoinbaseTransactionHistoryProfile));
+
 
 var app = builder.Build();
 

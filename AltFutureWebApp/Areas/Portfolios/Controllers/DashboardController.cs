@@ -22,29 +22,29 @@ namespace AltFutureWebApp.Areas.Portfolios.Controllers
 
         public async Task<IActionResult> Index()
         {            
-            var cryptos =  await _cryptoRepository.GetAllAsync();
-            var tickerDictionary = cryptos.ToDictionary(crypto => crypto.CryptoId, crypto => crypto.TickerSymbol);
+            //var cryptos =  await _cryptoRepository.GetAllAsync();
+            //var tickerDictionary = cryptos.ToDictionary(crypto => crypto.CryptoId, crypto => crypto.TickerSymbol);
 
-            var cryptoQuotes = await _cmcApi.GetQuotesLatestAsync(tickerDictionary);
+            //var cryptoQuotes = await _cmcApi.GetQuotesLatestAsync(tickerDictionary);
 
-            if(cryptoQuotes != null)
-            {
-                var cryptoPrices = new List<CryptoPrice>();
-                var dateRecorded = DateTime.Now;
-                foreach (CryptoQuote cryptoQuote in cryptoQuotes)
-                {
-                    var cryptoPrice = new CryptoPrice()
-                    {
-                        DateRecorded = dateRecorded,
-                        CryptoId = cryptoQuote.CryptoId,
-                        Price = cryptoQuote.FiatPrice.Price
-                    };
+            //if(cryptoQuotes != null)
+            //{
+            //    var cryptoPrices = new List<CryptoPrice>();
+            //    var dateRecorded = DateTime.Now;
+            //    foreach (CryptoQuote cryptoQuote in cryptoQuotes)
+            //    {
+            //        var cryptoPrice = new CryptoPrice()
+            //        {
+            //            DateRecorded = dateRecorded,
+            //            CryptoId = cryptoQuote.CryptoId,
+            //            Price = cryptoQuote.FiatPrice.Price
+            //        };
 
-                    cryptoPrices.Add(cryptoPrice);
-                }
+            //        cryptoPrices.Add(cryptoPrice);
+            //    }
 
-                _ = _cryptoPriceRepository.AddRangeAsync(cryptoPrices);
-            }
+            //    _ = _cryptoPriceRepository.AddRangeAsync(cryptoPrices);
+            //}
 
 
             //var i = await _cryptoRepository.GetCountAsync();

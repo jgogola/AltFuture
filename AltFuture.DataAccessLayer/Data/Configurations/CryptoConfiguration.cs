@@ -81,6 +81,12 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
                     CryptoId = 12,
                     CryptoName = "Polkadot",
                     TickerSymbol = "DOT"
+                },
+                new Crypto
+                {
+                    CryptoId = 13,
+                    CryptoName = "USD Coin",
+                    TickerSymbol = "USDC"
                 }
             );
         }

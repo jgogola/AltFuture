@@ -1,6 +1,10 @@
-﻿using AltFuture.Models;
+﻿using AltFuture.DataAccessLayer.Data.Enums;
+using AltFuture.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace AltFuture.DataAccessLayer.Data.Configurations
 {
@@ -10,46 +14,26 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
         {
             builder.HasData
             (
-                new TransactionType
+              Enum.GetValues(typeof(TransactionTypeEnum))
+                .Cast<TransactionTypeEnum>()
+                .Where(e => (int)e != 0)
+                .Select(e => 
                 {
-                    TransactionTypeId = 1,
-                    TransactionTypeName = "Buy"
-                },
-                new TransactionType
-                {
-                    TransactionTypeId = 2,
-                    TransactionTypeName = "Sell"
-                },
-                new TransactionType
-                {
-                    TransactionTypeId = 3,
-                    TransactionTypeName = "Stakeing Reward"
-                },
-                new TransactionType
-                {
-                    TransactionTypeId = 4,
-                    TransactionTypeName = "Loan Interest"
-                },
-                new TransactionType
-                {
-                    TransactionTypeId = 5,
-                    TransactionTypeName = "Card Cashback"
-                },
-                new TransactionType
-                {
-                    TransactionTypeId = 6,
-                    TransactionTypeName = "Card Cashback Reversalv"
-                },
-                new TransactionType
-                {
-                    TransactionTypeId = 7,
-                    TransactionTypeName = "Reimbursement"
-                },
-                new TransactionType
-                {
-                    TransactionTypeId = 8,
-                    TransactionTypeName = "Withdrawl"
-                }
+                    var displayAttribute = e.GetType()
+                                            .GetMember(e.ToString())
+                                            .First()
+                                            .GetCustomAttribute<DisplayAttribute>();
+
+                    string displayName = displayAttribute?.Name ?? e.ToString();
+
+                    return new TransactionType
+                    {
+                        TransactionTypeId = (int)e,
+                        TransactionTypeName = displayName
+                    };
+
+            
+                })
             );
         }
     }

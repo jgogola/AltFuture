@@ -2,22 +2,24 @@
 using AltFuture.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace AltFuture.DataAccessLayer.Data.Configurations
 {
-    public class ExchangeConfiguration : IEntityTypeConfiguration<Exchange>
+    public class DataImportTypeConfiguration : IEntityTypeConfiguration<DataImportType>
     {
-        public void Configure(EntityTypeBuilder<Exchange> builder)
+        public void Configure(EntityTypeBuilder<DataImportType> builder)
         {
             builder.HasData
             (
-              Enum.GetValues(typeof(ExchangeEnum))
-                .Cast<ExchangeEnum>()
+              Enum.GetValues(typeof(DataImportTypeEnum))
+                .Cast<DataImportTypeEnum>()
                 .Where(e => (int)e != 0)
-                .Select(e =>
+                .Select(e => 
                 {
+
                     var displayAttribute = e.GetType()
                                             .GetMember(e.ToString())
                                             .First()
@@ -25,13 +27,13 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
 
                     string displayName = displayAttribute?.Name ?? e.ToString();
 
-                    return new Exchange
+                    return new DataImportType
                     {
-                        ExchangeId = (int)e,
-                        ExchangeName = displayName
+                        DataImportTypeId = (int)e,
+                        DataImportTypeName = displayName
                     };
 
-
+           
                 })
             );
         }

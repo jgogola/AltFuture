@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Views\Exchange\**" />
+    <Content Remove="Areas\Admin\Views\Exchange\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\Exchange\**" />
+    <None Remove="Areas\Admin\Views\Exchange\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Controllers\ExchangeController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Areas\Portfolios\ViewModels\" />
   </ItemGroup>
 
@@ -25,6 +36,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\AltFuture.BusinessLogicLayer\AltFuture.BusinessLogicLayer.csproj" />
 		<ProjectReference Include="..\AltFuture.CoinMarketCapAPI\AltFuture.CoinMarketCapAPI.csproj" />
 		<ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
 	</ItemGroup>

@@ -16,3 +16,57 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+
+/*** Begin: User Message Partial */
+
+.userMsgContainer {
+    position: fixed;
+    bottom: 0;
+    left: -100%;
+    width: 300px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    transition: left 2s ease-in-out;
+    z-index: 1000;
+}
+
+    .userMsgContainer.active {
+        left: 0;
+    }
+
+.userMsgTitleBar {
+    position: relative;
+    padding: 10px 10px 10px 30px;
+}
+
+.userMsgIcon {
+    font-size: 24px;
+}
+
+.userMsgTitle {
+    font-weight: bold;
+}
+
+.userMsgClose {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.userMsg {
+    padding: 15px 10px 10px 30px;
+    min-height: 100px;
+}
+
+
+/*** End: User Message Partial */
+
+

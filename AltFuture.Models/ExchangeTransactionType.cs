@@ -16,5 +16,10 @@ namespace AltFuture.Models
         public int TransactionTypeId { get; set; }
 
         public TransactionType TransactionType { get; set; }
+
+        [ForeignKey(nameof(DataImportType))]
+        public int DataImportTypeId { get; set; }
+
+        public DataImportType DataImportType { get; set; }
     }
 }

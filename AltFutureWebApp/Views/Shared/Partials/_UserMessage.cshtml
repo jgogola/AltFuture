@@ -6,7 +6,7 @@
 @{
     var userMessageJson = TempData["UserMessagePartial"] as string;
     UserMessageViewModel? userMessage = null;
-    var msgTypeClass = "";
+    var userMsgTypeClass = "";
     var msgIconClass = "";
 
     if (userMessageJson != null)
@@ -16,62 +16,41 @@
         switch (userMessage.UserMessageType)
         {
             case UserMessageTypes.Success:
-                msgTypeClass = "msgSuccess"; 
+                userMsgTypeClass = "bg-success text-white";
                 msgIconClass = "fa-solid fa-check-circle";
                 break;
             case UserMessageTypes.Alert:
-                msgTypeClass = "msgAlert";
+                userMsgTypeClass = "bg-danger text-white";
                 msgIconClass = "fa-solid fa-exclamation-circle";
                 break;
             case UserMessageTypes.Warning:
-                msgTypeClass = "msgWarning";
+                userMsgTypeClass = "bg-warning text-dark";
                 msgIconClass = "fa-solid fa-exclamation-triangle";
                 break;
+            case UserMessageTypes.System:
+                userMsgTypeClass = "bg-info text-dark";
+                msgIconClass = "fa-solid fa-comment-dots";
+                break;
             default:
-                msgTypeClass = "msgSystem";
+                userMsgTypeClass = "bg-info text-dark";
                 msgIconClass = "fa-solid fa-comment-dots";
                 break;
         }
     }
 }
 
-<style>
-    .msgSystem {
-        background-color: blue;
-    }
-
-    .msgSuccess {
-        background-color: green;
-    }
-
-    .msgAlert {
-        background-color: red;
-    }
-</style>
-
 
 @if(userMessage != null)
 {
-   
-<div class="@msgTypeClass">
-    <fieldset id="fsSystemMsg" aria-label="User Message">
-
-        <div id="divField" class="divField">
-            <div class="iconDiv">
-                <i id="iMsgIcon" class="@msgIconClass"></i>
-            </div>
-            <div id="divSystemMsg" style="position: relative;" class="msgDiv">
-                <span>
-                    @userMessage.UserMessageType
-                </span>
-                <div id="divMsg">
-                    @userMessage.UserMessage
-                </div>
-            </div>
-            <div id="divClose" class="msgCloseDiv">
-                <a id="lnkClose" class="fa-solid fa-times closeMsg" aria-label="Close User Message"></a>
-            </div>
+     <div class="userMsgContainer" aria-label="User Message">
+        <div class="userMsgTitleBar @userMsgTypeClass">
+            <i class="userMsgIcon @msgIconClass"></i>
+            <span class="userMsgTitle">@userMessage.UserMessageType</span>
+            <a class="fa-solid fa-times userMsgClose" aria-label="Close User Message" onclick="document.querySelector('.userMsgContainer').classList.remove('active');"></a>
         </div>
-    </fieldset>
-</div>
+        <div class="userMsg @userMsgTypeClass" style="--bs-bg-opacity: .9;">
+            @userMessage.UserMessage
+        </div>
+    </div>
+    <script>document.querySelector('.userMsgContainer').classList.add('active');</script>
 }

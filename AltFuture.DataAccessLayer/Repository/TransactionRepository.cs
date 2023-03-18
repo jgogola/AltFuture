@@ -31,6 +31,11 @@ namespace AltFuture.DataAccessLayer.Repository
             return await _context.Transactions.CountAsync();
         }
 
+        public async Task<bool> AddRangeAsync(IEnumerable<Transaction> transactions)
+        {
+            await _context.AddRangeAsync(transactions);
+            return await SaveAsync();
+        }
 
         public bool Add(Transaction transaction)
         {
@@ -54,6 +59,12 @@ namespace AltFuture.DataAccessLayer.Repository
         public bool Save()
         {
             var saved = _context.SaveChanges();
+            return saved > 0;
+        }
+
+        public async Task<bool> SaveAsync()
+        {
+            var saved = await _context.SaveChangesAsync();
             return saved > 0;
         }
 
