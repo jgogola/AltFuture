@@ -14,6 +14,8 @@ namespace AltFuture.Models
         [ForeignKey(nameof(Crypto))]
         public int CryptoId { get; set; }
 
+        public Crypto Crypto { get; set; }
+
         [Column(TypeName = "decimal(30,20)")]
         [DefaultValue(0.00)]
         public decimal Price { get; set; } = decimal.Zero;

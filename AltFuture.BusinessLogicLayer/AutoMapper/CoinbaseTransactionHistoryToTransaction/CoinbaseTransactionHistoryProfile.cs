@@ -11,6 +11,7 @@ namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseTransactionHistoryToTr
         public CoinbaseTransactionHistoryProfile()
         {
             int appUserId = 1;
+            DateTime createdDate = DateTime.Now;
 
             CreateMap<CoinbaseTransactionHistoryDto, Transaction>()
                 .ForMember(dest => dest.AppUserId, opt => opt.MapFrom(src => appUserId))
@@ -18,6 +19,7 @@ namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseTransactionHistoryToTr
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => (decimal)src.Quantity))
                 .ForMember(dest => dest.ExchangeTransactionTypeId, opt => opt.MapFrom<CoinbaseExchangeTransactionTypeResolver>())
                 .ForMember(dest => dest.FromExchangeId, opt => opt.MapFrom(src => (int)ExchangeEnum.Coinbase))
+                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => createdDate))
                 ;
         }
     }

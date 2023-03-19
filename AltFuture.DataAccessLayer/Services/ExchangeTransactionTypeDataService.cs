@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AltFuture.DataAccessLayer.Services
 {
-    public class ExchangeTransactionTypeDataService// : IExchangeTransactionTypeDataService
+    public class ExchangeTransactionTypeDataService : IExchangeTransactionTypeDataService
     {
         private readonly Func<IServiceScope> _scopeFactory;
         private readonly ReaderWriterLockSlim _rwLock = new ReaderWriterLockSlim();

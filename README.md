@@ -137,3 +137,8 @@
 - Seed data corrections
 - Database Migrations
 - Removal of Exchange CRUD. Not needed because adding a new Exchange requires other programming updates. Also switched Exchange Entity to be base off of a Enum for Single Source concerns.
+
+### 3/19/2023
+- Populate the Home page with the latest crypto prices from CoinMarketCap API
+- Added new data read methods to the CryptoPriceRepsitory.
+- Created new CoinMarketCapQuotesLatest Service that implements a rate limiting check to access the API. The service, base on rate limit, will either sync from the API, or call cached data from DB.

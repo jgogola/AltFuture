@@ -1,6 +1,6 @@
 ﻿using AltFuture.BusinessLogicLayer.Models.DTOs;
 using AltFuture.DataAccessLayer.Data.Enums;
-using AltFuture.DataAccessLayer.Services;
+using AltFuture.DataAccessLayer.Interfaces.Services;
 using AltFuture.Models;
 using AutoMapper;
 
@@ -10,7 +10,7 @@ namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseTransactionHistoryToTr
     {
         private readonly List<ExchangeTransactionType> _exchangeTransactionTypeLookup;
 
-        public CoinbaseExchangeTransactionTypeResolver(ExchangeTransactionTypeDataService exchangeTransactionTypeDataService)
+        public CoinbaseExchangeTransactionTypeResolver(IExchangeTransactionTypeDataService exchangeTransactionTypeDataService)
         {
             _exchangeTransactionTypeLookup = exchangeTransactionTypeDataService.ExchangeTransactionTypeList;
         }

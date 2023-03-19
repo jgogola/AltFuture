@@ -1,8 +1,44 @@
-﻿@{
+﻿@model IEnumerable<CryptoPrice>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to AltFuture</h1>
+    <h2 class="display-8">A crypto asset tracker powered by CoinMarketCap API.</h2>
 </div>
+
+
+<table class="table table-striped">
+    <caption>Prices from CoinMarketCap as of @ViewBag.DateLastSynced</caption>
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Crypto
+            </th>
+            <th>
+                Ticker
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Crypto.CryptoName
+                </td>
+                <td>
+                    @item.Crypto.TickerSymbol
+                </td>
+                <td>
+                    @item.Price
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

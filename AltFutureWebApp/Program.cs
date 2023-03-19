@@ -28,8 +28,8 @@ builder.Services.AddScoped<IPortfolioSummaryRepository, PortfolioSummaryReposito
 
 //* Singletons:
 builder.Services.AddSingleton<Func<IServiceScope>>(_ => () => builder.Services.BuildServiceProvider().CreateScope());
-builder.Services.AddSingleton<ExchangeTransactionTypeDataService>();
-builder.Services.AddSingleton<CryptoDataService>();
+builder.Services.AddSingleton<IExchangeTransactionTypeDataService, ExchangeTransactionTypeDataService>();
+builder.Services.AddSingleton<ICryptoDataService, CryptoDataService>();
 
 //* IOptions:
 builder.Services.Configure<CoinMarketCapEndPoints>(builder.Configuration.GetSection("CoinMarketCapSettings:EndPoints"));
@@ -52,9 +52,12 @@ builder.Services.AddHttpClient("CoinMarketCapSandbox", config =>
 
 
 //* BLL Services:
-builder.Services.AddScoped<ICoinMarketCapAPI, CoinMarketCapAPI>();
 builder.Services.AddScoped<ITransactionCsvImports, TransactionCsvImports>();
 builder.Services.AddAutoMapper(typeof(CoinbaseTransactionHistoryProfile));
+
+//* CoinMarketCap Services:
+builder.Services.AddScoped<ICoinMarketCapAPI, CoinMarketCapAPI>();
+builder.Services.AddScoped<ICoinMarketCapQuotesLatest, CoinMarketCapQuotesLatest>();
 
 
 var app = builder.Build();

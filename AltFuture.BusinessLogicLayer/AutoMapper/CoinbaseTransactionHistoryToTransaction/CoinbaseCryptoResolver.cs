@@ -1,8 +1,7 @@
 ﻿using AltFuture.BusinessLogicLayer.Models.DTOs;
-using AltFuture.DataAccessLayer.Data.Enums;
-using AltFuture.DataAccessLayer.Services;
 using AltFuture.Models;
 using AutoMapper;
+using AltFuture.DataAccessLayer.Interfaces.Services;
 
 namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseAssetToCryptoResolver
 {
@@ -10,7 +9,7 @@ namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseAssetToCryptoResolver
     {
         private readonly List<Crypto> _cryptoLookup;
 
-        public CoinbaseCryptoResolver(CryptoDataService cryptoDataService)
+        public CoinbaseCryptoResolver(ICryptoDataService cryptoDataService)
         {
             _cryptoLookup = cryptoDataService.CryptoList;
         }

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AltFuture.DataAccessLayer.Services
 {
-    public class CryptoDataService //: ICryptoDataService
+    public class CryptoDataService : ICryptoDataService
     {
         private readonly Func<IServiceScope> _scopeFactory;
         private readonly ReaderWriterLockSlim _rwLock = new ReaderWriterLockSlim();
