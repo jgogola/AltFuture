@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AltFuture.Models
 {
@@ -10,5 +11,11 @@ namespace AltFuture.Models
         public string CryptoName { get; set; }
 
         public string TickerSymbol { get; set; }
+
+        //[DefaultValue(0.00)]
+        //public int CmcId { get; set; } = 0;
+
+        //[DefaultValue(0.00)]
+        //public int CmcRank { get; set; } = 0;
     }
 }

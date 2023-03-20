@@ -53,11 +53,22 @@ namespace AltFuture.CoinMarketCapAPI.Services
                     dateLastSynced = dateRecorded;
                     foreach (CryptoQuote cryptoQuote in cryptoQuotes)
                     {
+                        //TODO: Set up AutoMapper to do this. This code is currently repeated.
                         var cryptoPrice = new CryptoPrice()
                         {
                             DateRecorded = dateRecorded,
                             CryptoId = cryptoQuote.CryptoId,
-                            Price = cryptoQuote.FiatPrice.Price
+                            Price = cryptoQuote.FiatPrice.Price,
+                            Volume24h = cryptoQuote.FiatPrice.Volume24h ?? Decimal.Zero,
+                            VolumeChange24h = cryptoQuote.FiatPrice.VolumeChange24h ?? Decimal.Zero,
+                            PercentChange1h = cryptoQuote.FiatPrice.PercentChange1h ?? Decimal.Zero,
+                            PercentChange24h = cryptoQuote.FiatPrice.PercentChange24h ?? Decimal.Zero,
+                            PercentChange7d = cryptoQuote.FiatPrice.PercentChange7d ?? Decimal.Zero,
+                            PercentChange30d = cryptoQuote.FiatPrice.PercentChange30d ?? Decimal.Zero,
+                            PercentChange60d = cryptoQuote.FiatPrice.PercentChange60d ?? Decimal.Zero,
+                            PercentChange90d = cryptoQuote.FiatPrice.PercentChange90d ?? Decimal.Zero,
+                            MarketCap = cryptoQuote.FiatPrice.MarketCap ?? Decimal.Zero,
+                            MarketCapDominance = cryptoQuote.FiatPrice.MarketCapDominance ?? Decimal.Zero,
                         };
 
                         cryptoPrices.Add(cryptoPrice);
@@ -83,11 +94,22 @@ namespace AltFuture.CoinMarketCapAPI.Services
                 dateLastSynced = dateRecorded;
                 foreach (CryptoQuote cryptoQuote in cryptoQuotes) 
                 {
+                    //TODO: Set up AutoMapper to do this. This code is currently repeated.
                     var cryptoPrice = new CryptoPrice()
                     {
                         DateRecorded = dateRecorded,
                         CryptoId = cryptoQuote.CryptoId,
-                        Price = cryptoQuote.FiatPrice.Price
+                        Price = cryptoQuote.FiatPrice.Price,
+                        Volume24h = cryptoQuote.FiatPrice.Volume24h ?? Decimal.Zero,
+                        VolumeChange24h = cryptoQuote.FiatPrice.VolumeChange24h ?? Decimal.Zero,
+                        PercentChange1h = cryptoQuote.FiatPrice.PercentChange1h ?? Decimal.Zero,
+                        PercentChange24h = cryptoQuote.FiatPrice.PercentChange24h ?? Decimal.Zero,
+                        PercentChange7d = cryptoQuote.FiatPrice.PercentChange7d ?? Decimal.Zero,
+                        PercentChange30d = cryptoQuote.FiatPrice.PercentChange30d ?? Decimal.Zero,
+                        PercentChange60d = cryptoQuote.FiatPrice.PercentChange60d ?? Decimal.Zero,
+                        PercentChange90d = cryptoQuote.FiatPrice.PercentChange90d ?? Decimal.Zero,
+                        MarketCap = cryptoQuote.FiatPrice.MarketCap ?? Decimal.Zero,
+                        MarketCapDominance = cryptoQuote.FiatPrice.MarketCapDominance ?? Decimal.Zero,
                     };
 
                     cryptoPrices.Add(cryptoPrice);
@@ -99,5 +121,7 @@ namespace AltFuture.CoinMarketCapAPI.Services
 
 
         }
+
+
     }
 }

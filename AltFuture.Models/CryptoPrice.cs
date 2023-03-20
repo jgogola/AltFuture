@@ -19,5 +19,48 @@ namespace AltFuture.Models
         [Column(TypeName = "decimal(30,20)")]
         [DefaultValue(0.00)]
         public decimal Price { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(25,10)")]
+        [DefaultValue(0.00)]
+        public decimal Volume24h { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(20,10)")]
+        [DefaultValue(0.00)]
+        public decimal VolumeChange24h { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(20,10)")]
+        [DefaultValue(0.00)]
+        public decimal PercentChange1h { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(20,10)")]
+        [DefaultValue(0.00)]
+        public decimal PercentChange24h { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(20,10)")]
+        [DefaultValue(0.00)]
+        public decimal PercentChange7d { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(20,10)")]
+        [DefaultValue(0.00)]
+        public decimal PercentChange30d { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(20,10)")]
+        [DefaultValue(0.00)]
+        public decimal PercentChange60d { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(20,10)")]
+        [DefaultValue(0.00)]
+        public decimal PercentChange90d { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(25,10)")]
+        [DefaultValue(0.00)]
+        public decimal MarketCap { get; set; } = decimal.Zero;
+
+        [Column(TypeName = "decimal(25,10)")]
+        [DefaultValue(0.00)]
+        public decimal MarketCapDominance { get; set; } = decimal.Zero;
+
+
+
     }
 }

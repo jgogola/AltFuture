@@ -23,20 +23,56 @@
             <th>
                 Price
             </th>
+            <th>
+                % Change 1h
+            </th>
+            <th>
+                % Change 24h
+            </th>
+            <th>
+                % Change 7d
+            </th>
+            <th>
+                % Change 30d
+            </th>
+            <th>
+                % Change 60d
+            </th>
+            <th>
+                % Change 90d
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <th scope="row">
                     @item.Crypto.CryptoName
-                </td>
+                </th>
                 <td>
                     @item.Crypto.TickerSymbol
                 </td>
                 <td>
-                    @item.Price
+                    @Math.Round(@item.Price,5)
+                </td>
+                <td class="@(@item.PercentChange1h >= 0 ? "text-success" : "text-danger")">
+                    @Math.Round(@item.PercentChange1h,3)
+                </td>
+                <td class="@(@item.PercentChange24h >= 0 ? "text-success" : "text-danger")">
+                    @Math.Round(@item.PercentChange24h,3)
+                </td>
+                <td class="@(@item.PercentChange7d >= 0 ? "text-success" : "text-danger")">
+                    @Math.Round(@item.PercentChange7d,3)
+                </td>
+                <td class="@(@item.PercentChange30d >= 0 ? "text-success" : "text-danger")">
+                    @Math.Round(@item.PercentChange30d,3)
+                </td>
+                <td class="@(@item.PercentChange60d >= 0 ? "text-success" : "text-danger")">
+                    @Math.Round(@item.PercentChange60d,3)
+                </td>
+                <td class="@(@item.PercentChange90d >= 0 ? "text-success" : "text-danger")">
+                    @Math.Round(@item.PercentChange90d,3)
                 </td>
             </tr>
         }

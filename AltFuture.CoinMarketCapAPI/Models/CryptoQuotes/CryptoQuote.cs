@@ -5,6 +5,9 @@ namespace AltFuture.CoinMarketCapAPI.Models.CryptoQuotes
     public class CryptoQuote
     {
         public int CryptoId { get; set; }
+
+        [JsonProperty("id")]
+        public int CmcId { get; set; }
         public string Name { get; set; }
         public string Symbol { get; set; }
 
@@ -20,8 +23,8 @@ namespace AltFuture.CoinMarketCapAPI.Models.CryptoQuotes
         [JsonProperty("cmc_rank")]
         public int? CmcRank { get; set; }
 
-        [JsonProperty("tvl_ratio")]
-        public object TvlRatio { get; set; }
+        //[JsonProperty("tvl_ratio")]
+        //public object TvlRatio { get; set; }
 
         public FiatPrice FiatPrice { get; set; }
     }
