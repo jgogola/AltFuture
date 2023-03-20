@@ -142,3 +142,10 @@
 - Populate the Home page with the latest crypto prices from CoinMarketCap API
 - Added new data read methods to the CryptoPriceRepsitory.
 - Created new CoinMarketCapQuotesLatest Service that implements a rate limiting check to access the API. The service, base on rate limit, will either sync from the API, or call cached data from DB.
+
+
+### 3/20/2023
+- Added new fields to CryptoQuote model
+- Updated COinMarketCapQuotesLatest.cs service to map the new fields from the API to the Model.
+- Database Migration
+- Updated Home View to show new data points
