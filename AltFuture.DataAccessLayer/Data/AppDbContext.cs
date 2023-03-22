@@ -49,6 +49,10 @@ namespace AltFuture.DataAccessLayer.Data
                 entity.HasNoKey().ToTable("PortfolioSummaryGetAll", t => t.ExcludeFromMigrations());
             });
 
+            modelBuilder.Entity<Transaction>()
+                .Property(t => t.InvestmentTotal)
+                .HasComputedColumnSql("Price * Quantity");
+
 
             modelBuilder.ApplyConfiguration(new CryptoConfiguration());
             modelBuilder.ApplyConfiguration(new ExchangeConfiguration());

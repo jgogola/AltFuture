@@ -31,7 +31,11 @@ namespace AltFuture.Models.StoredProcs
 
         [DisplayName("Total Invested")]
         [Column(TypeName = "decimal(10,3)")]
-        public decimal TotalInvested { get; set; }
+        public decimal InvestmentTotal { get; set; }
+
+        [DisplayName("Total Fees")]
+        [Column(TypeName = "decimal(10,3)")]
+        public decimal FeeTotal { get; set; }
 
 
         [DisplayName("Unrealized Profits")]

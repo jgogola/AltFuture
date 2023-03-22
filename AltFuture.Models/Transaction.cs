@@ -37,13 +37,19 @@ namespace AltFuture.Models
         [Column(TypeName = "decimal(18,10)")]
         public decimal Quantity { get; set; } = decimal.Zero;
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Column(TypeName = "decimal(18,10)")]
+        public decimal InvestmentTotal { get; private set; } 
+
+
+        [Column(TypeName = "decimal(18,10)")]
+        public decimal Fee { get; set; } = decimal.Zero;
+
 
         [Column(TypeName = "decimal(18,10)")]
         public decimal TransactionTotal { get; set; } = decimal.Zero;
 
 
-        [Column(TypeName = "decimal(18,10)")]
-        public decimal Fee { get; set; } = decimal.Zero;
 
         public DateTime TransactionDate { get; set; }
 

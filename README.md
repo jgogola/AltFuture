@@ -158,3 +158,12 @@
 	- Get data for pie chart of crypto investement percentages
 	- Get data for column chart showing investment performance per crypto asset.
 - Wired up charts to data service on Dashboard page.
+
+### 3/22/2023
+- Created computed column property of Transaction.InvestmentTotal. Migrated to DB.
+- Fixed/Updated stored proc PortfolioSummaryGetAll.
+	- Made use of the new InvestmentTotal calc field.
+	- Factored in Fees into the Unrealized Profit calculation.
+	- Add FeesTotal to the result set.
+	- Migrated to DB.
+- Adjusted the Asset Portfolio View to wire up to new properties. Beautified as well.

@@ -12,16 +12,17 @@
 
 
 <table class="table table-striped">
-    <caption>Asset Portfolios</caption>
+    <caption>Crypto Asset Portfolio</caption>
     <thead class="table-dark">
-        <tr>
+        <tr class="text-center">
             <th scope="col">@Html.DisplayNameFor(model => model.CryptoName)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.TickerSymbol)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.NumberOfOrders)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.Quantity)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.AverageBuyPrice)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
-            <th scope="col">@Html.DisplayNameFor(model => model.TotalInvested)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.InvestmentTotal)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.FeeTotal)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.UnrealizedProfit)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.CurrentWorth)</th>
         </tr>
@@ -29,30 +30,32 @@
     <tbody>
     @foreach (var crypto in bodyData)
     {            
-    <tr>
-        <td>@crypto.CryptoName</td>
-        <th scope="row">@crypto.TickerSymbol</th>
-        <td>@crypto.NumberOfOrders</td>
-        <td>@crypto.Quantity</td>
-        <td>@crypto.AverageBuyPrice</td>
-        <td>@crypto.Price</td>
-        <td>@crypto.TotalInvested</td>
-        <td class="@(crypto.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@crypto.UnrealizedProfit</td>
-        <td>@crypto.CurrentWorth</td>
-    </tr>
+        <tr>
+            <td class="text-nowrap">@crypto.CryptoName</td>
+            <th class="text-center" scope="row">@crypto.TickerSymbol</th>
+            <td class="text-center">@crypto.NumberOfOrders</td>
+            <td class="text-center">@crypto.Quantity</td>
+            <td class="text-end">@crypto.AverageBuyPrice</td>
+            <td class="text-end">@crypto.Price</td>
+            <td class="text-end text-success">@crypto.InvestmentTotal</td>
+            <td class="text-end text-danger">@crypto.FeeTotal</td>
+            <td class="text-end @(crypto.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@crypto.UnrealizedProfit</td>
+            <td class="text-end fw-bold">@crypto.CurrentWorth</td>
+        </tr>
     }
     </tbody>
     <tfoot class="table-secondary">
         <tr>
             <td>@footerData.CryptoName</td>
-            <th scope="row">@footerData.TickerSymbol</th>
-            <td>@footerData.NumberOfOrders</td>
-            <td>@footerData.Quantity</td>
-            <td>@footerData.AverageBuyPrice</td>
-            <td>@footerData.Price</td>
-            <td>@footerData.TotalInvested</td>
-            <td class="@(footerData.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@footerData.UnrealizedProfit</td>
-            <td>@footerData.CurrentWorth</td>
+            <th class="text-center" scope="row">@footerData.TickerSymbol</th>
+            <td class="text-center">@footerData.NumberOfOrders</td>
+            <td class="text-center">@footerData.Quantity</td>
+            <td class="text-end">@footerData.AverageBuyPrice</td>
+            <td class="text-end">@footerData.Price</td>
+            <td class="text-end text-success">@footerData.InvestmentTotal</td>
+            <td class="text-end text-danger">@footerData.FeeTotal</td>
+            <td class="text-end @(footerData.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@footerData.UnrealizedProfit</td>
+            <td class="text-end fw-bold">@footerData.CurrentWorth</td>
         </tr>
     </tfoot>
 </table>
