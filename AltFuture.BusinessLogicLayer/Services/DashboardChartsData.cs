@@ -6,6 +6,7 @@ using AltFuture.DataAccessLayer.Services;
 using AltFuture.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -17,11 +18,13 @@ namespace AltFuture.BusinessLogicLayer.Services
     public class DashboardChartsData : IDashboardChartsData
     {
         private readonly ITransactionRepository _transactionRepository;
+        private readonly ICryptoPriceRepository _cryptoPriceRepository;
         private readonly List<Crypto> _cryptos;
 
-        public DashboardChartsData(ITransactionRepository transactionRepository, ICryptoDataService cryptoDataService)
+        public DashboardChartsData(ITransactionRepository transactionRepository, ICryptoDataService cryptoDataService, ICryptoPriceRepository cryptoPriceRepository)
         {
             _transactionRepository = transactionRepository;
+            _cryptoPriceRepository = cryptoPriceRepository;
             _cryptos = cryptoDataService.CryptoList;
         }
         public async Task<List<CryptoQuantityPercentageDto>> GetCryptoQuantityPercentageAsync(int userId)
@@ -64,21 +67,22 @@ namespace AltFuture.BusinessLogicLayer.Services
 
         public async Task<List<CryptoInvestmentPerformanceDto>> GetCryptoInvestmentPerformanceAsync(int userId)
         {
+            var prices = await _cryptoPriceRepository.GetLatestAsync();
             var transactions = await _transactionRepository.GetAllForUserAsync(userId);
 
-            var groupedTransactions = transactions.GroupBy(t => t.CryptoId).ToList();
+            var cryptoInvestementPerformances = from price in prices
+                                                join transaction in transactions on price.Crypto equals transaction.Crypto into transGroup
+                                                where transGroup.Count() > 0
+                                                select new CryptoInvestmentPerformanceDto {
 
-            decimal totalInvestment = transactions.Sum(t => t.TransactionTotal);
+                                                    CryptoId = price.CryptoId,
+                                                    TickerSymbol = price.Crypto.TickerSymbol,
+                                                    Investment = (decimal)transGroup.Sum(t => t.InvestmentTotal),
+                                                    UnrealizedProfit = (decimal)(transGroup.Sum(t => t.Quantity) * price.Price) - (transGroup.Sum(t => t.Quantity) * (transGroup.Sum(t => t.InvestmentTotal) / transGroup.Sum(t => t.Quantity))) - transGroup.Sum(t => t.Fee)
 
-            var cryptoPercentages = groupedTransactions.Select(g => new CryptoInvestmentPerformanceDto
-            {
-                CryptoId = g.Key,
-                TickerSymbol = _cryptos.FirstOrDefault(c => c.CryptoId == g.Key).TickerSymbol,
-                Investment = (decimal)g.Sum(t => t.TransactionTotal),
-              //  UnrealizedProfit = g.Sum(t => t.Un)
-            });
+                                                };
 
-            return cryptoPercentages.ToList();
+            return cryptoInvestementPerformances.ToList();
         }
     }
 }

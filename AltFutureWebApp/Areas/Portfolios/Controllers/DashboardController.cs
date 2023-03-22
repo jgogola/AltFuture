@@ -1,5 +1,6 @@
 ﻿using AltFuture.BusinessLogicLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Newtonsoft.Json.Linq;
@@ -45,6 +46,26 @@ namespace AltFutureWebApp.Areas.Portfolios.Controllers
 
             return Json(data);
         }
-   
+
+
+        [HttpGet]
+        public async Task<JsonResult> GetAssetPerformanceData()
+        {
+
+            var cryptoInvestmentPerformances = await _chartsData.GetCryptoInvestmentPerformanceAsync(1);
+
+            var data = new JArray { };
+
+            data.Add(new JArray { "Crypto Assets", "Investment", "Current Worth" });  
+
+            cryptoInvestmentPerformances.ForEach(c =>
+            {
+                data.Add(new JArray { c.TickerSymbol, c.Investment, c.Investment + c.UnrealizedProfit }); 
+            });
+
+
+            return Json(data);
+        }
+
     }
 }

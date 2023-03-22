@@ -22,7 +22,7 @@ namespace AltFuture.DataAccessLayer.Repository
 
         public async Task<IEnumerable<CryptoPrice>> GetLatestAsync()
         {
-            var maxDateRecorded = await _context.CryptoPrices.MaxAsync(c => c.DateRecorded);
+            var maxDateRecorded = await GetLastSyncedDate(); // _context.CryptoPrices.MaxAsync(c => c.DateRecorded);
 
             return await _context.CryptoPrices
                 .Include(c => c.Crypto)
@@ -30,7 +30,7 @@ namespace AltFuture.DataAccessLayer.Repository
                 .ToListAsync();
         }
 
-        public async Task<DateTime> GetLastSynced()
+        public async Task<DateTime> GetLastSyncedDate()
         {
             return await _context.CryptoPrices.MaxAsync(c => c.DateRecorded);
         }

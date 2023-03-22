@@ -164,6 +164,8 @@
 - Fixed/Updated stored proc PortfolioSummaryGetAll.
 	- Made use of the new InvestmentTotal calc field.
 	- Factored in Fees into the Unrealized Profit calculation.
-	- Add FeesTotal to the result set.
+	- Add FeeTotal to the result set.
 	- Migrated to DB.
 - Adjusted the Asset Portfolio View to wire up to new properties. Beautified as well.
+- Implemented the DashboardChartsData.GetCryptoInvestmentPerformanceAsync method
+- Improved Dashboard View html

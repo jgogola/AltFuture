@@ -33,7 +33,7 @@ namespace AltFuture.CoinMarketCapAPI.Services
 
         public async Task<DateTime> SyncCacheAsync()
         {
-            var dateLastSynced = await _cryptoPriceRepository.GetLastSynced();
+            var dateLastSynced = await _cryptoPriceRepository.GetLastSyncedDate();
 
             var isApiSyncAllowed = false;
             if(dateLastSynced.AddHours(_coinMarketCapEndPoints.RateLimitHours) <= DateTime.Now )
@@ -82,7 +82,7 @@ namespace AltFuture.CoinMarketCapAPI.Services
 
         public async Task<DateTime> SyncAsync()
         {
-            var dateLastSynced = await _cryptoPriceRepository.GetLastSynced();
+            var dateLastSynced = await _cryptoPriceRepository.GetLastSyncedDate();
 
             var tickerDictionary = _cryptos.ToDictionary(crypto => crypto.CryptoId, crypto => crypto.TickerSymbol);
             var cryptoQuotes = await _cmcApi.GetQuotesLatestAsync(tickerDictionary);
