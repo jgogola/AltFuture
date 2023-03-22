@@ -10,11 +10,15 @@ using AltFuture.BusinessLogicLayer.Services;
 using AltFuture.DataAccessLayer.Services;
 using AltFuture.DataAccessLayer.Interfaces.Services;
 using AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseTransactionHistoryToTransaction;
-
+using Newtonsoft.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    // Add other settings if needed
+});
 
 //* DB Context:
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -53,6 +57,7 @@ builder.Services.AddHttpClient("CoinMarketCapSandbox", config =>
 
 //* BLL Services:
 builder.Services.AddScoped<ITransactionCsvImports, TransactionCsvImports>();
+builder.Services.AddScoped<IDashboardChartsData, DashboardChartsData>();
 builder.Services.AddAutoMapper(typeof(CoinbaseTransactionHistoryProfile));
 
 //* CoinMarketCap Services:

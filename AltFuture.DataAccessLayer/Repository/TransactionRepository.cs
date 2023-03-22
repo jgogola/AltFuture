@@ -21,6 +21,11 @@ namespace AltFuture.DataAccessLayer.Repository
             return await _context.Transactions.ToListAsync();
         }
 
+        public async Task<List<Transaction>> GetAllForUserAsync(int userId)
+        {
+            return await _context.Transactions.Where(t => t.AppUserId == userId).ToListAsync();
+        }
+
         public async Task<Transaction> GetByIdAsync(int id)
         {
             return await _context.Transactions.FirstOrDefaultAsync(t => t.TransactionId == id);
@@ -29,6 +34,13 @@ namespace AltFuture.DataAccessLayer.Repository
         public async Task<int> GetCountAsync()
         {
             return await _context.Transactions.CountAsync();
+        }
+
+
+        public async Task<int> GetCountForUserAsync(int userId)
+        {
+            
+            return await _context.Transactions.Where(t => t.AppUserId == userId).CountAsync();
         }
 
         public async Task<bool> AddRangeAsync(IEnumerable<Transaction> transactions)

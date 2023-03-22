@@ -149,3 +149,12 @@
 - Updated COinMarketCapQuotesLatest.cs service to map the new fields from the API to the Model.
 - Database Migration
 - Updated Home View to show new data points
+
+
+### 3/21/2023
+- Adding Google Charts to the Dashboard page.
+- Installed Microsoft.AspNetCore.Mvc.NewtonsoftJson to allow Newtonsoft serialization of Json returned Actions.
+- Built DashboardChartsData service
+	- Get data for pie chart of crypto investement percentages
+	- Get data for column chart showing investment performance per crypto asset.
+- Wired up charts to data service on Dashboard page.

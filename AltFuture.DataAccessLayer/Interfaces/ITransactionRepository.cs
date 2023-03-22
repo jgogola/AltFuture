@@ -6,9 +6,13 @@ namespace AltFuture.DataAccessLayer.Interfaces
     {
         Task<IEnumerable<Transaction>> GetAllAsync();
 
+        Task<List<Transaction>> GetAllForUserAsync(int userId);
+
         Task<Transaction> GetByIdAsync(int id);
 
         Task<int> GetCountAsync();
+
+        Task<int> GetCountForUserAsync(int userId);
 
         Task<bool> AddRangeAsync(IEnumerable<Transaction> transactions);
 
