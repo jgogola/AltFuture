@@ -181,3 +181,5 @@
 - Renamed project AltFutureWebApp to AltFuture.WebApp.
 	- Wanted to do it now while it was still early. It would have bugged me forever.
 	- Updated namespaces and project references.	
+- Naming convention clean up of PortfolioChartData service and methods.
+- Created new pie chart feature for showing Exchange Usage data on dashboard.

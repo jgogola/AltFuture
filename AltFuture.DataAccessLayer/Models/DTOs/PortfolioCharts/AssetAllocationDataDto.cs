@@ -1,6 +1,6 @@
-﻿namespace AltFuture.DataAccessLayer.Models.DTOs.CryptoAssetCharts
+﻿namespace AltFuture.DataAccessLayer.Models.DTOs.PortfolioCharts
 {
-    public class CryptoInvestmentPercentageDto
+    public class AssetAllocationDataDto
     {
         public int CryptoId { get; set; }
         public string TickerSymbol { get; set; }

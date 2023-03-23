@@ -57,7 +57,7 @@ builder.Services.AddHttpClient("CoinMarketCapSandbox", config =>
 
 //* BLL Services:
 builder.Services.AddScoped<ITransactionCsvImports, TransactionCsvImports>();
-builder.Services.AddScoped<ICryptoAssetChartData, CryptoAssetChartData>();
+builder.Services.AddScoped<IPortfolioChartData, PortfolioChartData>();
 builder.Services.AddAutoMapper(typeof(CoinbaseTransactionHistoryProfile));
 
 //* CoinMarketCap Services:
