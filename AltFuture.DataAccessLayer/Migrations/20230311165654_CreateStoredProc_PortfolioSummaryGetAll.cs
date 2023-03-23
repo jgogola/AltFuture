@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace AltFutureWebApp.Migrations
+namespace AltFuture.WebApp.Migrations
 {
     /// <inheritdoc />
     public partial class CreateStoredProc_PortfolioSummaryGetAll : Migration

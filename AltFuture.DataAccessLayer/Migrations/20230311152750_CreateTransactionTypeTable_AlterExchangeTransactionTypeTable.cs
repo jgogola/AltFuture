@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace AltFutureWebApp.Migrations
+namespace AltFuture.WebApp.Migrations
 {
     /// <inheritdoc />
     public partial class CreateTransactionTypeTable_AlterExchangeTransactionTypeTable : Migration

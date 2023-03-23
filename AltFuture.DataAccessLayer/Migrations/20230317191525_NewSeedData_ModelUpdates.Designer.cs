@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AltFutureWebApp.Migrations
+namespace AltFuture.WebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20230317191525_NewSeedData_ModelUpdates")]

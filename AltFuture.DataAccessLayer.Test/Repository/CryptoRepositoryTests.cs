@@ -4,7 +4,7 @@ using AltFuture.DataAccessLayer.Models;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
-namespace AltFutureWebApp.Test.Repository
+namespace AltFuture.WebApp.Test.Repository
 {
     public class CryptoRepositoryTests
     {

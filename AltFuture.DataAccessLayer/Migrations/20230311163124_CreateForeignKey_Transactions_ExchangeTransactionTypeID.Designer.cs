@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace AltFutureWebApp.Migrations
+namespace AltFuture.WebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20230311163124_CreateForeignKey_Transactions_ExchangeTransactionTypeID")]
@@ -22,7 +22,7 @@ namespace AltFutureWebApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AltFutureWebApp.Models.AppUser", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.AppUser", b =>
                 {
                     b.Property<int>("AppUserId")
                         .ValueGeneratedOnAdd()
@@ -39,7 +39,7 @@ namespace AltFutureWebApp.Migrations
                     b.ToTable("AppUsers");
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.Crypto", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.Crypto", b =>
                 {
                     b.Property<int>("CryptoId")
                         .ValueGeneratedOnAdd()
@@ -134,7 +134,7 @@ namespace AltFutureWebApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.CryptoPrice", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.CryptoPrice", b =>
                 {
                     b.Property<int>("CryptoPriceId")
                         .ValueGeneratedOnAdd()
@@ -156,7 +156,7 @@ namespace AltFutureWebApp.Migrations
                     b.ToTable("CryptoPrices");
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.Exchange", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.Exchange", b =>
                 {
                     b.Property<int>("ExchangeId")
                         .ValueGeneratedOnAdd()
@@ -205,7 +205,7 @@ namespace AltFutureWebApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.ExchangeTransactionType", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.ExchangeTransactionType", b =>
                 {
                     b.Property<int>("ExchangeTransactionTypeId")
                         .ValueGeneratedOnAdd()
@@ -290,7 +290,7 @@ namespace AltFutureWebApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.StoredProcs.PortfolioSummaryGetAll", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.StoredProcs.PortfolioSummaryGetAll", b =>
                 {
                     b.Property<decimal>("AverageBuyPrice")
                         .HasColumnType("decimal(10,3)");
@@ -336,7 +336,7 @@ namespace AltFutureWebApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.Transaction", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.Transaction", b =>
                 {
                     b.Property<int>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -472,7 +472,7 @@ namespace AltFutureWebApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.TransactionType", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.TransactionType", b =>
                 {
                     b.Property<int>("TransactionTypeId")
                         .ValueGeneratedOnAdd()
@@ -532,15 +532,15 @@ namespace AltFutureWebApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.ExchangeTransactionType", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.ExchangeTransactionType", b =>
                 {
-                    b.HasOne("AltFutureWebApp.Models.Exchange", "Exchange")
+                    b.HasOne("AltFuture.WebApp.Models.Exchange", "Exchange")
                         .WithMany()
                         .HasForeignKey("ExchangeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AltFutureWebApp.Models.TransactionType", "TransactionType")
+                    b.HasOne("AltFuture.WebApp.Models.TransactionType", "TransactionType")
                         .WithMany()
                         .HasForeignKey("TransactionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -551,33 +551,33 @@ namespace AltFutureWebApp.Migrations
                     b.Navigation("TransactionType");
                 });
 
-            modelBuilder.Entity("AltFutureWebApp.Models.Transaction", b =>
+            modelBuilder.Entity("AltFuture.WebApp.Models.Transaction", b =>
                 {
-                    b.HasOne("AltFutureWebApp.Models.AppUser", "AppUser")
+                    b.HasOne("AltFuture.WebApp.Models.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AltFutureWebApp.Models.Crypto", "Crypto")
+                    b.HasOne("AltFuture.WebApp.Models.Crypto", "Crypto")
                         .WithMany()
                         .HasForeignKey("CryptoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AltFutureWebApp.Models.ExchangeTransactionType", "ExchangeTransactionType")
+                    b.HasOne("AltFuture.WebApp.Models.ExchangeTransactionType", "ExchangeTransactionType")
                         .WithMany()
                         .HasForeignKey("ExchangeTransactionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AltFutureWebApp.Models.Exchange", "FromExchange")
+                    b.HasOne("AltFuture.WebApp.Models.Exchange", "FromExchange")
                         .WithMany()
                         .HasForeignKey("FromExchangeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AltFutureWebApp.Models.Exchange", "ToExchange")
+                    b.HasOne("AltFuture.WebApp.Models.Exchange", "ToExchange")
                         .WithMany()
                         .HasForeignKey("ToExchangeId");
 

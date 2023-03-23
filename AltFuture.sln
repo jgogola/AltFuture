@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFutureWebApp", "AltFutureWebApp\AltFutureWebApp.csproj", "{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFuture.WebApp", "AltFuture.WebApp\AltFuture.WebApp.csproj", "{153D3C59-8F1C-48FC-859E-4BBC339DC3FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFutureWebApp.Test", "AltFutureWebApp.Test\AltFutureWebApp.Test.csproj", "{941EFE4B-5709-419A-A2EA-F13555A15AEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFuture.WebApp.Test", "AltFuture.WebApp.Test\AltFuture.WebApp.Test.csproj", "{941EFE4B-5709-419A-A2EA-F13555A15AEB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AltFuture.DataAccessLayer", "AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj", "{BAF6BECA-3C02-44D7-B6D6-D498094A7124}"
 EndProject

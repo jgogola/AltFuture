@@ -169,3 +169,15 @@
 - Adjusted the Asset Portfolio View to wire up to new properties. Beautified as well.
 - Implemented the DashboardChartsData.GetCryptoInvestmentPerformanceAsync method
 - Improved Dashboard View html
+
+### 3/23/2023
+- Took a step back today to look at the big picture of how my features were coming together.
+- Did a bunch of consolidating, clean up and architecture refactoring.
+- Combined the Portfolio Dashboard and Asset modules into just Dashboard
+- Realized I had the Chart data access modules in the BLL. Moved to DAL.
+- Originally thought I might like having a separate project to hold the Models. Hated it.
+	- Moved Models from their own class library and put them in the DAL. 
+	- Refactored code set to point to new Models namespace.
+- Renamed project AltFutureWebApp to AltFuture.WebApp.
+	- Wanted to do it now while it was still early. It would have bugged me forever.
+	- Updated namespaces and project references.	
