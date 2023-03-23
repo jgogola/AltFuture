@@ -1,44 +1,102 @@
-﻿@model Crypto
-
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using AltFuture.Models.StoredProcs;
+@model IEnumerable<PortfolioSummaryGetAll>
 @{
+    var bodyData = Model.Where(crypto => crypto.RowType == 1).ToList();
+    var footerData = Model.Where(crypto => crypto.RowType == 99).ToList()[0];
 }
-<h1>Dashboard</h1>
 
 
-<ul class="navbar-nav flex-grow-1">
+<h1>Portfolio Dashboard</h1>
 
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="Assets" asp-action="Index">Assets</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="TransactionImports" asp-action="Index">Import Transactions</a>
-    </li>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container-fluid">
+        <div id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Transactions" asp-action="Index">Transaction Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="TransactionImports" asp-action="Index">Import New Transactions</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-
-</ul>
-
-
-
-
-<div class="container">
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-6">
-            <!--Div that will hold the pie chart-->
+            <!--Div for Crypto Investment Allocation Pie Chart-->
             <div id="chart_div"></div>
         </div>
         <div class="col-md-6">
-            <!--Div that will hold the column chart-->
+            <!--Div for Crypto Investment Performance Column Chart-->
             <div id="columnchart_material"></div>
         </div>
     </div>
 
 </div>
 
-<!--Load the AJAX API-->
+<div class="container mt-1">
+    <table class="table table-striped">
+        <caption>Crypto Asset Portfolio</caption>
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th scope="col">@Html.DisplayNameFor(model => model.CryptoName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.TickerSymbol)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.NumberOfOrders)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Quantity)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.AverageBuyPrice)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.InvestmentTotal)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.FeeTotal)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.UnrealizedProfit)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CurrentWorth)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var crypto in bodyData)
+            {
+                <tr>
+                    <td class="text-nowrap">@crypto.CryptoName</td>
+                    <th class="text-center" scope="row">@crypto.TickerSymbol</th>
+                    <td class="text-center">@crypto.NumberOfOrders</td>
+                    <td class="text-center">@crypto.Quantity</td>
+                    <td class="text-end">@crypto.AverageBuyPrice</td>
+                    <td class="text-end">@crypto.Price</td>
+                    <td class="text-end text-success">@crypto.InvestmentTotal</td>
+                    <td class="text-end text-danger">@crypto.FeeTotal</td>
+                    <td class="text-end @(crypto.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@crypto.UnrealizedProfit</td>
+                    <td class="text-end fw-bold">@crypto.CurrentWorth</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-secondary">
+            <tr>
+                <td>@footerData.CryptoName</td>
+                <th class="text-center" scope="row">@footerData.TickerSymbol</th>
+                <td class="text-center">@footerData.NumberOfOrders</td>
+                <td class="text-center">@footerData.Quantity</td>
+                <td class="text-end">------</td>
+                <td class="text-end">------</td>
+                <td class="text-end text-success">@footerData.InvestmentTotal</td>
+                <td class="text-end text-danger">@footerData.FeeTotal</td>
+                <td class="text-end @(footerData.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@footerData.UnrealizedProfit</td>
+                <td class="text-end fw-bold">@footerData.CurrentWorth</td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+
+
+
+
+<!--Load the Google Chart AJAX API-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!--Crypto Investment Allocation Pie Chart-->
 <script type="text/javascript">
 
     // Load the Visualization API and the corechart package.
@@ -55,7 +113,7 @@
 
         $.ajax({
             type: "GET",
-            url: "@Url.Action("GetData", "Dashboard")",
+            url: "@Url.Action("GetAssetAllocationData", "Dashboard")",
             dataType: "json",
             async: false,
              success: function (d) {
@@ -69,18 +127,20 @@
         // Create our data table out of JSON data loaded from server.
         let data = new google.visualization.arrayToDataTable(jsonData);
 
-      // Set chart options
-      let options = {'title':'Crypto Investment Percentages',
-                     'width':400,
-                     'height':300,
-                     'is3D': true};
+        // Set chart options 
+        let options = {
+            'title': 'Crypto Investment Allocation',
+            'width':400,
+            'height':300,
+            'is3D': true};
 
-      // Instantiate and draw our chart, passing in some options.
+        // Instantiate and draw our chart, passing in some options.
         let chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
 </script>
 
+<!--Crypto Investment Performance Column Chart -->
 <script type="text/javascript">
 
     google.charts.load('current', { 'packages': ['bar'] });

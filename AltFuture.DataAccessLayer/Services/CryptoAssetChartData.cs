@@ -1,27 +1,17 @@
-﻿using AltFuture.BusinessLogicLayer.Interfaces;
-using AltFuture.BusinessLogicLayer.Models.DTOs.Dashboard;
+﻿using AltFuture.DataAccessLayer.Models.DTOs.CryptoAssetCharts;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces.Services;
-using AltFuture.DataAccessLayer.Services;
 using AltFuture.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace AltFuture.BusinessLogicLayer.Services
 {
-    public class DashboardChartsData : IDashboardChartsData
+    public class CryptoAssetChartData : ICryptoAssetChartData
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICryptoPriceRepository _cryptoPriceRepository;
         private readonly List<Crypto> _cryptos;
 
-        public DashboardChartsData(ITransactionRepository transactionRepository, ICryptoDataService cryptoDataService, ICryptoPriceRepository cryptoPriceRepository)
+        public CryptoAssetChartData(ITransactionRepository transactionRepository, ICryptoDataService cryptoDataService, ICryptoPriceRepository cryptoPriceRepository)
         {
             _transactionRepository = transactionRepository;
             _cryptoPriceRepository = cryptoPriceRepository;
@@ -46,7 +36,7 @@ namespace AltFuture.BusinessLogicLayer.Services
         }
 
 
-        public async Task<List<CryptoInvestmentPercentageDto>> GetCryptoInvestmentPercentageAsync(int userId)
+        public async Task<List<CryptoInvestmentPercentageDto>> GetCryptoAssetAllocationDataAsync(int userId)
         {
             var transactions = await _transactionRepository.GetAllForUserAsync(userId);
 
@@ -65,7 +55,7 @@ namespace AltFuture.BusinessLogicLayer.Services
         }
 
 
-        public async Task<List<CryptoInvestmentPerformanceDto>> GetCryptoInvestmentPerformanceAsync(int userId)
+        public async Task<List<CryptoInvestmentPerformanceDto>> GetCryptoAssetPerformanceDataAsync(int userId)
         {
             var prices = await _cryptoPriceRepository.GetLatestAsync();
             var transactions = await _transactionRepository.GetAllForUserAsync(userId);

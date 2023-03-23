@@ -1,8 +1,7 @@
-﻿using AltFuture.BusinessLogicLayer.Interfaces;
+﻿using AltFuture.CoinMarketCapAPI.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces;
-using Microsoft.AspNetCore.Identity;
+using AltFuture.DataAccessLayer.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Newtonsoft.Json.Linq;
 
 namespace AltFutureWebApp.Areas.Portfolios.Controllers
@@ -10,33 +9,36 @@ namespace AltFutureWebApp.Areas.Portfolios.Controllers
     [Area("Portfolios")]
     public class DashboardController : Controller
     {
+        private readonly IPortfolioSummaryRepository _portfolioSummaryRepository;
+        private readonly ICoinMarketCapAPI _cmcAPI;
         private readonly ICryptoRepository _cryptoRepository;
         private readonly ICryptoPriceRepository _cryptoPriceRepository;
-        private readonly IDashboardChartsData _chartsData;
+        private readonly ICryptoAssetChartData _chartsData;
 
-        public DashboardController(ICryptoRepository cryptoRepository, ICryptoPriceRepository cryptoPriceRepository, IDashboardChartsData chartsData)
+        public DashboardController(IPortfolioSummaryRepository portfolioSummaryRepository, ICoinMarketCapAPI cmcAPI,ICryptoRepository cryptoRepository, ICryptoPriceRepository cryptoPriceRepository, ICryptoAssetChartData chartsData)
         {
+            _portfolioSummaryRepository = portfolioSummaryRepository;
+            _cmcAPI = cmcAPI;
             _cryptoRepository = cryptoRepository;
             _cryptoPriceRepository = cryptoPriceRepository;
             _chartsData = chartsData;
         }
 
         public async Task<IActionResult> Index()
-        {            
-            var crypto = await _cryptoRepository.GetByIdAsync(1);
-
-            return View(crypto);
+        {
+            return View(await _portfolioSummaryRepository.GetAllAsync());
         }
 
+
         [HttpGet]
-        public async Task<JsonResult> GetData()
+        public async Task<JsonResult> GetAssetAllocationData()
         {
 
-            var cryptoInvestmentPercentages = await _chartsData.GetCryptoInvestmentPercentageAsync(1);
+            var cryptoInvestmentPercentages = await _chartsData.GetCryptoAssetAllocationDataAsync(1);
 
             var data = new JArray { };
 
-            data.Add(new JArray { "Crypto", "Percentage" });
+            data.Add(new JArray { "Crypto", "Allocation" });
 
             cryptoInvestmentPercentages.ForEach(c =>
             {
@@ -52,7 +54,7 @@ namespace AltFutureWebApp.Areas.Portfolios.Controllers
         public async Task<JsonResult> GetAssetPerformanceData()
         {
 
-            var cryptoInvestmentPerformances = await _chartsData.GetCryptoInvestmentPerformanceAsync(1);
+            var cryptoInvestmentPerformances = await _chartsData.GetCryptoAssetPerformanceDataAsync(1);
 
             var data = new JArray { };
 
