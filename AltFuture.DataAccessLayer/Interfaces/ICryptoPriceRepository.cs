@@ -1,4 +1,4 @@
-﻿using AltFuture.Models;
+﻿using AltFuture.DataAccessLayer.Models;
 
 namespace AltFuture.DataAccessLayer.Interfaces
 {

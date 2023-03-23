@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AltFuture.BusinessLogicLayer.Models.DTOs;
 using AltFuture.DataAccessLayer.Services;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 using System.Collections.Generic;
 using AutoMapper;
 using AltFuture.DataAccessLayer.Interfaces;

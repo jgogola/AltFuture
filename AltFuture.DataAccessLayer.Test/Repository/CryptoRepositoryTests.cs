@@ -1,6 +1,6 @@
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Repository;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 

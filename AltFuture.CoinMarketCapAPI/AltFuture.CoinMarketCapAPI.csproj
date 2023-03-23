@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
-    <ProjectReference Include="..\AltFuture.Models\AltFuture.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AltFuture.Models.StoredProcs
+namespace AltFuture.DataAccessLayer.Models.StoredProcs
 {
     public class PortfolioSummaryGetAll
     {

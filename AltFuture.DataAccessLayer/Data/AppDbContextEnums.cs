@@ -1,5 +1,4 @@
-﻿using AltFuture.Models;
-using AltFuture.Models.StoredProcs;
+﻿using AltFuture.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AltFuture.DataAccessLayer.Data

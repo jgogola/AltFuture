@@ -1,4 +1,4 @@
-﻿namespace AltFuture.Models
+﻿namespace AltFuture.DataAccessLayer.Models
 {
     public class AppUser
     {

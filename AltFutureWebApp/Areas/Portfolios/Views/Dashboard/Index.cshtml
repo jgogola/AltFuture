@@ -1,4 +1,4 @@
-﻿@using AltFuture.Models.StoredProcs;
+﻿@using AltFuture.DataAccessLayer.Models.StoredProcs;
 @model IEnumerable<PortfolioSummaryGetAll>
 @{
     var bodyData = Model.Where(crypto => crypto.RowType == 1).ToList();

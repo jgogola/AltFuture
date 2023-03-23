@@ -4,7 +4,7 @@ using AltFutureWebApp.Helpers;
 using AltFutureWebApp.Enums;
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Interfaces;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 
 namespace AltFutureWebApp.Areas.Admin.Controllers
 {

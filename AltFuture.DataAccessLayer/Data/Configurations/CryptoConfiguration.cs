@@ -1,4 +1,4 @@
-﻿using AltFuture.Models;
+﻿using AltFuture.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

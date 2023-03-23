@@ -1,7 +1,7 @@
 ﻿using AltFuture.DataAccessLayer.Models.DTOs.CryptoAssetCharts;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces.Services;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 
 namespace AltFuture.BusinessLogicLayer.Services
 {

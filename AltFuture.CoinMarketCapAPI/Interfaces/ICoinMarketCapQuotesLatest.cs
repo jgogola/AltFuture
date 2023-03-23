@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 
 namespace AltFuture.CoinMarketCapAPI.Interfaces
 {

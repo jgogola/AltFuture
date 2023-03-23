@@ -1,4 +1,4 @@
-﻿using AltFuture.Models;
+﻿using AltFuture.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

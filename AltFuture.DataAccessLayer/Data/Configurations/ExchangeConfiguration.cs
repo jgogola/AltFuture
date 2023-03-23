@@ -1,5 +1,5 @@
 ﻿using AltFuture.DataAccessLayer.Data.Enums;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;

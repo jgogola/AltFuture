@@ -1,5 +1,5 @@
 ﻿using AltFuture.BusinessLogicLayer.Models.DTOs;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 using AutoMapper;
 using AltFuture.DataAccessLayer.Interfaces.Services;
 

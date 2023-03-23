@@ -4,7 +4,7 @@ using AltFuture.CoinMarketCapAPI.Models.EndPoints;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces.Services;
 using AltFuture.DataAccessLayer.Services;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;

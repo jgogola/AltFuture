@@ -1,4 +1,4 @@
-﻿using AltFuture.Models;
+﻿using AltFuture.DataAccessLayer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -223,7 +223,7 @@ namespace AltFuture.DataAccessLayer.Data
                 {
                     context.Transactions.AddRange(new List<Transaction>
                     {
-                        new AltFuture.Models.Transaction()
+                        new AltFuture.DataAccessLayer.Models.Transaction()
                         {
                             TransactionReferenceNum = 1000,
                             AppUserId = 1,
@@ -238,7 +238,7 @@ namespace AltFuture.DataAccessLayer.Data
                             ToExchangeId = null,
                             CreatedDate = DateTime.Now
                         },
-                        new AltFuture.Models.Transaction()
+                        new AltFuture.DataAccessLayer.Models.Transaction()
                         {
                             TransactionReferenceNum = 1001,
                             AppUserId = 1,
@@ -253,7 +253,7 @@ namespace AltFuture.DataAccessLayer.Data
                             ToExchangeId = null,
                             CreatedDate = DateTime.Now
                         },
-                        new AltFuture.Models.Transaction()
+                        new AltFuture.DataAccessLayer.Models.Transaction()
                         {
                             TransactionReferenceNum = 1003,
                             AppUserId = 1,
@@ -268,7 +268,7 @@ namespace AltFuture.DataAccessLayer.Data
                             ToExchangeId = null,
                             CreatedDate = DateTime.Now
                         },
-                        new AltFuture.Models.Transaction()
+                        new AltFuture.DataAccessLayer.Models.Transaction()
                         {
                             TransactionReferenceNum = 2001,
                             AppUserId = 1,
@@ -283,7 +283,7 @@ namespace AltFuture.DataAccessLayer.Data
                             ToExchangeId = null,
                             CreatedDate = DateTime.Now
                         },
-                        new AltFuture.Models.Transaction()
+                        new AltFuture.DataAccessLayer.Models.Transaction()
                         {
                             TransactionReferenceNum = 2002,
                             AppUserId = 1,

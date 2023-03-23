@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AltFuture.Models
+namespace AltFuture.DataAccessLayer.Models
 {
     public class Transaction
     {

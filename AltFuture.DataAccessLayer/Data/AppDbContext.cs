@@ -1,7 +1,6 @@
 ﻿using AltFuture.DataAccessLayer.Data.Configurations;
-using AltFuture.DataAccessLayer.Data.Enums;
-using AltFuture.Models;
-using AltFuture.Models.StoredProcs;
+using AltFuture.DataAccessLayer.Models;
+using AltFuture.DataAccessLayer.Models.StoredProcs;
 using Microsoft.EntityFrameworkCore;
 
 namespace AltFuture.DataAccessLayer.Data

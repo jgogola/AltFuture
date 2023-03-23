@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AltFuture.Models
+namespace AltFuture.DataAccessLayer.Models
 {
     public class Exchange
     {

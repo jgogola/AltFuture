@@ -1,6 +1,6 @@
 ﻿using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Interfaces;
-using AltFuture.Models.StoredProcs;
+using AltFuture.DataAccessLayer.Models.StoredProcs;
 using Microsoft.EntityFrameworkCore;
 
 namespace AltFuture.DataAccessLayer.Repository

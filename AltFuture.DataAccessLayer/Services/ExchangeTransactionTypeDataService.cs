@@ -1,6 +1,6 @@
 ﻿using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces.Services;
-using AltFuture.Models;
+using AltFuture.DataAccessLayer.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AltFuture.DataAccessLayer.Services

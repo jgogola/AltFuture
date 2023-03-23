@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AltFuture.Models
+namespace AltFuture.DataAccessLayer.Models
 {
     public class Crypto
     {
