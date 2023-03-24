@@ -26,7 +26,7 @@ namespace AltFuture.WebApp.Controllers
         {
             ViewBag.DateLastSynced = await _coinMarketCapQuotesLatest.SyncCacheAsync();
 
-            return View(await _cryptoPricesRepository.GetLatestAsync());
+            return View(await _cryptoPricesRepository.GetLatestPricesAsync());
         }
 
         public IActionResult Privacy()

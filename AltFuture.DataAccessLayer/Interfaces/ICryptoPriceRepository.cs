@@ -6,7 +6,7 @@ namespace AltFuture.DataAccessLayer.Interfaces
     {
         Task<IEnumerable<CryptoPrice>> GetAllAsync();
 
-        Task<IEnumerable<CryptoPrice>> GetLatestAsync();
+        Task<IEnumerable<CryptoPrice>> GetLatestPricesAsync();
 
         Task<DateTime> GetLastSyncedDate();
 

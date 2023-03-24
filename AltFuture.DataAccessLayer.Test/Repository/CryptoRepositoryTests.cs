@@ -41,6 +41,7 @@ namespace AltFuture.WebApp.Test.Repository
             //Arrange:
             var dbContext = await GetDbContext();
             var cryptoRepository = new CryptoRepository(dbContext);
+            var origCount = dbContext.Cryptos.Count();
 
             //Act:
             var result = await cryptoRepository.GetAllAsync();
@@ -48,7 +49,7 @@ namespace AltFuture.WebApp.Test.Repository
             //Assertion:
             result.Should().NotBeEmpty()
                 .And.BeOfType<List<Crypto>>()
-                .And.HaveCount(12);
+                .And.HaveCount(origCount);
         }
 
         [Fact]
@@ -74,12 +75,13 @@ namespace AltFuture.WebApp.Test.Repository
             //Arrange:
             var dbContext = await GetDbContext();
             var cryptoRepository = new CryptoRepository(dbContext);
+            var origCount = dbContext.Cryptos.Count();
 
             //Acct:
             var result = await cryptoRepository.GetCountAsync();
 
             //Assertion:
-            result.Should().Be(12);
+            result.Should().Be(origCount);
         }
 
         [Fact]
@@ -93,14 +95,15 @@ namespace AltFuture.WebApp.Test.Repository
             };
             var dbContext = await GetDbContext();
             var cryptoRepository = new CryptoRepository(dbContext);
+            var origCount = dbContext.Cryptos.Count();
 
             //Act:
             var result = cryptoRepository.Add(crypto);
-            var count = await cryptoRepository.GetCountAsync();
+            var newCount = dbContext.Cryptos.Count();
 
 
             result.Should().BeTrue();
-            count.Should().Be(13);
+            newCount.Should().Be(origCount+1);
         }
 
         //[Fact]
@@ -133,21 +136,22 @@ namespace AltFuture.WebApp.Test.Repository
             //Arrange:
             var crypto = new Crypto()
             {
-                CryptoName = "Bitcoin",
-                TickerSymbol = "BTC"
+                CryptoName = "TestCoin",
+                TickerSymbol = "TCX"
             };
             var dbContext = await GetDbContext();
             var cryptoRepository = new CryptoRepository(dbContext);
+            var origCount = dbContext.Cryptos.Count();
 
             //Act:
-            cryptoRepository.Add(crypto);
-            var result = cryptoRepository.Delete(crypto);
-            var count = await cryptoRepository.GetCountAsync();
+            cryptoRepository.Add(crypto); // Add TestCoin
+            var result = cryptoRepository.Delete(crypto); //Remove TestCoin
+            var newCount = dbContext.Cryptos.Count();
 
 
             //Assertion:
             result.Should().BeTrue();
-            count.Should().Be(12);
+            newCount.Should().Be(origCount);
         }
 
 

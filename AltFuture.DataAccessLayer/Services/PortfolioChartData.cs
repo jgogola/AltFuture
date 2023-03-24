@@ -40,7 +40,7 @@ namespace AltFuture.DataAccessLayer.Services
 
         public async Task<List<AssetPerformanceDataDto>> GetAssetPerformanceDataAsync(int userId)
         {
-            var prices = await _cryptoPriceRepository.GetLatestAsync();
+            var prices = await _cryptoPriceRepository.GetLatestPricesAsync();
             var transactions = await _transactionRepository.GetAllForUserAsync(userId);
 
             var assetPerformanceData = from price in prices

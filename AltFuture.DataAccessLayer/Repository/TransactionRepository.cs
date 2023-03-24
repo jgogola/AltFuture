@@ -23,7 +23,10 @@ namespace AltFuture.DataAccessLayer.Repository
 
         public async Task<IEnumerable<Transaction>> GetAllForUserAsync(int userId)
         {
-            return await _context.Transactions.Include(t => t.FromExchange).Include(t => t.ExchangeTransactionType).Where(t => t.AppUserId == userId).ToListAsync();
+            return await _context.Transactions.Include(t => t.FromExchange)
+                                              .Include(t => t.ExchangeTransactionType)
+                                              .Where(t => t.AppUserId == userId)
+                                              .ToListAsync();
         }
 
         public async Task<Transaction> GetByIdAsync(int id)
