@@ -183,3 +183,8 @@
 	- Updated namespaces and project references.	
 - Naming convention clean up of PortfolioChartData service and methods.
 - Created new pie chart feature for showing Exchange Usage data on dashboard.
+
+## 3/24/2023
+- Changed method name of CryptoPriceRepository GetLastestAsync to GetLatestPricesAsync.
+- Improved LINQ query for CryptoPriceRepository.GetLatestPricesAsnyc
+- Changed hard coded count tests to dynamic count in CryptoRespoitoryTests.cs
