@@ -195,3 +195,7 @@
 - Did this in order to build it from the ground up using SOLID design principles and decoupling from concrete dependencies on using the CoinMarketCap API.
 - Any market data API can now easily be swapped in or out without affecting any high-level entities.
 - Switched from using a Named HttpClient to a Typed HttpClient.
+
+### 3/30/2023
+- Moved PortfoliochartData service from DLL to BLL. It was in wrong layer.
+- Moved BLL.Models.DTOs.CoinbaseTransactionHistoryDto.cs to BLL.Models.ExchangeTransaction folder in prep for building out more Exchange Transaction import features.

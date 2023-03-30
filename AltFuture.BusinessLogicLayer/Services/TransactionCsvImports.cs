@@ -2,7 +2,7 @@
 using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
-using AltFuture.BusinessLogicLayer.Models.DTOs;
+using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 
 namespace AltFuture.BusinessLogicLayer.Services
 {

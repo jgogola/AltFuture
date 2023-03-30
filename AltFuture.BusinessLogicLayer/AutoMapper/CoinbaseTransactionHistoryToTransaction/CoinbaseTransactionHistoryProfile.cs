@@ -1,5 +1,5 @@
 ﻿using AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseAssetToCryptoResolver;
-using AltFuture.BusinessLogicLayer.Models.DTOs;
+using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 using AltFuture.DataAccessLayer.Data.Enums;
 using AltFuture.DataAccessLayer.Models;
 using AutoMapper;

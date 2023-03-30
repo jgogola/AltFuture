@@ -1,7 +1,7 @@
-﻿using AltFuture.BusinessLogicLayer.Models.DTOs;
-using AltFuture.DataAccessLayer.Models;
+﻿using AltFuture.DataAccessLayer.Models;
 using AutoMapper;
 using AltFuture.DataAccessLayer.Interfaces.Services;
+using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 
 namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseAssetToCryptoResolver
 {

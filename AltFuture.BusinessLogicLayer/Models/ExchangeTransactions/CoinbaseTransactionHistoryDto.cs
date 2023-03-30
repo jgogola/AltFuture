@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AltFuture.BusinessLogicLayer.Models.DTOs
+namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
 {
     public class CoinbaseTransactionHistoryDto
     {

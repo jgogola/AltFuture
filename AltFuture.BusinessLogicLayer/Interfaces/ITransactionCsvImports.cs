@@ -1,4 +1,4 @@
-﻿using AltFuture.BusinessLogicLayer.Models.DTOs;
+﻿using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 
 namespace AltFuture.BusinessLogicLayer.Interfaces
 {

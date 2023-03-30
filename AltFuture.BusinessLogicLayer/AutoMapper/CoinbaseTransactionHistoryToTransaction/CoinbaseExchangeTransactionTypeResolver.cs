@@ -1,4 +1,4 @@
-﻿using AltFuture.BusinessLogicLayer.Models.DTOs;
+﻿using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 using AltFuture.DataAccessLayer.Data.Enums;
 using AltFuture.DataAccessLayer.Interfaces.Services;
 using AltFuture.DataAccessLayer.Models;
