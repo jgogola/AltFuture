@@ -184,7 +184,13 @@
 - Naming convention clean up of PortfolioChartData service and methods.
 - Created new pie chart feature for showing Exchange Usage data on dashboard.
 
-## 3/24/2023
+### 3/24/2023
 - Changed method name of CryptoPriceRepository GetLastestAsync to GetLatestPricesAsync.
 - Improved LINQ query for CryptoPriceRepository.GetLatestPricesAsnyc
 - Changed hard coded count tests to dynamic count in CryptoRespoitoryTests.cs
+
+### 3/25/2023 - 3/29/2023
+- Removed AltFuture.CoinMarketCapAPI
+- Rewrote as AltFuture.MarketDataConsumer
+- Did this in order to build it from the ground up using SOLID design principles and decoupling from concrete dependencies on using the CoinMarketCap API.
+- Any market data API can now easily be swapped in or out without affecting any high-level entities.

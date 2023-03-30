@@ -9,13 +9,13 @@ using AltFuture.CoinMarketCapAPI.Models.CryptoQuotes;
 
 namespace AltFuture.CoinMarketCapAPI.Services
 {
-    public class CoinMarketCapAPI : ICoinMarketCapAPI
+    public class CoinMarketCapAPIOLD : ICoinMarketCapAPI
     {
 
         private readonly IHttpClientFactory _clientFactory;
         private readonly CoinMarketCapEndPoints _endPoints;
 
-        public CoinMarketCapAPI(IHttpClientFactory clientFactory, IOptions<CoinMarketCapEndPoints> endPoints)
+        public CoinMarketCapAPIOLD(IHttpClientFactory clientFactory, IOptions<CoinMarketCapEndPoints> endPoints)
         {
             _clientFactory = clientFactory;
             _endPoints = endPoints.Value;

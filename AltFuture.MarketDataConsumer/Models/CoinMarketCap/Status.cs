@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AltFuture.CoinMarketCapAPI.Models
+namespace AltFuture.MarketDataConsumer.Models.CoinMarketCap
 {
     public class Status
     {

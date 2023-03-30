@@ -1,7 +1,5 @@
-﻿using AltFuture.CoinMarketCapAPI.Interfaces;
-using AltFuture.DataAccessLayer.Interfaces;
+﻿using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces.Services;
-using AltFuture.DataAccessLayer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
@@ -11,15 +9,16 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
     public class DashboardController : Controller
     {
         private readonly IPortfolioSummaryRepository _portfolioSummaryRepository;
-        private readonly ICoinMarketCapAPI _cmcAPI;
         private readonly ICryptoRepository _cryptoRepository;
         private readonly ICryptoPriceRepository _cryptoPriceRepository;
         private readonly IPortfolioChartData _portfolioChartData;
 
-        public DashboardController(IPortfolioSummaryRepository portfolioSummaryRepository, ICoinMarketCapAPI cmcAPI,ICryptoRepository cryptoRepository, ICryptoPriceRepository cryptoPriceRepository, IPortfolioChartData portfolioChartData)
+        public DashboardController(IPortfolioSummaryRepository portfolioSummaryRepository, 
+                                   ICryptoRepository cryptoRepository, 
+                                   ICryptoPriceRepository cryptoPriceRepository, 
+                                   IPortfolioChartData portfolioChartData)
         {
             _portfolioSummaryRepository = portfolioSummaryRepository;
-            _cmcAPI = cmcAPI;
             _cryptoRepository = cryptoRepository;
             _cryptoPriceRepository = cryptoPriceRepository;
             _portfolioChartData = portfolioChartData;

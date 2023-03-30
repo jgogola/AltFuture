@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace AltFuture.CoinMarketCapAPI.Services
 {
-    public class CoinMarketCapQuotesLatest : ICoinMarketCapQuotesLatest
+    public class CoinMarketCapQuotesLatestOLD : ICoinMarketCapQuotesLatest
     {
 
         private readonly List<Crypto> _cryptos;
@@ -23,7 +23,7 @@ namespace AltFuture.CoinMarketCapAPI.Services
         private readonly ICoinMarketCapAPI _cmcApi;
 
 
-        public CoinMarketCapQuotesLatest(IOptions<CoinMarketCapEndPoints> coinMarketCapEndPoints, ICryptoDataService cryptoDataService, ICryptoPriceRepository cryptoPriceRepository, ICoinMarketCapAPI cmcApi)
+        public CoinMarketCapQuotesLatestOLD(IOptions<CoinMarketCapEndPoints> coinMarketCapEndPoints, ICryptoDataService cryptoDataService, ICryptoPriceRepository cryptoPriceRepository, ICoinMarketCapAPI cmcApi)
         {
             _cryptos = cryptoDataService.CryptoList;
             _coinMarketCapEndPoints = coinMarketCapEndPoints.Value;

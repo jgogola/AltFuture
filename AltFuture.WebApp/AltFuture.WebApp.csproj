@@ -38,8 +38,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\AltFuture.BusinessLogicLayer\AltFuture.BusinessLogicLayer.csproj" />
-		<ProjectReference Include="..\AltFuture.CoinMarketCapAPI\AltFuture.CoinMarketCapAPI.csproj" />
 		<ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
+		<ProjectReference Include="..\AltFuture.MarketDataConsumer\AltFuture.MarketDataConsumer.csproj" />
 	</ItemGroup>
 
 </Project>

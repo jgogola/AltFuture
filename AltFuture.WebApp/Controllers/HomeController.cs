@@ -1,5 +1,5 @@
 ﻿
-using AltFuture.CoinMarketCapAPI.Interfaces;
+using AltFuture.BusinessLogicLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.WebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -11,20 +11,20 @@ namespace AltFuture.WebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICryptoPriceRepository _cryptoPricesRepository;
-        private readonly ICoinMarketCapQuotesLatest _coinMarketCapQuotesLatest;
+        private readonly IMarketDataService _marketDataService;
 
         public HomeController(ILogger<HomeController> logger, 
                               ICryptoPriceRepository cryptoPricesRepository, 
-                              ICoinMarketCapQuotesLatest coinMarketCapQuotesLatest)
+                              IMarketDataService marketDataService)
         {
             _logger = logger;
             _cryptoPricesRepository = cryptoPricesRepository;
-            _coinMarketCapQuotesLatest = coinMarketCapQuotesLatest;
+            _marketDataService = marketDataService;
         }
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.DateLastSynced = await _coinMarketCapQuotesLatest.SyncCacheAsync();
+            ViewBag.DateLastSynced = await _marketDataService.SyncMarketPricesCacheAsync();
 
             return View(await _cryptoPricesRepository.GetLatestPricesAsync());
         }

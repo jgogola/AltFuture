@@ -1,42 +1,29 @@
-﻿using Newtonsoft.Json;
+﻿
+using Newtonsoft.Json;
 
-namespace AltFuture.CoinMarketCapAPI.Models.CryptoQuotes
+namespace AltFuture.MarketDataConsumer.Models.MarketDataClient
 {
-    public class FiatPrice
+    public class MarketPriceData
     {
-        public string FiatSymbol { get; set; }
-        public decimal Price { get; set; } = decimal.Zero;
-
-        [JsonProperty("volume_24h")]
+        public int CryptoId { get; set; }
+        public string CryptoName { get; set; }
+        public string TickerSymbol { get; set; }
+        public long? MaxSupply { get; set; } = 0;
+        public long? CirculatingSupply { get; set; } = 0;
+        public long? TotalSupply { get; set; } = 0;
+        public int MarketRank { get; set; } = 0;
+        public DateTime DateRecorded { get; set; } 
+        public string FiatSymbol { get; set; } = string.Empty;
+        public decimal MarketPrice { get; set; } = decimal.Zero;
         public decimal? Volume24h { get; set; } = decimal.Zero;
-
-        [JsonProperty("volume_change_24h")]
         public decimal? VolumeChange24h { get; set; } = decimal.Zero;
-
-        [JsonProperty("percent_change_1h")]
         public decimal? PercentChange1h { get; set; } = decimal.Zero;
-
-        [JsonProperty("percent_change_24h")]
         public decimal? PercentChange24h { get; set; } = decimal.Zero;
-
-        [JsonProperty("percent_change_7d")]
         public decimal? PercentChange7d { get; set; } = decimal.Zero;
-
-        [JsonProperty("percent_change_30d")]
         public decimal? PercentChange30d { get; set; } = decimal.Zero;
-
-        [JsonProperty("percent_change_60d")]
         public decimal? PercentChange60d { get; set; } = decimal.Zero;
-
-        [JsonProperty("percent_change_90d")]
         public decimal? PercentChange90d { get; set; } = decimal.Zero;
-
-        [JsonProperty("market_cap")]
         public decimal? MarketCap { get; set; } = decimal.Zero;
-
-        [JsonProperty("market_cap_dominance")]
         public decimal? MarketCapDominance { get; set; } = decimal.Zero;
-
     }
-
 }
