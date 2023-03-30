@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
-    <ProjectReference Include="..\AltFuture.MarketDataClient\AltFuture.MarketDataConsumer.csproj" />
+    <ProjectReference Include="..\AltFuture.MarketDataConsumer\AltFuture.MarketDataConsumer.csproj" />
   </ItemGroup>
 
 </Project>

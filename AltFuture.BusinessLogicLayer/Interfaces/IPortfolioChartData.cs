@@ -1,7 +1,7 @@
-﻿using AltFuture.DataAccessLayer.Models.DTOs.PortfolioCharts;
+﻿using AltFuture.BusinessLogicLayer.Models.PortfolioCharts;
 
 
-namespace AltFuture.DataAccessLayer.Interfaces.Services
+namespace AltFuture.BusinessLogicLayer.Interfaces
 {
     public interface IPortfolioChartData
     {

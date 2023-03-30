@@ -1,10 +1,11 @@
-﻿using AltFuture.DataAccessLayer.Models.DTOs.PortfolioCharts;
+﻿using AltFuture.BusinessLogicLayer.Models.PortfolioCharts;
+using AltFuture.BusinessLogicLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces.Services;
 using AltFuture.DataAccessLayer.Models;
 using AltFuture.DataAccessLayer.Data.Enums;
 
-namespace AltFuture.DataAccessLayer.Services
+namespace AltFuture.BusinessLogicLayer.Services
 {
     public class PortfolioChartData : IPortfolioChartData
     {

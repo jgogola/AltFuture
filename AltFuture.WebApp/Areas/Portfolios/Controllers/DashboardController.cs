@@ -1,5 +1,5 @@
 ﻿using AltFuture.DataAccessLayer.Interfaces;
-using AltFuture.DataAccessLayer.Interfaces.Services;
+using AltFuture.BusinessLogicLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 

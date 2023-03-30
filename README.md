@@ -194,3 +194,4 @@
 - Rewrote as AltFuture.MarketDataConsumer
 - Did this in order to build it from the ground up using SOLID design principles and decoupling from concrete dependencies on using the CoinMarketCap API.
 - Any market data API can now easily be swapped in or out without affecting any high-level entities.
+- Switched from using a Named HttpClient to a Typed HttpClient.

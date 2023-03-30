@@ -1,4 +1,4 @@
-﻿namespace AltFuture.DataAccessLayer.Models.DTOs.PortfolioCharts
+﻿namespace AltFuture.BusinessLogicLayer.Models.PortfolioCharts
 {
     public class AssetAllocationDataDto
     {

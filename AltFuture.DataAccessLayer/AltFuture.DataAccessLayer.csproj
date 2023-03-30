@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <Compile Remove="Data\Configurations\TransactionConfiguration.cs" />
+    <Compile Remove="Interfaces\Services\IPortfolioChartData.cs" />
     <Compile Remove="Repository\ExchangeRepository.cs" />
     <Compile Remove="Repository\TransactionTypeRepository.cs" />
+    <Compile Remove="Services\PortfolioChartData.cs" />
     <Compile Remove="Services\TransactionTypeDataService.cs" />
   </ItemGroup>
 
