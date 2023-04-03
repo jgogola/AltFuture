@@ -1,20 +1,28 @@
-﻿using CsvHelper.Configuration.Attributes;
+﻿using AltFuture.BusinessLogicLayer.Interfaces.Models;
+using CsvHelper.Configuration.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
 {
-    public class CoinbaseTransactionHistoryDto
+    public class CoinbaseTransactionHistoryDto : IExchangeTransactionHistoryDto
     {
         [Name("Timestamp")]
         public DateTime TransactionDate { get; set; }
 
         [Name("Transaction Type")]
-        public string TransactionType { get; set; }
+        public string ExchangeTransactionTypeName { get; set; }
 
-        public string Asset { get; set; }
+        [Name("Asset")]
+        public string CryptoAsset { get; set; }
 
         [Name("Quantity Transacted")]
-        public float Quantity { get; set; }
+        public float QuantityCsv { get; set; }
+
+        
+        private decimal quantityIgnoreSet = Decimal.Zero;
+
+        [Ignore]
+        public decimal Quantity { get => (decimal)QuantityCsv; set => quantityIgnoreSet = value; }
 
         [Name("Spot Price Currency")]
         public string Currency { get; set; }

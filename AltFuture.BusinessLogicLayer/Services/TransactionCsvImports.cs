@@ -20,18 +20,6 @@ namespace AltFuture.BusinessLogicLayer.Services
         }
 
 
-
-        public async Task<IEnumerable<CoinbaseTransactionHistoryDto>> ImportCoinbaseTransactionHistory(StreamReader reader)
-        {
-            return await Task.Run(()=>
-            { 
-                using var csvReader = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture));
-                var incomingTransactions = csvReader.GetRecords<CoinbaseTransactionHistoryDto>().ToList();
-
-                return incomingTransactions;
-            });
-        }
-
         public async Task<IEnumerable<T>> ImportExchangeTransactionHistory<T>(StreamReader reader) where T : IExchangeTransactionHistoryDto
         {
             return await Task.Run(() =>

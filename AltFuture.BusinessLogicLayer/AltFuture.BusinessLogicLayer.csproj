@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AutoMapper\CoinbaseTransactionHistoryToTransaction\**" />
+    <EmbeddedResource Remove="AutoMapper\CoinbaseTransactionHistoryToTransaction\**" />
+    <None Remove="AutoMapper\CoinbaseTransactionHistoryToTransaction\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Models\ExchangeTransactions\CryptoDotComTransactionHistoryDto.cs" />
   </ItemGroup>
 
@@ -18,10 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
     <ProjectReference Include="..\AltFuture.MarketDataConsumer\AltFuture.MarketDataConsumer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="AutoMapper\CryptoDotComTransactionHitoryToTransaction\" />
   </ItemGroup>
 
 </Project>

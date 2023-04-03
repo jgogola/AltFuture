@@ -7,6 +7,7 @@ using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 using AltFuture.DataAccessLayer.Data.Enums;
 using System.IO;
 using AutoMapper.QueryableExtensions;
+using System.Collections.Generic;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
@@ -45,14 +46,17 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 var incomingCoinbaseTransactions = new List<CoinbaseTransactionHistoryDto>();
                 using (var reader = new StreamReader(csvFile.OpenReadStream()))
                 {
-                    incomingCoinbaseTransactions = (List<CoinbaseTransactionHistoryDto>)await _csvImports.ImportCoinbaseTransactionHistory(reader);
+                    incomingCoinbaseTransactions = (List<CoinbaseTransactionHistoryDto>)await _csvImports.ImportExchangeTransactionHistory<CoinbaseTransactionHistoryDto>(reader);
                 }
 
                 // AutoMap the incoming Coinbase transaction DTOs to the application's Transaction model.
                 var mappedTransactions = new List<Transaction>();
                 if(incomingCoinbaseTransactions.Any())
                 {
-                    mappedTransactions = _mapper.Map<List<Transaction>>(incomingCoinbaseTransactions);
+                    mappedTransactions = _mapper.Map<List<Transaction>>(incomingCoinbaseTransactions, opts =>
+                                                    {
+                                                        opts.Items["ExchangeId"] = (int)ExchangeEnum.Coinbase;
+                                                    });
                 }
 
                 // Save the range of Transactions into the DB.
@@ -98,9 +102,9 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             {
 
                 mappedTransactions = _mapper.Map<List<Transaction>>(incomingCryptoDotComTransactions.buyTypeTransactions, opts =>
-                                        {
-                                            opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
-                                        });
+                                                {
+                                                    opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
+                                                });
             }
 
             // AutoMap the "Reward" transactions the application's Transaction model.
@@ -108,9 +112,9 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             {
 
                 var mappedRewardTransactions = _mapper.Map<List<Transaction>>(incomingCryptoDotComTransactions.rewardtypeTransactions, opts =>
-                {
-                    opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
-                });
+                                                        {
+                                                            opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
+                                                        });
 
                 mappedTransactions.AddRange(mappedRewardTransactions);
             }

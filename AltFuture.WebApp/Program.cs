@@ -6,7 +6,6 @@ using AltFuture.BusinessLogicLayer.Interfaces;
 using AltFuture.BusinessLogicLayer.Services;
 using AltFuture.DataAccessLayer.Services;
 using AltFuture.DataAccessLayer.Interfaces.Services;
-using AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseTransactionHistoryToTransaction;
 using Newtonsoft.Json;
 using AltFuture.MarketDataConsumer.Interfaces;
 using AltFuture.MarketDataConsumer.Services;
@@ -66,7 +65,6 @@ builder.Services.AddSingleton<ICryptoDataService, CryptoDataService>();
 builder.Services.AddScoped<ITransactionCsvImports, TransactionCsvImports>();
 builder.Services.AddScoped<IPortfolioChartData, PortfolioChartData>();
 builder.Services.AddScoped<IMarketDataService, MarketDataService>();
-builder.Services.AddAutoMapper(typeof(CoinbaseTransactionHistoryProfile));
 builder.Services.AddAutoMapper(typeof(MarketDataPriceToCryptoPriceProfile));
 
 

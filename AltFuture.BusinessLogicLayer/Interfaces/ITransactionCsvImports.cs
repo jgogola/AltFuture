@@ -6,8 +6,6 @@ namespace AltFuture.BusinessLogicLayer.Interfaces
     public interface ITransactionCsvImports
     {
 
-        Task<IEnumerable<CoinbaseTransactionHistoryDto>> ImportCoinbaseTransactionHistory(StreamReader reader);
-
         Task<IEnumerable<T>> ImportExchangeTransactionHistory<T>(StreamReader reader) where T : IExchangeTransactionHistoryDto;
         Task<IEnumerable<T>> ImportExchangeTransactionHistory<T>(StreamReader reader, int[]? transactionTypeFilter = null) where T : IExchangeTransactionHistoryDto;
 
