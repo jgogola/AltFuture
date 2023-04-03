@@ -49,7 +49,41 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
                     ExchangeTransactionTypeId = 5,
                     ExchangeTransactionTypeName = "Learning Reward",
                     ExchangeId = (int)ExchangeEnum.Coinbase,
-                    TransactionTypeId = (int)TransactionTypeEnum.StakingReward,
+                    TransactionTypeId = (int)TransactionTypeEnum.PerkReward,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+
+                //Crypto.com CSV Transaction Types:
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 6,
+                    ExchangeTransactionTypeName = "viban_purchase",
+                    ExchangeId = (int)ExchangeEnum.CryptoDotCom,
+                    TransactionTypeId = (int)TransactionTypeEnum.Buy,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 7,
+                    ExchangeTransactionTypeName = "reimbursement",
+                    ExchangeId = (int)ExchangeEnum.CryptoDotCom,
+                    TransactionTypeId = (int)TransactionTypeEnum.PerkReward,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 8,
+                    ExchangeTransactionTypeName = "referral_card_cashback",
+                    ExchangeId = (int)ExchangeEnum.CryptoDotCom,
+                    TransactionTypeId = (int)TransactionTypeEnum.PerkReward,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 9,
+                    ExchangeTransactionTypeName = "card_cashback_reverted",
+                    ExchangeId = (int)ExchangeEnum.CryptoDotCom,
+                    TransactionTypeId = (int)TransactionTypeEnum.PerkReward,
                     DataImportTypeId = (int)DataImportTypeEnum.CSV
                 }
 
