@@ -1,11 +1,12 @@
 ﻿using AltFuture.BusinessLogicLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using AltFuture.BusinessLogicLayer.Models.DTOs;
-using AltFuture.DataAccessLayer.Services;
 using AltFuture.DataAccessLayer.Models;
-using System.Collections.Generic;
 using AutoMapper;
 using AltFuture.DataAccessLayer.Interfaces;
+using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
+using AltFuture.DataAccessLayer.Data.Enums;
+using System.IO;
+using AutoMapper.QueryableExtensions;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
@@ -63,5 +64,65 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
             return RedirectToAction("Coinbase"); // Redirect to the same page after processing the CSV
         }
+
+        public IActionResult CryptoDotCom()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CryptoDotCom(IFormFile csvFile)
+        {
+
+            // Read the CSV file and create a touple of CryptoDotCom "Buy/Reward" transaction DTOs.
+            (IEnumerable<CryptoDotComBuyTransactionHistoryDto> buyTypeTransactions, IEnumerable<CryptoDotComRewardTransactionHistoryDto> rewardtypeTransactions) incomingCryptoDotComTransactions;
+          
+            using (var reader = new StreamReader(csvFile.OpenReadStream()))
+            {
+
+                var transactionTypeFilter = new Dictionary<int, List<int>>
+                {
+                    {1, new List<int> { (int)TransactionTypeEnum.Buy } },
+                    {2, new List<int> { (int)TransactionTypeEnum.StakingReward, (int)TransactionTypeEnum.PerkReward } }
+                };
+
+                incomingCryptoDotComTransactions = await _csvImports.ImportExchangeTransactionHistory<CryptoDotComBuyTransactionHistoryDto, CryptoDotComRewardTransactionHistoryDto>(reader, 
+                                                                                                                                                                                     (int)ExchangeEnum.CryptoDotCom, 
+                                                                                                                                                                                     transactionTypeFilter);
+            }
+
+            // Process the incomming CryptoDotCom "Buy" and "Reward" transactions separately.
+            // AutoMap the "Buy" transactions the application's Transaction model.
+            var mappedTransactions = new List<Transaction>();
+            if (incomingCryptoDotComTransactions.buyTypeTransactions.Any())
+            {
+
+                mappedTransactions = _mapper.Map<List<Transaction>>(incomingCryptoDotComTransactions.buyTypeTransactions, opts =>
+                                        {
+                                            opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
+                                        });
+            }
+
+            // AutoMap the "Reward" transactions the application's Transaction model.
+            if (incomingCryptoDotComTransactions.rewardtypeTransactions.Any())
+            {
+
+                var mappedRewardTransactions = _mapper.Map<List<Transaction>>(incomingCryptoDotComTransactions.rewardtypeTransactions, opts =>
+                {
+                    opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
+                });
+
+                mappedTransactions.AddRange(mappedRewardTransactions);
+            }
+
+            // Save all the Transactions into the DB.
+            if (mappedTransactions.Any())
+            {
+                var saved = _transactionRepository.AddRangeAsync(mappedTransactions);
+            }
+
+            return RedirectToAction("CryptoDotCom");
+        }
+
     }
 }

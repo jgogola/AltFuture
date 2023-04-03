@@ -3,7 +3,7 @@ using AutoMapper;
 using AltFuture.DataAccessLayer.Interfaces.Services;
 using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 
-namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseAssetToCryptoResolver
+namespace AltFuture.BusinessLogicLayer.AutoMapper.CoinbaseTransactionHistoryToTransaction
 {
     internal class CoinbaseCryptoResolver : IValueResolver<CoinbaseTransactionHistoryDto, Transaction, int>
     {

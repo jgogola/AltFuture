@@ -1,6 +1,7 @@
 ﻿@using AltFuture.DataAccessLayer.Models.StoredProcs;
 @model IEnumerable<PortfolioSummaryGetAll>
 @{
+    ViewData["Title"] = "Portfolio Dashboard";
     var bodyData = Model.Where(crypto => crypto.RowType == 1).ToList();
     var footerData = Model.Where(crypto => crypto.RowType == 99).ToList()[0];
 }

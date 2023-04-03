@@ -199,3 +199,17 @@
 ### 3/30/2023
 - Moved PortfoliochartData service from DLL to BLL. It was in wrong layer.
 - Moved BLL.Models.DTOs.CoinbaseTransactionHistoryDto.cs to BLL.Models.ExchangeTransaction folder in prep for building out more Exchange Transaction import features.
+
+### 3/31/2023 - 4/2/2023
+- New CryptoDotCom Transaction History CSV Import feature.
+- The CSV data was not normalized and required specialized processing of records by "Buy" and "Reward" type subsets.
+- Created CryptoDotComBuyTransactionHistoryDto and CryptoDotComRewardTransactionHistoryDto objects to handle the mapping, calculations, and transfer of how the fields for both subset types needed to be processed.
+- Created an overloaded version of the ImportExchangeTransactionHistory method to accept in two generic types, restricted to be of interface type shared by DTOs, read and filter the CSV by subset type, and then return a touple of the two DTOs.
+- Created two AutoMapper profiles to map the DTOs into the entity model of Transaction.
+- Save all to the Transaction table.
+- Added needed Exchange, TransactionType, and ExchangeTransactionType data.
+- Migration"TransactionTypeDataUpdate"
+
+
+
+

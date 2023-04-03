@@ -12,5 +12,8 @@ namespace AltFuture.DataAccessLayer.Data.Enums
         StakingReward = 4,
         [Display(Name = "Loan Interest")]
         LoanInterest = 5,
+        [Display(Name = "Perk Reward")]
+        PerkReward = 6,
+        Deposit = 7
     }
 }

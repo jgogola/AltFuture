@@ -1,13 +1,13 @@
 ﻿
 @{
-    ViewData["Title"] = "Coinbase Transaction Import";
+    ViewData["Title"] = "Crypto.com Transaction Import";
 }
 
 
 <div class="container">
-    <h1 class="mt-4">Upload Coinbase CSV</h1>
+    <h1 class="mt-4">Upload Crypto.com CSV</h1>
 
-    <form asp-controller="TransactionImports" asp-action="Coinbase" method="post" enctype="multipart/form-data">
+    <form asp-controller="TransactionImports" asp-action="CryptoDotCom" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="csvFile">Choose CSV file</label>
             <input type="file" id="csvFile" name="csvFile" accept=".csv" class="form-control" required />
