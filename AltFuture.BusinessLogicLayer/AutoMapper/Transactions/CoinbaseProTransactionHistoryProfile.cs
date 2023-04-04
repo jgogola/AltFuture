@@ -6,15 +6,15 @@ using AutoMapper;
 
 namespace AltFuture.BusinessLogicLayer.AutoMapper.Transactions
 {
-    public class CoinbaseTransactionHistoryProfile : Profile
+    public class CoinbaseProTransactionHistoryProfile : Profile
     {
-        public CoinbaseTransactionHistoryProfile()
+        public CoinbaseProTransactionHistoryProfile()
         {
             int appUserId = 1;
-            int exchangeId = (int)ExchangeEnum.Coinbase;
+            int exchangeId = (int)ExchangeEnum.CoinbasePro;
             DateTime createdDate = DateTime.Now;
 
-            CreateMap<CoinbaseTransactionHistoryDto, Transaction>()
+            CreateMap<CoinbaseProTransactionHistoryDto, Transaction>()
                 .ForMember(dest => dest.AppUserId, opt => opt.MapFrom(src => appUserId))
                 .ForMember(dest => dest.CryptoId, opt => opt.MapFrom<CryptoAssetResolver>())
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => (decimal)src.Quantity))

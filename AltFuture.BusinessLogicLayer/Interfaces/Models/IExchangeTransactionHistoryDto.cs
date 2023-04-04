@@ -12,7 +12,7 @@ namespace AltFuture.BusinessLogicLayer.Interfaces.Models
     public interface IExchangeTransactionHistoryDto
     {
 
-        public string? CryptoAsset { get; set; }
+        public string CryptoAsset { get; set; }
 
         public string ExchangeTransactionTypeName { get; set; }
 
