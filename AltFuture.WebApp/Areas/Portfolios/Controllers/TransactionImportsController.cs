@@ -128,5 +128,43 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             return RedirectToAction("CryptoDotCom");
         }
 
+
+        public IActionResult CoinbasePro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CoinbasePro(IFormFile csvFile)
+        {
+            if (csvFile != null && csvFile.Length > 0)
+            {
+                // Read the CSV file and create a list of CoinbasePro transaction DTOs.
+                var incomingCoinbaseProTransactions = new List<CoinbaseProTransactionHistoryDto>();
+                using (var reader = new StreamReader(csvFile.OpenReadStream()))
+                {
+                    incomingCoinbaseProTransactions = (List<CoinbaseProTransactionHistoryDto>)await _csvImports.ImportExchangeTransactionHistory<CoinbaseProTransactionHistoryDto>(reader);
+                }
+
+                // AutoMap the incoming CoinbasePro transaction DTOs to the application's Transaction model.
+                var mappedTransactions = new List<Transaction>();
+                if (incomingCoinbaseProTransactions.Any())
+                {
+                    mappedTransactions = _mapper.Map<List<Transaction>>(incomingCoinbaseProTransactions, opts =>
+                    {
+                        opts.Items["ExchangeId"] = (int)ExchangeEnum.CoinbasePro;
+                    });
+                }
+
+                // Save the range of Transactions into the DB.
+                if (mappedTransactions.Any())
+                {
+                    var saved = _transactionRepository.AddRangeAsync(mappedTransactions);
+                }
+            }
+
+            return RedirectToAction("CoinbasePro"); // Redirect to the same page after processing the CSV
+        }
+
     }
 }

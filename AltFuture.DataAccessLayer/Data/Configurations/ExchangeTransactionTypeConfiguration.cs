@@ -85,9 +85,19 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
                     ExchangeId = (int)ExchangeEnum.CryptoDotCom,
                     TransactionTypeId = (int)TransactionTypeEnum.PerkReward,
                     DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+
+                //Coinbase Pro CSV Transaction Types:
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 10,
+                    ExchangeTransactionTypeName = "Buy",
+                    ExchangeId = (int)ExchangeEnum.CoinbasePro,
+                    TransactionTypeId = (int)TransactionTypeEnum.Buy,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
                 }
 
-             
+
             );
         }
     }

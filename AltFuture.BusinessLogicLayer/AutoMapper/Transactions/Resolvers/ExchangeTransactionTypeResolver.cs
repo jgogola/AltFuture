@@ -19,7 +19,7 @@ namespace AltFuture.BusinessLogicLayer.AutoMapper.Transactions.Resolvers
         public int Resolve(IExchangeTransactionHistoryDto source, Transaction destination, int destMember, ResolutionContext context)
         {
             var exchangeId = (int)context.Items["ExchangeId"];
-            return _exchangeTransactionTypeLookup.FirstOrDefault(t => t.ExchangeId == exchangeId && t.ExchangeTransactionTypeName == source.ExchangeTransactionTypeName).ExchangeTransactionTypeId;
+            return _exchangeTransactionTypeLookup.FirstOrDefault(t => t.ExchangeId == exchangeId && t.ExchangeTransactionTypeName.ToLower() == source.ExchangeTransactionTypeName.ToLower()).ExchangeTransactionTypeId;
         }
     }
 }

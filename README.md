@@ -210,6 +210,19 @@
 - Added needed Exchange, TransactionType, and ExchangeTransactionType data.
 - Migration"TransactionTypeDataUpdate"
 
+### 4/3/2023
+- Coinbase CSV Import feature refactored for reusability and maintainability.
+-- CoinbaseTransactionHistoryDto now implements the IExchangeTransactionHistoryDto to enforce common/expected fields related to all transactions.
+-- CSV processing is now done through the generic ImportExchangeTransactionHistory instead of the specific Coinbase method that is now deleted.
+-- Refactored the CoinbaseTransactionHistoryProfile to use the centralized common resolvers that any Dto that implements the IExchangeTransactionHistoryDto can use.
+
+### 4/4/2023
+- New CoinbasePro CSV Import feature
+-- Created CoinbaseProTransactionHistoryDto
+-- Created CoinbaseProTransactionHistoryProfile
+-- Added new ExchangeTransactionType record for CoinbasePro-Buy types. Migrated to DB.
+-- Added Controller action handler and View.
+
 
 
 
