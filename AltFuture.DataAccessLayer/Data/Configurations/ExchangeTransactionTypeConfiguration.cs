@@ -95,6 +95,24 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
                     ExchangeId = (int)ExchangeEnum.CoinbasePro,
                     TransactionTypeId = (int)TransactionTypeEnum.Buy,
                     DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+
+                //Etoro CSV Transaction Types:
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 11,
+                    ExchangeTransactionTypeName = "Open Position",
+                    ExchangeId = (int)ExchangeEnum.Etoro,
+                    TransactionTypeId = (int)TransactionTypeEnum.Buy,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 12,
+                    ExchangeTransactionTypeName = "Staking",
+                    ExchangeId = (int)ExchangeEnum.Etoro,
+                    TransactionTypeId = (int)TransactionTypeEnum.StakingReward,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
                 }
 
 
