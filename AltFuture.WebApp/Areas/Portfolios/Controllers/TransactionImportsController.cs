@@ -166,5 +166,47 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             return RedirectToAction("CoinbasePro"); // Redirect to the same page after processing the CSV
         }
 
+
+        public IActionResult Etoro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Etoro(IFormFile csvFile)
+        {
+            if (csvFile != null && csvFile.Length > 0)
+            {
+                int appUserId = 1;
+                int exchangeId = (int)ExchangeEnum.Etoro;
+                var incomingEtoroTransactions = new List<EtoroTransactionHistoryDto>();
+                var mappedTransactions = new List<Transaction>();
+
+                // Read the CSV file and create a list of exchange specific transaction DTOs.
+                using (var reader = new StreamReader(csvFile.OpenReadStream()))
+                {
+                    incomingEtoroTransactions = (List<EtoroTransactionHistoryDto>)await _csvImports.ImportExchangeTransactionHistory<EtoroTransactionHistoryDto>(reader);
+                }
+
+                // AutoMap the incoming exchange specific transaction DTOs to the application's Transaction model.
+                if (incomingEtoroTransactions.Any())
+                {
+                    mappedTransactions = _mapper.Map<List<Transaction>>(incomingEtoroTransactions, opts =>
+                                                {
+                                                    opts.Items["AppUserId"] = appUserId;
+                                                    opts.Items["ExchangeId"] = exchangeId;
+                                                });
+                }
+
+                // Save the range of Transactions into the DB.
+                if (mappedTransactions.Any())
+                {
+                    var saved = await _transactionRepository.AddRangeAsync(mappedTransactions);
+                }
+            }
+
+            return RedirectToAction("Etoro"); // Redirect to the same page after processing the CSV
+        }
+
     }
 }
