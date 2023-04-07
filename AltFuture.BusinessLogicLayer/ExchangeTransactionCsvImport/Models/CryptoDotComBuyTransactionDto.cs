@@ -1,14 +1,17 @@
-﻿using AltFuture.BusinessLogicLayer.Interfaces.Models;
+﻿using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
+using AltFuture.DataAccessLayer.Data.Enums;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
+namespace AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Models
 {
-    public class CryptoDotComBuyTransactionHistoryDto : IExchangeTransactionHistoryDto
+    public class CryptoDotComBuyTransactionDto : IExchangeTransactionDto
     {
+        public int ExchangeId { get => (int)ExchangeEnum.CryptoDotCom; }
+
         [Name("Timestamp (UTC)")]
         public DateTime TransactionDate { get; set; }
 
@@ -19,22 +22,21 @@ namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
         public string? CryptoAsset { get; set; } = null;
 
 
-        private decimal ignoreSetPrice = Decimal.Zero;
         [Ignore]
-        public decimal Price { get => TransactionTotal / Quantity; set => ignoreSetPrice = value; }
+        public decimal Price { get => TransactionTotal / Quantity; set => _ = value; }
 
 
-       // private decimal quantity = Decimal.Zero;
+        // private decimal quantity = Decimal.Zero;
         [Name("To Amount")]
         [Default(defaultValue: 0)]
-        public decimal Quantity { get; set; } = Decimal.Zero;
+        public decimal Quantity { get; set; } = decimal.Zero;
 
         [Ignore]
         [Default(defaultValue: 0)]
-        public decimal Fee { get; set; } = Decimal.Zero;
+        public decimal Fee { get; set; } = decimal.Zero;
 
 
-       // private decimal transactionTotal = Decimal.Zero;
+        // private decimal transactionTotal = Decimal.Zero;
         [Name("Native Amount (in USD)")]
         [Default(defaultValue: 0)]
         public decimal TransactionTotal { get; set; }

@@ -1,15 +1,15 @@
-﻿using AltFuture.BusinessLogicLayer.Interfaces.Models;
+﻿using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
+using AltFuture.DataAccessLayer.Data.Enums;
 using CsvHelper.Configuration.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
+
+namespace AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Models
 {
-    public class CoinbaseProTransactionHistoryDto : IExchangeTransactionHistoryDto
+    public class CoinbaseProTransactionDto : IExchangeTransactionDto
     {
+
+        public int ExchangeId { get => (int)ExchangeEnum.CoinbasePro; }
+
         [Name("created at")]
         public DateTime TransactionDate { get; set; }
 
@@ -29,7 +29,7 @@ namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
         public decimal Fee { get; set; }
 
 
-        private decimal transactionTotal = Decimal.Zero;
+        private decimal transactionTotal = decimal.Zero;
         [Name("total")]
         public decimal TransactionTotal { get => transactionTotal * -1; set => transactionTotal = value; }
 

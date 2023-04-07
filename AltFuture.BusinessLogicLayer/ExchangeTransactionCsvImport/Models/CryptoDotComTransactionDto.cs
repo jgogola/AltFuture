@@ -1,12 +1,12 @@
-﻿using AltFuture.BusinessLogicLayer.Interfaces.Models;
+﻿using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
+namespace AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Models
 {
-    public class CryptoDotComTransactionHistoryDto : IExchangeTransactionHistoryDto
+    public class CryptoDotComTransactionDto : IExchangeTransactionDto
     {
         [Name("Timestamp (UTC)")]
         public DateTime TransactionDate { get; set; }

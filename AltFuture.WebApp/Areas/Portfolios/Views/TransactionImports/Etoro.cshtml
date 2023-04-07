@@ -10,7 +10,7 @@
     <form asp-controller="TransactionImports" asp-action="Etoro" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="csvFile">Choose CSV file</label>
-            <input type="file" id="csvFile" name="csvFile" accept=".csv" class="form-control" required />
+            <input type="file" id="csvFile" name="csvFile" accept=".csv,.txt" class="form-control" required />
         </div>
         <button type="submit" class="btn btn-primary mt-3">Upload</button>
     </form>

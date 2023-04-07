@@ -223,6 +223,19 @@
 -- Added new ExchangeTransactionType record for CoinbasePro-Buy types. Migrated to DB.
 -- Added Controller action handler and View.
 
-
+### 4/5/2023 - 4/7/2023
+- #### Refactor ExchangeTransactionCsvImport feature to be properly OO and follow SOLID.
+- Organized all ExchangeTransaction feature files into a BLL folder ExchangeTransactionCsvImport
+- ImportExchangeTransactionHistory methods now include a optional Delimiter param.
+- Fixed bug in saving CSV data by adding the missing "await" keyword to  _transactionRepository.AddRangeAsync.
+- Clean up of DTOs that have a properties with contracted "sets", but don't actually need to implement them. Used discard "_".
+- Added an ExchangeId Property to each DTO that presets the constant value for the needed ExchangeId. More maintainable code. Less for the programmer to do and get wrong.
+- Created ExchangeTransactionCsvImport BLL class as the main processor service to accept an Exchanges CSV and  add it into the DB.
+- Created ExchangeTransactionCsvParser BLL class to abstract the code necessary to convert CSV data into the given DTOs.
+- Created ExchangeTransactionMapper BLL class to abstract the code necessary to map the different Exchange DTOs into the applications Transaction entity model.
+- New classes use Generics to decouple the code from the many specific ExchangeTransaction DTOs.
+- All ExchangeTransaction DTOs implement a base DTO of expected property conventions.
+- Fixed the issue with the Dashboard when then the result set is empty.
+- Set up the User Message partial to display a success message of how many transaction records were imported.
 
 

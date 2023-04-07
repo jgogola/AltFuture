@@ -1,11 +1,15 @@
-﻿using AltFuture.BusinessLogicLayer.Interfaces.Models;
+﻿using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
+using AltFuture.DataAccessLayer.Data.Enums;
 using CsvHelper.Configuration.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
+namespace AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Models
 {
-    public class CoinbaseTransactionHistoryDto : IExchangeTransactionHistoryDto
+    public class CoinbaseTransactionDto : IExchangeTransactionDto
     {
+
+        public int ExchangeId { get => (int)ExchangeEnum.Coinbase; }
+
         [Name("Timestamp")]
         public DateTime TransactionDate { get; set; }
 
@@ -18,11 +22,9 @@ namespace AltFuture.BusinessLogicLayer.Models.ExchangeTransactions
         [Name("Quantity Transacted")]
         public float QuantityCsv { get; set; }
 
-        
-        private decimal quantityIgnoreSet = Decimal.Zero;
 
         [Ignore]
-        public decimal Quantity { get => (decimal)QuantityCsv; set => quantityIgnoreSet = value; }
+        public decimal Quantity { get => (decimal)QuantityCsv; set => _ = value; }
 
         [Name("Spot Price Currency")]
         public string Currency { get; set; }

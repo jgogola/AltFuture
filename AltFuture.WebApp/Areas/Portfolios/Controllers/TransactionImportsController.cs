@@ -1,36 +1,34 @@
-﻿using AltFuture.BusinessLogicLayer.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using AltFuture.DataAccessLayer.Models;
 using AutoMapper;
 using AltFuture.DataAccessLayer.Interfaces;
-using AltFuture.BusinessLogicLayer.Models.ExchangeTransactions;
 using AltFuture.DataAccessLayer.Data.Enums;
 using System.IO;
 using AutoMapper.QueryableExtensions;
 using System.Collections.Generic;
+using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
+using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Models;
+using AltFuture.WebApp.Enums;
+using AltFuture.WebApp.Helpers;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
     [Area("Portfolios")]
     public class TransactionImportsController : Controller
     {
-        private readonly ITransactionCsvImports _csvImports;
-        private readonly IMapper _mapper;
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly IExchangeTransactionCsvImport _exchangeTransactionCsvImport;
 
-        public TransactionImportsController(ITransactionCsvImports csvImports,
-                                            IMapper mapper,
-                                            ITransactionRepository transactionRepository)
+        public TransactionImportsController(IExchangeTransactionCsvImport exchangeTransactionCsvImport)
         {
-            _csvImports = csvImports;
-            _mapper = mapper;
-            _transactionRepository = transactionRepository;
+            _exchangeTransactionCsvImport = exchangeTransactionCsvImport;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+
+
 
         public IActionResult Coinbase()
         {
@@ -40,34 +38,31 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         [HttpPost]
         public async Task<IActionResult> Coinbase(IFormFile csvFile)
         {
-            if (csvFile != null && csvFile.Length > 0)
+            if (csvFile is null || csvFile.Length == 0)
             {
-                // Read the CSV file and create a list of Coinbase transaction DTOs.
-                var incomingCoinbaseTransactions = new List<CoinbaseTransactionHistoryDto>();
-                using (var reader = new StreamReader(csvFile.OpenReadStream()))
-                {
-                    incomingCoinbaseTransactions = (List<CoinbaseTransactionHistoryDto>)await _csvImports.ImportExchangeTransactionHistory<CoinbaseTransactionHistoryDto>(reader);
-                }
-
-                // AutoMap the incoming Coinbase transaction DTOs to the application's Transaction model.
-                var mappedTransactions = new List<Transaction>();
-                if(incomingCoinbaseTransactions.Any())
-                {
-                    mappedTransactions = _mapper.Map<List<Transaction>>(incomingCoinbaseTransactions, opts =>
-                                                    {
-                                                        opts.Items["ExchangeId"] = (int)ExchangeEnum.Coinbase;
-                                                    });
-                }
-
-                // Save the range of Transactions into the DB.
-                if (mappedTransactions.Any())
-                {
-                    var saved = _transactionRepository.AddRangeAsync(mappedTransactions);
-                }
+                return RedirectToAction("Coinbase");
             }
 
-            return RedirectToAction("Coinbase"); // Redirect to the same page after processing the CSV
+            int appUserId = 1;
+
+            using var csvData = new StreamReader(csvFile.OpenReadStream());
+            var numTransactionsImported = await _exchangeTransactionCsvImport.ImportCsvToDb<CoinbaseTransactionDto>(csvData, appUserId);
+
+
+
+            //* Display success message back to user on Dashboard Index
+            var userMessagePartial = new UserMessagePartial(TempData);
+            userMessagePartial.SetUserMessage(
+                UserMessageTypes.Success,
+                $"{numTransactionsImported} Coinbase transactions were successfully imported.",
+                8
+            );
+
+            return RedirectToAction(nameof(Index), "Dashboard");
         }
+
+
+
 
         public IActionResult CryptoDotCom()
         {
@@ -78,55 +73,40 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         public async Task<IActionResult> CryptoDotCom(IFormFile csvFile)
         {
 
-            // Read the CSV file and create a touple of CryptoDotCom "Buy/Reward" transaction DTOs.
-            (IEnumerable<CryptoDotComBuyTransactionHistoryDto> buyTypeTransactions, IEnumerable<CryptoDotComRewardTransactionHistoryDto> rewardtypeTransactions) incomingCryptoDotComTransactions;
-          
-            using (var reader = new StreamReader(csvFile.OpenReadStream()))
+            if (csvFile is null || csvFile.Length == 0)
             {
-
-                var transactionTypeFilter = new Dictionary<int, List<int>>
-                {
-                    {1, new List<int> { (int)TransactionTypeEnum.Buy } },
-                    {2, new List<int> { (int)TransactionTypeEnum.StakingReward, (int)TransactionTypeEnum.PerkReward } }
-                };
-
-                incomingCryptoDotComTransactions = await _csvImports.ImportExchangeTransactionHistory<CryptoDotComBuyTransactionHistoryDto, CryptoDotComRewardTransactionHistoryDto>(reader, 
-                                                                                                                                                                                     (int)ExchangeEnum.CryptoDotCom, 
-                                                                                                                                                                                     transactionTypeFilter);
+                return RedirectToAction("CryptoDotCom");
             }
 
-            // Process the incomming CryptoDotCom "Buy" and "Reward" transactions separately.
-            // AutoMap the "Buy" transactions the application's Transaction model.
-            var mappedTransactions = new List<Transaction>();
-            if (incomingCryptoDotComTransactions.buyTypeTransactions.Any())
-            {
+            int appUserId = 1;
+            int exchangeId = (int)ExchangeEnum.CryptoDotCom;
+            var transactionTypeFilter = new Dictionary<int, List<int>>
+                                            {
+                                                {1, new List<int> { (int)TransactionTypeEnum.Buy } },
+                                                {2, new List<int> { (int)TransactionTypeEnum.StakingReward, (int)TransactionTypeEnum.PerkReward } }
+                                            };
 
-                mappedTransactions = _mapper.Map<List<Transaction>>(incomingCryptoDotComTransactions.buyTypeTransactions, opts =>
-                                                {
-                                                    opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
-                                                });
-            }
+            using var csvData = new StreamReader(csvFile.OpenReadStream());
+            var numTransactionsImported = await _exchangeTransactionCsvImport.ImportCsvToDb<CryptoDotComBuyTransactionDto, CryptoDotComRewardTransactionDto>(csvData, 
+                                                                                                                                                             appUserId, 
+                                                                                                                                                             exchangeId, 
+                                                                                                                                                             transactionTypeFilter);
 
-            // AutoMap the "Reward" transactions the application's Transaction model.
-            if (incomingCryptoDotComTransactions.rewardtypeTransactions.Any())
-            {
+            //* Display success message back to user on Dashboard Index
+            var userMessagePartial = new UserMessagePartial(TempData);
+            userMessagePartial.SetUserMessage(
+                UserMessageTypes.Success,
+                $"{numTransactionsImported} Crypto.com transactions were successfully imported.",
+                8
+            );
 
-                var mappedRewardTransactions = _mapper.Map<List<Transaction>>(incomingCryptoDotComTransactions.rewardtypeTransactions, opts =>
-                                                        {
-                                                            opts.Items["ExchangeId"] = (int)ExchangeEnum.CryptoDotCom;
-                                                        });
+            return RedirectToAction(nameof(Index), "Dashboard");
 
-                mappedTransactions.AddRange(mappedRewardTransactions);
-            }
-
-            // Save all the Transactions into the DB.
-            if (mappedTransactions.Any())
-            {
-                var saved = _transactionRepository.AddRangeAsync(mappedTransactions);
-            }
-
-            return RedirectToAction("CryptoDotCom");
+       
         }
+
+
+
 
 
         public IActionResult CoinbasePro()
@@ -137,34 +117,31 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         [HttpPost]
         public async Task<IActionResult> CoinbasePro(IFormFile csvFile)
         {
-            if (csvFile != null && csvFile.Length > 0)
+
+            if (csvFile is null || csvFile.Length == 0)
             {
-                // Read the CSV file and create a list of CoinbasePro transaction DTOs.
-                var incomingCoinbaseProTransactions = new List<CoinbaseProTransactionHistoryDto>();
-                using (var reader = new StreamReader(csvFile.OpenReadStream()))
-                {
-                    incomingCoinbaseProTransactions = (List<CoinbaseProTransactionHistoryDto>)await _csvImports.ImportExchangeTransactionHistory<CoinbaseProTransactionHistoryDto>(reader);
-                }
-
-                // AutoMap the incoming CoinbasePro transaction DTOs to the application's Transaction model.
-                var mappedTransactions = new List<Transaction>();
-                if (incomingCoinbaseProTransactions.Any())
-                {
-                    mappedTransactions = _mapper.Map<List<Transaction>>(incomingCoinbaseProTransactions, opts =>
-                    {
-                        opts.Items["ExchangeId"] = (int)ExchangeEnum.CoinbasePro;
-                    });
-                }
-
-                // Save the range of Transactions into the DB.
-                if (mappedTransactions.Any())
-                {
-                    var saved = _transactionRepository.AddRangeAsync(mappedTransactions);
-                }
+                return RedirectToAction("CoinbasePro");
             }
 
-            return RedirectToAction("CoinbasePro"); // Redirect to the same page after processing the CSV
+            int appUserId = 1;
+
+            using var csvData = new StreamReader(csvFile.OpenReadStream());
+            var numTransactionsImported = await _exchangeTransactionCsvImport.ImportCsvToDb<CoinbaseProTransactionDto>(csvData, appUserId);
+
+
+            //* Display success message back to user on Dashboard Index
+            var userMessagePartial = new UserMessagePartial(TempData);
+            userMessagePartial.SetUserMessage(
+                UserMessageTypes.Success,
+                $"{numTransactionsImported} Coinbase Pro transactions were successfully imported.",
+                8
+            );
+
+            return RedirectToAction(nameof(Index), "Dashboard");
+
         }
+
+
 
 
         public IActionResult Etoro()
@@ -175,37 +152,28 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         [HttpPost]
         public async Task<IActionResult> Etoro(IFormFile csvFile)
         {
-            if (csvFile != null && csvFile.Length > 0)
+
+            if (csvFile is null || csvFile.Length == 0)
             {
-                int appUserId = 1;
-                int exchangeId = (int)ExchangeEnum.Etoro;
-                var incomingEtoroTransactions = new List<EtoroTransactionHistoryDto>();
-                var mappedTransactions = new List<Transaction>();
-
-                // Read the CSV file and create a list of exchange specific transaction DTOs.
-                using (var reader = new StreamReader(csvFile.OpenReadStream()))
-                {
-                    incomingEtoroTransactions = (List<EtoroTransactionHistoryDto>)await _csvImports.ImportExchangeTransactionHistory<EtoroTransactionHistoryDto>(reader);
-                }
-
-                // AutoMap the incoming exchange specific transaction DTOs to the application's Transaction model.
-                if (incomingEtoroTransactions.Any())
-                {
-                    mappedTransactions = _mapper.Map<List<Transaction>>(incomingEtoroTransactions, opts =>
-                                                {
-                                                    opts.Items["AppUserId"] = appUserId;
-                                                    opts.Items["ExchangeId"] = exchangeId;
-                                                });
-                }
-
-                // Save the range of Transactions into the DB.
-                if (mappedTransactions.Any())
-                {
-                    var saved = await _transactionRepository.AddRangeAsync(mappedTransactions);
-                }
+                return RedirectToAction("Etoro");
             }
 
-            return RedirectToAction("Etoro"); // Redirect to the same page after processing the CSV
+            int appUserId = 1;
+
+            using var csvData = new StreamReader(csvFile.OpenReadStream());
+            var numTransactionsImported = await _exchangeTransactionCsvImport.ImportCsvToDb<EtoroTransactionDto>(csvData, appUserId, "\t");
+
+
+            //* Display success message back to user on Dashboard Index
+            var userMessagePartial = new UserMessagePartial(TempData);
+            userMessagePartial.SetUserMessage(
+                UserMessageTypes.Success,
+                $"{numTransactionsImported} Etoro transactions were successfully imported.",
+                8
+            );
+
+            return RedirectToAction(nameof(Index), "Dashboard");
+
         }
 
     }

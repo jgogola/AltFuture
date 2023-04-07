@@ -13,6 +13,8 @@ using AltFuture.MarketDataConsumer.AutoMapper;
 using AltFuture.MarketDataConsumer.Models.CoinMarketCap;
 using AltFuture.BusinessLogicLayer.AutoMapper;
 using AltFuture.BusinessLogicLayer.Services.MarketData;
+using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
+using AltFuture.BusinessLogicLayer.Services.ExchangeTransactions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,8 +64,10 @@ builder.Services.AddSingleton<ICryptoDataService, CryptoDataService>();
 
 
 //* BLL Services:
-builder.Services.AddScoped<ITransactionCsvImports, TransactionCsvImports>();
-builder.Services.AddScoped<IPortfolioChartData, PortfolioChartData>();
+builder.Services.AddScoped<IExchangeTransactionCsvParser, ExchangeTransactionCsvParser>();
+builder.Services.AddScoped<IExchangeTransactionMapper, ExchangeTransactionMapper>();
+builder.Services.AddScoped<IExchangeTransactionCsvImport, ExchangeTransactionCsvImport>();
+builder.Services.AddScoped<IPortfolioChartData, PortfolioChartData>(); 
 builder.Services.AddScoped<IMarketDataService, MarketDataService>();
 builder.Services.AddAutoMapper(typeof(MarketDataPriceToCryptoPriceProfile));
 
