@@ -2,6 +2,7 @@
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Models.StoredProcs;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlTypes;
 
 namespace AltFuture.DataAccessLayer.Repository
 {
@@ -16,7 +17,15 @@ namespace AltFuture.DataAccessLayer.Repository
         public async Task<IEnumerable<PortfolioSummaryGetAll>> GetAllAsync()
         {
             FormattableString sql = $"EXEC dbo.PortfolioSummaryGetAll";
-            return await _db.PortfolioSummaries.FromSql(sql).ToListAsync();
+            try
+            {
+                var result = await _db.PortfolioSummaries.FromSql(sql).ToListAsync();
+                return result;
+            }
+            catch (SqlNullValueException)
+            {
+                return Enumerable.Empty<PortfolioSummaryGetAll>();
+            }
         }
     }
 }

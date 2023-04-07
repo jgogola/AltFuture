@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\ExchangeTransactions\CryptoDotComTransactionHistoryDto.cs" />
+    <Compile Remove="ExchangeTransactionCsvImport\Models\CryptoDotComTransactionDto.cs" />
+    <Compile Remove="Services\TransactionCsvImports.cs" />
   </ItemGroup>
 
   <ItemGroup>

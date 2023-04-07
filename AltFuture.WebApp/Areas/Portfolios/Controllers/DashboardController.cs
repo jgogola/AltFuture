@@ -26,6 +26,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var userMessageJson = TempData["UserMessage"] as string;
+
             return View(await _portfolioSummaryRepository.GetAllAsync());
         }
 

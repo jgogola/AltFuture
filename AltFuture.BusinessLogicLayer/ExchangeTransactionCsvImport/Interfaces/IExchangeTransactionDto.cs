@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AltFuture.BusinessLogicLayer.Interfaces.Models
+namespace AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces
 {
-    public interface IExchangeTransactionHistoryDto
+    public interface IExchangeTransactionDto
     {
+        public int ExchangeId { get; }
 
         public string CryptoAsset { get; set; }
 
@@ -34,8 +35,8 @@ namespace AltFuture.BusinessLogicLayer.Interfaces.Models
 
         DateTime TransactionDate { get; set; }
 
-        
 
-        
+
+
     }
 }

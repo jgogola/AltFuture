@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Portfolio Dashboard";
     var bodyData = Model.Where(crypto => crypto.RowType == 1).ToList();
-    var footerData = Model.Where(crypto => crypto.RowType == 99).ToList()[0];
+    var footerData = Model.Where(crypto => crypto.RowType == 99).ToList().FirstOrDefault();
 }
 
 
@@ -78,23 +78,23 @@
         </tbody>
         <tfoot class="table-secondary">
             <tr>
-                <td>@footerData.CryptoName</td>
-                <th class="text-center" scope="row">@footerData.TickerSymbol</th>
-                <td class="text-center">@footerData.NumberOfOrders</td>
-                <td class="text-center">@footerData.Quantity</td>
+                <td>@footerData?.CryptoName</td>
+                <th class="text-center" scope="row">@footerData?.TickerSymbol</th>
+                <td class="text-center">@footerData?.NumberOfOrders</td>
+                <td class="text-center">@footerData?.Quantity</td>
                 <td class="text-end">------</td>
                 <td class="text-end">------</td>
-                <td class="text-end text-success">@footerData.InvestmentTotal</td>
-                <td class="text-end text-danger">@footerData.FeeTotal</td>
-                <td class="text-end @(footerData.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@footerData.UnrealizedProfit</td>
-                <td class="text-end fw-bold">@footerData.CurrentWorth</td>
+                <td class="text-end text-success">@footerData?.InvestmentTotal</td>
+                <td class="text-end text-danger">@footerData?.FeeTotal</td>
+                <td class="text-end @(footerData?.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@footerData?.UnrealizedProfit</td>
+                <td class="text-end fw-bold">@footerData?.CurrentWorth</td>
             </tr>
         </tfoot>
     </table>
 
 </div>
 
-
+<partial name="Partials/_UserMessage" />
 
 
 <!--Load the Google Chart AJAX API-->
