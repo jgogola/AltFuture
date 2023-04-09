@@ -239,3 +239,12 @@
 - Set up the User Message partial to display a success message of how many transaction records were imported.
 
 
+### 4/8/2023
+#### New Binance CSV Import Feature
+- Added Binance as new ExchangeEnum value.
+- Added new ExchangeTransactionType data to EF Configuration file.
+- Add-Migration "BinanceData"
+- Created BLL BinanceTransactionDto to handle the CSV specific mapping and translation of Binance data structure.
+- Created BinanceTransactionDtoTransactionProfile for AutoMapper to the DLL Transaction Model.
+- Created WebApp Controller and View
+- All import features now redirect back to Dashboard with a user message of how many records were added successfully.
