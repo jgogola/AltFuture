@@ -113,6 +113,16 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
                     ExchangeId = (int)ExchangeEnum.Etoro,
                     TransactionTypeId = (int)TransactionTypeEnum.StakingReward,
                     DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+
+                //Binance CSV Transaction Types:
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 13,
+                    ExchangeTransactionTypeName = "Buy",
+                    ExchangeId = (int)ExchangeEnum.Binance,
+                    TransactionTypeId = (int)TransactionTypeEnum.Buy,
+                    DataImportTypeId = (int)DataImportTypeEnum.CSV
                 }
 
 

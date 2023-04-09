@@ -176,5 +176,39 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
         }
 
+
+
+        public IActionResult Binance()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Binance(IFormFile csvFile)
+        {
+
+            if (csvFile is null || csvFile.Length == 0)
+            {
+                return RedirectToAction("Binance");
+            }
+
+            int appUserId = 1;
+
+            using var csvData = new StreamReader(csvFile.OpenReadStream());
+            var numTransactionsImported = await _exchangeTransactionCsvImport.ImportCsvToDb<BinanceTransactionDto>(csvData, appUserId);
+
+
+            //* Display success message back to user on Dashboard Index
+            var userMessagePartial = new UserMessagePartial(TempData);
+            userMessagePartial.SetUserMessage(
+                UserMessageTypes.Success,
+                $"{numTransactionsImported} Binance transactions were successfully imported.",
+                8
+            );
+
+            return RedirectToAction(nameof(Index), "Dashboard");
+
+        }
+
     }
 }
