@@ -1,23 +1,336 @@
-﻿@{
+﻿@using AltFuture.DataAccessLayer.Data.Enums
+@{
     ViewData["Title"] = "Exchange Transaction Imports";
 }
 
+<style>
 
-<ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="TransactionImports" asp-action="Coinbase">Coinbase Import</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="TransactionImports" asp-action="CoinbasePro">Coinbase Pro Import</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="TransactionImports" asp-action="CryptoDotCom">Crypto.com Import</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="TransactionImports" asp-action="Etoro">Etoro Import</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="TransactionImports" asp-action="Binance">Binance Import</a>
-    </li>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
 
-</ul>
+
+    /* CUSTOMIZE THE CAROUSEL
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+    .carousel {
+        margin-bottom: 4rem;
+    }
+    /* Since positioning the image, we need to help out the caption */
+    .carousel-caption {
+       /* bottom: 3rem;*/
+       bottom: unset;
+       top: 2rem;
+        z-index: 10;
+    }
+
+    /* Declare heights because of positioning of img element */
+    .carousel-item {
+        height: 50rem;
+    }
+
+
+    #formContainer {
+        position: absolute;
+        left: 30%;
+        right: 30%;
+        top: 16rem;
+        z-index: 1000;
+        color: #fff;
+
+    }
+
+    #fileUploadOption {
+        opacity: 1;
+        transition: opacity 1s ease;
+    }
+
+    #fileUploadOption.hidden {
+        opacity: 0;
+    }
+
+    .noneTheme {
+        background-color: #cacfe0;
+    }
+
+    .coinbaseTheme {
+        background-color: #0052fe;
+    }
+
+    .coinbaseProTheme {
+        background-color: #333;
+    }
+
+    .etoroTheme {
+        background-color: #04c420;
+    }
+
+    .cryptoDotComTheme {
+        background-color: #061121;
+    }
+
+    .binanceTheme {
+        background-color: #f0b90b;
+    }
+
+    .exchangeInstructions {text-align: left; font-size: 1.1em;}
+
+    h2.smallGap {margin-bottom: 90px;}
+
+    h2.largeGap {
+        margin-bottom: 150px;
+    }
+    
+    .carousel-caption p {font-size: 1.3em; font-weight: 700;}
+</style>
+
+<div class="container">
+    <h1 class="mt-4 text-center text-nowrap">Import Exchange Transaction Data File</h1>
+
+    <div id="exchangeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active noneTheme">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h2 class="smallGap">Select an Exchange</h2>
+                        <p>To begin, please select an exchange from the drop down list.</p>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item coinbaseTheme">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h2 class="largeGap">Coinbase Data Files</h2>
+                        <p>Some representative placeholder content for the second slide of the carousel.</p>
+                        <dl class="row exchangeInstructions">
+                            <dt class="col-sm-3">How to Find</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>Hey, Luke! May the Force be with you.</li>
+                                    <li>I call it luck.</li>
+                                    <li>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Generate</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I find your lack of faith disturbing.</li>
+                                    <li>What!?</li>
+                                    <li>Kid, I've flown from one side of this galaxy to the other. I've seen a lot of strange stuff, but I've never seen anything to make me believe there's one all-powerful Force controlling everything. There's no mystical energy field that controls my destiny. It's all a lot of simple tricks and nonsense.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Import</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I call it luck.</li>
+                                    <li>A tremor in the Force. The last time I felt it was in the presence of my old master.</li>
+                                    <li>Your eyes can deceive you. Don't trust them.</li>
+                                </ol>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item coinbaseProTheme">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h2 class="largeGap">Coinbase Pro Data Files</h2>
+                        <p>Some representative placeholder content for the second slide of the carousel.</p>
+                        <dl class="row exchangeInstructions">
+                            <dt class="col-sm-3">How to Find</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>Hey, Luke! May the Force be with you.</li>
+                                    <li>I call it luck.</li>
+                                    <li>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Generate</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I find your lack of faith disturbing.</li>
+                                    <li>What!?</li>
+                                    <li>Kid, I've flown from one side of this galaxy to the other. I've seen a lot of strange stuff, but I've never seen anything to make me believe there's one all-powerful Force controlling everything. There's no mystical energy field that controls my destiny. It's all a lot of simple tricks and nonsense.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Import</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I call it luck.</li>
+                                    <li>A tremor in the Force. The last time I felt it was in the presence of my old master.</li>
+                                    <li>Your eyes can deceive you. Don't trust them.</li>
+                                </ol>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item cryptoDotComTheme">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h2 class="largeGap">Crypto.com Data Files</h2>
+                        <p>Some representative placeholder content for the second slide of the carousel.</p>
+                        <dl class="row exchangeInstructions">
+                            <dt class="col-sm-3">How to Find</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>Hey, Luke! May the Force be with you.</li>
+                                    <li>I call it luck.</li>
+                                    <li>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Generate</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I find your lack of faith disturbing.</li>
+                                    <li>What!?</li>
+                                    <li>Kid, I've flown from one side of this galaxy to the other. I've seen a lot of strange stuff, but I've never seen anything to make me believe there's one all-powerful Force controlling everything. There's no mystical energy field that controls my destiny. It's all a lot of simple tricks and nonsense.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Import</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I call it luck.</li>
+                                    <li>A tremor in the Force. The last time I felt it was in the presence of my old master.</li>
+                                    <li>Your eyes can deceive you. Don't trust them.</li>
+                                </ol>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item etoroTheme">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h2 class="largeGap">Etoro Data Files</h2>
+                        <p>Some representative placeholder content for the second slide of the carousel.</p>
+                        <dl class="row exchangeInstructions">
+                            <dt class="col-sm-3">How to Find</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>Hey, Luke! May the Force be with you.</li>
+                                    <li>I call it luck.</li>
+                                    <li>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Generate</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I find your lack of faith disturbing.</li>
+                                    <li>What!?</li>
+                                    <li>Kid, I've flown from one side of this galaxy to the other. I've seen a lot of strange stuff, but I've never seen anything to make me believe there's one all-powerful Force controlling everything. There's no mystical energy field that controls my destiny. It's all a lot of simple tricks and nonsense.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Import</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I call it luck.</li>
+                                    <li>A tremor in the Force. The last time I felt it was in the presence of my old master.</li>
+                                    <li>Your eyes can deceive you. Don't trust them.</li>
+                                </ol>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item binanceTheme">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h2 class="largeGap">Binance Data Files</h2>
+                        <p>Some representative placeholder content for the third slide of this carousel.</p>
+                        <dl class="row exchangeInstructions">
+                            <dt class="col-sm-3">How to Find</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>Hey, Luke! May the Force be with you.</li>
+                                    <li>I call it luck.</li>
+                                    <li>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Generate</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I find your lack of faith disturbing.</li>
+                                    <li>What!?</li>
+                                    <li>Kid, I've flown from one side of this galaxy to the other. I've seen a lot of strange stuff, but I've never seen anything to make me believe there's one all-powerful Force controlling everything. There's no mystical energy field that controls my destiny. It's all a lot of simple tricks and nonsense.</li>
+                                </ol>
+                            </dd>
+
+                            <dt class="col-sm-3">How to Import</dt>
+                            <dd class="col-sm-9">
+                                <ol>
+                                    <li>I call it luck.</li>
+                                    <li>A tremor in the Force. The last time I felt it was in the presence of my old master.</li>
+                                    <li>Your eyes can deceive you. Don't trust them.</li>
+                                </ol>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="formContainer">
+        <form id="importForm" asp-controller="TransactionImports" asp-action="Coinbase" method="post" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="exchangeSelect">Exchange</label>
+                <select id="exchangeSelect" asp-items="Html.GetEnumSelectList<ExchangeEnum>()" class="form-select fw-bold"></select>
+            </div>
+            <div id="fileUploadOption" class="input-group mb-3 hidden">
+                <input type="file" id="csvFile" name="csvFile" accept=".csv,.txt" class="form-control" required  />
+                <button type="submit" class="btn btn-warning">Import</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const exchangeSelect = document.getElementById('exchangeSelect');
+        const carousel = new bootstrap.Carousel(document.getElementById('exchangeCarousel'), {
+            interval: false,
+            wrap: false
+        });
+      
+        exchangeSelect.addEventListener('change', function () {
+
+            // Update the form's action attribute
+            var selectedExchange = exchangeSelect.options[exchangeSelect.selectedIndex].text.replace(" ","").replace(".","Dot");
+            var formAction = '@Url.Action("", "TransactionImports")'.replace(/\/$/, '') + '/' + selectedExchange;
+            var importForm = document.getElementById('importForm');
+            importForm.setAttribute('action', formAction);
+
+
+            // Change the carousel's slide
+            const selectedValue = parseInt(exchangeSelect.value);
+            carousel.to(selectedValue);
+
+            // Hide/Show the FileInput form
+            let fileUploadOption = document.getElementById('fileUploadOption');
+            if(selectedValue === 0) {
+                fileUploadOption.classList.add("hidden");
+            } else {
+                fileUploadOption.classList.remove("hidden");
+            }
+        });
+    });
+</script>
