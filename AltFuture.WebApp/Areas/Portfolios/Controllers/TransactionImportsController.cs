@@ -30,11 +30,6 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
 
 
-        public IActionResult Coinbase()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Coinbase(IFormFile csvFile)
         {
@@ -62,12 +57,6 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         }
 
 
-
-
-        public IActionResult CryptoDotCom()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> CryptoDotCom(IFormFile csvFile)
@@ -107,13 +96,6 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
 
 
-
-
-        public IActionResult CoinbasePro()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> CoinbasePro(IFormFile csvFile)
         {
@@ -143,12 +125,6 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
 
 
-
-        public IActionResult Etoro()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Etoro(IFormFile csvFile)
         {
@@ -177,11 +153,6 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         }
 
 
-
-        public IActionResult Binance()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Binance(IFormFile csvFile)

@@ -248,3 +248,10 @@
 - Created BinanceTransactionDtoTransactionProfile for AutoMapper to the DLL Transaction Model.
 - Created WebApp Controller and View
 - All import features now redirect back to Dashboard with a user message of how many records were added successfully.
+
+### 4/10/2023
+#### Transaction Data Import UI/UX Enhancements
+- Consolidate the individual pages for imports per exchange into the Index page. 
+- Index page will now dynamically change it's action target base on User chosen exchange from drop down.
+- Visual UI enhancements using bootstrap.
+- Color theme to match each Exhcange's logo color.
