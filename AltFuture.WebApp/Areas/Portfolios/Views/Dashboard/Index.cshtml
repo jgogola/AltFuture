@@ -1,5 +1,5 @@
 ﻿@using AltFuture.DataAccessLayer.Models.StoredProcs;
-@model IEnumerable<PortfolioSummaryGetAll>
+@model IEnumerable<PortfolioSummary>
 @{
     ViewData["Title"] = "Portfolio Dashboard";
     var bodyData = Model.Where(crypto => crypto.RowType == 1).ToList();
@@ -38,6 +38,9 @@
             <!--Div for Exchange Usage Pie Chart-->
             <div id="chartExchangeUsage"></div>
         </div>
+    </div>
+    <div class="row">
+        <div id="chartRunningTotal"></div>
     </div>
 
 </div>
@@ -111,7 +114,7 @@
     google.charts.setOnLoadCallback(drawAssetAllocationChart);
     google.charts.setOnLoadCallback(drawAssetPerformanceChart);
     google.charts.setOnLoadCallback(drawExchangeUsageChart);
-
+    google.charts.setOnLoadCallback(drawRunningTotalChart);
 
     // Asset Allocation Pie Chart
     function drawAssetAllocationChart() {
@@ -218,5 +221,41 @@
         let chart = new google.visualization.PieChart(document.getElementById('chartExchangeUsage'));
         chart.draw(data, options);
     }
+
+    function drawRunningTotalChart() {
+        let jsonData;
+
+        // Get data
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetPortfolioRunningTotalByMonthData", "Dashboard")",
+            dataType: "json",
+            async: false,
+            success: function (d) {
+                jsonData = d;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error: " + textStatus, errorThrown);
+            }
+        });
+
+        // Create our data table out of JSON data loaded from server.
+        let data = new google.visualization.arrayToDataTable(jsonData);
+
+        console.log(data);
+
+        var options = {
+            title: 'Portfolio Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chartRunningTotal'));
+
+        chart.draw(data, options);
+    }
+
+
+
 </script>
 

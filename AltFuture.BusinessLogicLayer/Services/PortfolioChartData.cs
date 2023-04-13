@@ -4,6 +4,7 @@ using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces.Services;
 using AltFuture.DataAccessLayer.Models;
 using AltFuture.DataAccessLayer.Data.Enums;
+using AltFuture.DataAccessLayer.Models.StoredProcs;
 
 namespace AltFuture.BusinessLogicLayer.Services
 {
@@ -12,12 +13,14 @@ namespace AltFuture.BusinessLogicLayer.Services
         private readonly ITransactionRepository _transactionRepository;
         private readonly ICryptoPriceRepository _cryptoPriceRepository;
         private readonly List<Crypto> _cryptos;
+        private readonly IPortfolioRunningTotalRepository _portfolioRunningTotalRepository;
 
-        public PortfolioChartData(ITransactionRepository transactionRepository, ICryptoDataService cryptoDataService, ICryptoPriceRepository cryptoPriceRepository)
+        public PortfolioChartData(ITransactionRepository transactionRepository, ICryptoDataService cryptoDataService, ICryptoPriceRepository cryptoPriceRepository, IPortfolioRunningTotalRepository portfolioRunningTotalRepository)
         {
             _transactionRepository = transactionRepository;
             _cryptoPriceRepository = cryptoPriceRepository;
             _cryptos = cryptoDataService.CryptoList;
+            _portfolioRunningTotalRepository = portfolioRunningTotalRepository;
         }
 
         public async Task<List<AssetAllocationDataDto>> GetAssetAllocationDataAsync(int userId)
@@ -76,6 +79,15 @@ namespace AltFuture.BusinessLogicLayer.Services
             });
 
             return exchangeUsageData.ToList();
+        }
+
+
+
+        public async Task<List<PortfolioRunningTotalByMonth>> GetPortfolioRunningTotalByMonthDataAsync(int userId)
+        {
+            var portfolioRunningTotals = await _portfolioRunningTotalRepository.GetByMonthAsync(userId);
+           
+            return portfolioRunningTotals.ToList();
         }
     }
 }

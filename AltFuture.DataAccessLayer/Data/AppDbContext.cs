@@ -43,9 +43,20 @@ namespace AltFuture.DataAccessLayer.Data
                 entity.Property(e => e.TransactionTypeName).IsRequired();
             });
 
-            modelBuilder.Entity<PortfolioSummaryGetAll>(entity =>
+            modelBuilder.Entity<PortfolioSummary>(entity =>
             {
                 entity.HasNoKey().ToTable("PortfolioSummaryGetAll", t => t.ExcludeFromMigrations());
+            });
+
+
+            modelBuilder.Entity<PortfolioRunningTotalByMonth>(entity =>
+            {
+                entity.HasNoKey().ToTable("PortfolioRunningTotalByMonth", t => t.ExcludeFromMigrations());
+            });
+
+            modelBuilder.Entity<PortfolioRunningTotalByDay>(entity =>
+            {
+                entity.HasNoKey().ToTable("PortfolioRunningTotalByDay", t => t.ExcludeFromMigrations());
             });
 
             modelBuilder.Entity<Transaction>()

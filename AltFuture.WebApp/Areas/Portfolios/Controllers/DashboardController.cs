@@ -27,16 +27,16 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         public async Task<IActionResult> Index()
         {
             var userMessageJson = TempData["UserMessage"] as string;
-
-            return View(await _portfolioSummaryRepository.GetAllAsync());
+            var appUserId = 1;
+            return View(await _portfolioSummaryRepository.GetAllAsync(appUserId));
         }
 
 
         [HttpGet]
         public async Task<JsonResult> GetAssetAllocationData()
         {
-
-            var assetAllocationData = await _portfolioChartData.GetAssetAllocationDataAsync(1);
+            var appUserId = 1;
+            var assetAllocationData = await _portfolioChartData.GetAssetAllocationDataAsync(appUserId);
 
             var data = new JArray { };
 
@@ -55,8 +55,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         [HttpGet]
         public async Task<JsonResult> GetAssetPerformanceData()
         {
-
-            var assetPerformanceData = await _portfolioChartData.GetAssetPerformanceDataAsync(1);
+            var appUserId = 1;
+            var assetPerformanceData = await _portfolioChartData.GetAssetPerformanceDataAsync(appUserId);
 
             var data = new JArray { };
 
@@ -75,8 +75,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         [HttpGet]
         public async Task<JsonResult> GetExchangeUsageData()
         {
-
-            var exchangeUsageData = await _portfolioChartData.GetExchangeUsageDataAsync(1);
+            var appUserId = 1;
+            var exchangeUsageData = await _portfolioChartData.GetExchangeUsageDataAsync(appUserId);
 
             var data = new JArray { };
 
@@ -85,6 +85,26 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             exchangeUsageData.ForEach(c =>
             {
                 data.Add(new JArray { c.ExchangeName, c.UsagePercentage });
+            });
+
+
+            return Json(data);
+        }
+
+
+        [HttpGet]
+        public async Task<JsonResult> GetPortfolioRunningTotalByMonthData()
+        {
+            var appUserId = 1;
+            var dailyRunningTotalData = await _portfolioChartData.GetPortfolioRunningTotalByMonthDataAsync(appUserId);
+
+            var data = new JArray { };
+
+            data.Add(new JArray { "Month", "Investment", "Current Worth" });
+
+            dailyRunningTotalData.ForEach(c =>
+            {
+                data.Add(new JArray { c.RunningTotalInterval, c.InvestmentRunningTotal, c.CurrentWorthRunningTotal });
             });
 
 

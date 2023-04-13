@@ -5,7 +5,7 @@ namespace AltFuture.DataAccessLayer.Interfaces
     public interface IPortfolioSummaryRepository
     {
 
-        Task<IEnumerable<PortfolioSummaryGetAll>> GetAllAsync();
+        Task<IEnumerable<PortfolioSummary>> GetAllAsync(int appUserId);
 
 
     }

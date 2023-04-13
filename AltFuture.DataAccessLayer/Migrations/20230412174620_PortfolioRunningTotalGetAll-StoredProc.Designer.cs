@@ -4,6 +4,7 @@ using AltFuture.DataAccessLayer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AltFuture.WebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230412174620_PortfolioRunningTotalGetAll-StoredProc")]
+    partial class PortfolioRunningTotalGetAllStoredProc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -403,24 +406,6 @@ namespace AltFuture.WebApp.Migrations
                             ExchangeId = 5,
                             ExchangeTransactionTypeName = "Buy",
                             TransactionTypeId = 1
-                        });
-                });
-
-            modelBuilder.Entity("AltFuture.DataAccessLayer.Models.StoredProcs.PortfolioRunningTotalGetAll", b =>
-                {
-                    b.Property<decimal>("CurrentWorthRunningTotal")
-                        .HasColumnType("decimal(10,3)");
-
-                    b.Property<decimal>("InvestmentRunningTotal")
-                        .HasColumnType("decimal(10,3)");
-
-                    b.Property<string>("PriceMonth")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("PortfolioRunningTotalGetAll", null, t =>
-                        {
-                            t.ExcludeFromMigrations();
                         });
                 });
 
