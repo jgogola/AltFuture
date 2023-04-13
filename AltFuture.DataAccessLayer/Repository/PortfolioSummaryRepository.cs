@@ -14,9 +14,9 @@ namespace AltFuture.DataAccessLayer.Repository
         {
             _db = dbContext;
         }
-        public async Task<IEnumerable<PortfolioSummaryGetAll>> GetAllAsync()
+        public async Task<IEnumerable<PortfolioSummary>> GetAllAsync(int appUserId)
         {
-            FormattableString sql = $"EXEC dbo.PortfolioSummaryGetAll";
+            FormattableString sql = $"EXEC dbo.PortfolioSummary @AppUserId = {appUserId}";
             try
             {
                 var result = await _db.PortfolioSummaries.FromSql(sql).ToListAsync();
@@ -24,7 +24,7 @@ namespace AltFuture.DataAccessLayer.Repository
             }
             catch (SqlNullValueException)
             {
-                return Enumerable.Empty<PortfolioSummaryGetAll>();
+                return Enumerable.Empty<PortfolioSummary>();
             }
         }
     }

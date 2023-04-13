@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AltFuture.DataAccessLayer.Models.StoredProcs
 {
-    public class PortfolioSummaryGetAll
+    public class PortfolioSummary
     {
         public int CryptoId { get; set; }
 

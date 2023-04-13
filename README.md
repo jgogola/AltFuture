@@ -254,4 +254,11 @@
 - Consolidate the individual pages for imports per exchange into the Index page. 
 - Index page will now dynamically change it's action target base on User chosen exchange from drop down.
 - Visual UI enhancements using bootstrap.
-- Color theme to match each Exhcange's logo color.
+- Color theme to match each Exchange's logo color.
+
+### 4/12/2023
+#### Created Portfolio Running Total Data Feature
+- New SP - PortfolioRunningTotalByMonth
+- New SP - PortfolioRunningTotalByDay
+- New DbContext, Models, Repository updates
+- Added new Line Chart on Dashboard to show the KPI for monthly performance between investment and current worth.

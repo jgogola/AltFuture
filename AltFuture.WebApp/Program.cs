@@ -34,6 +34,7 @@ builder.Services.AddScoped<ICryptoPriceRepository, CryptoPriceRepository>();
 builder.Services.AddScoped<IExchangeTransactionTypeRepository, ExchangeTransactionTypeRepository>();    
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IPortfolioSummaryRepository, PortfolioSummaryRepository>();
+builder.Services.AddScoped<IPortfolioRunningTotalRepository, PortfolioRunningTotalRepository>();
 
 //* Singletons:
 builder.Services.AddSingleton<Func<IServiceScope>>(_ => () => builder.Services.BuildServiceProvider().CreateScope());

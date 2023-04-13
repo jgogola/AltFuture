@@ -7,7 +7,11 @@ namespace AltFuture.DataAccessLayer.Data
     {
         // Define all Stored Proc and View Entities in this partial class. 
 
-        public DbSet<PortfolioSummaryGetAll> PortfolioSummaries { get; set; }
+        public DbSet<PortfolioSummary> PortfolioSummaries { get; set; }
+
+        public DbSet<PortfolioRunningTotalByMonth> PortfolioRunningTotalByMonths { get; set; }
+
+        public DbSet<PortfolioRunningTotalByDay> PortfolioRunningTotalByDays { get; set; }
 
 
     }
