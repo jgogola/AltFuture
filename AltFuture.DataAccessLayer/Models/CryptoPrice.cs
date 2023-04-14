@@ -60,7 +60,8 @@ namespace AltFuture.DataAccessLayer.Models
         [DefaultValue(0.00)]
         public decimal MarketCapDominance { get; set; } = decimal.Zero;
 
-
+        [DefaultValue(false)]
+        public bool IsMonthStartPrice { get; set; } = false;
 
     }
 }

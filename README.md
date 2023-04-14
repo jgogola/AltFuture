@@ -262,3 +262,9 @@
 - New SP - PortfolioRunningTotalByDay
 - New DbContext, Models, Repository updates
 - Added new Line Chart on Dashboard to show the KPI for monthly performance between investment and current worth.
+
+### 4/13/2023
+#### Added IsMonthStartPrice field to CryptoPrice
+- Note: I was going to build a feature to get historical prices using the CoinMarketCap API, but found that my data plan doesn't include access to historical data.
+- I just manually added the historical data I needed. 
+- Will have to re-visit in the future.
