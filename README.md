@@ -268,3 +268,11 @@
 - Note: I was going to build a feature to get historical prices using the CoinMarketCap API, but found that my data plan doesn't include access to historical data.
 - I just manually added the historical data I needed. 
 - Will have to re-visit in the future.
+
+### 4/14/2023 - 4/16/2023
+#### Dashboard Front-End UI Enhancements
+- Dark Mode theme
+- Better layout of important key elements and data points.
+- Revamp table data and what columns should show at what view size.
+- Added SVG Icons for the crypto assets.
+- Migration "AlterCryptoAddCryptoIconField".

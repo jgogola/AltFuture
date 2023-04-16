@@ -2,15 +2,84 @@
 @model IEnumerable<PortfolioSummary>
 @{
     ViewData["Title"] = "Portfolio Dashboard";
-    var bodyData = Model.Where(crypto => crypto.RowType == 1).ToList();
-    var footerData = Model.Where(crypto => crypto.RowType == 99).ToList().FirstOrDefault();
+    var detailData = Model.Where(crypto => crypto.RowType == 1).ToList();
+    var totalData = Model.Where(crypto => crypto.RowType == 99).ToList().FirstOrDefault();
 }
 
 
-<h1>Portfolio Dashboard</h1>
+<style>
+    h1, h2 {
+        color: #f0b90b; 
+    }
+    
 
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <div class="container-fluid">
+    .scrolling-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+        .scrolling-wrapper .scroll-card {
+            flex: 0 0 auto;
+            margin-right: 15px;
+            background-color: #EEE;
+            border: 5px solid #f0b90b;
+            min-width: 360px;
+            height: 350px;
+        }
+
+    .scrolling-wrapper {
+        height: 350px;
+        margin-bottom: 20px;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .scrolling-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .kpi-figures {
+            width: 30%;
+        }
+
+        .td-main {
+            font-weight: bold;
+        }
+
+        .td-muted {
+            font-weight: normal;
+            font-size: .8em;
+            color: #ccc;
+        }
+
+    .trend-up-color {
+        color: #00ff1e !important;
+    }
+
+    .trend-down-color {
+        color: #ff5e5e !important;
+    }
+
+    .floating-label {color: #AAA; font-size: 1.2em;}
+
+    .floating-value {
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.6em;
+    }
+
+    thead th {
+        color: #AAA;
+        font-size: 1.2em;
+    }
+
+</style>
+<h1>My Portfolio Dashboard</h1>
+
+<nav class="navbar navbar-expand-sm  ">
+    <div class="container-fluid justify-content-end">
         <div id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -22,80 +91,122 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav>   
 
-<div class="container mt-4 mb-4">
-    <div class="row">
-        <div class="col-md-4">
-            <!--Div for Asset Allocation Pie Chart-->
-            <div id="chartAssetAllocation"></div>
+<h2>Overview</h2>
+
+<div class="container mt-1 mb-5" style="min-height: 400px;">
+    <div class="flex-row d-flex ">
+        <div class="card bg-dark mx-3 d-inline-block">
+            <div class="floating-label">Investment</div>
+            <div class="floating-value">@totalData?.InvestmentTotal.ToString("C")</div>
         </div>
-        <div class="col-md-4">
-            <!--Div for Asset Performance Column Chart-->
-            <div id="chartAssetPerformance"></div>
+        <div class="card bg-dark mx-3 d-inline-block">
+            <div class="floating-label">Performance</div>
+            <div class="floating-value @(totalData?.UnrealizedProfit >= 0 ? "trend-up-color" : "trend-down-color")">
+                @totalData?.UnrealizedProfit.ToString("C")
+            </div>
         </div>
-        <div class="col-md-4">
-            <!--Div for Exchange Usage Pie Chart-->
-            <div id="chartExchangeUsage"></div>
+        <div class="card bg-dark mx-3 d-inline-block">
+            <div class="floating-label">Current Worth</div>
+            <div class="floating-value">
+                @totalData?.CurrentWorth.ToString("C")
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <div id="chartRunningTotal"></div>
-        </div>
-    </div>
+
+    <div id="chartRunningTotal" ></div>
 </div>
 
-<div class="container mt-1">
-    <table class="table table-striped">
-        <caption>Crypto Asset Portfolio</caption>
-        <thead class="table-dark">
+
+<h2>My Assets</h2>
+<div class="container mb-5">
+    <table class="table table-dark" style="font-size: 1.2rem;">
+        <thead class="">
             <tr class="text-center">
-                <th scope="col">@Html.DisplayNameFor(model => model.CryptoName)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.TickerSymbol)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.NumberOfOrders)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.Quantity)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.AverageBuyPrice)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.InvestmentTotal)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.FeeTotal)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.UnrealizedProfit)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.CurrentWorth)</th>
+                <th scope="col" colspan="2">Crypto</th>
+                <th scope="col">Investment</th>
+                <th scope="col">Performance</th>
+                <th scope="col">Current Price</th>
+                <th scope="col" class="d-none d-lg-table-cell">Avg. Buy Price</th>
+                <th scope="col" class="d-none d-md-table-cell">Orders</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var crypto in bodyData)
+            @foreach (var crypto in detailData)
             {
                 <tr>
-                    <td class="text-nowrap">@crypto.CryptoName</td>
-                    <th class="text-center" scope="row">@crypto.TickerSymbol</th>
-                    <td class="text-center">@crypto.NumberOfOrders</td>
-                    <td class="text-center">@crypto.Quantity</td>
-                    <td class="text-end">@crypto.AverageBuyPrice</td>
-                    <td class="text-end">@crypto.Price</td>
-                    <td class="text-end text-success">@crypto.InvestmentTotal</td>
-                    <td class="text-end text-danger">@crypto.FeeTotal</td>
-                    <td class="text-end @(crypto.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@crypto.UnrealizedProfit</td>
-                    <td class="text-end fw-bold">@crypto.CurrentWorth</td>
+                    <td style="width: 48px;">
+                         @Html.Raw(crypto.CryptoIcon)
+                    </td>
+                    <td class="text-nowrap " scope="row">
+                        <div class="td-main">@crypto.CryptoName</div>
+                        <div class="td-muted">@crypto.TickerSymbol</div>
+                    </td>
+                    <td class="text-start">
+                        <div class="td-main" title="Investment Total">
+                            @crypto.InvestmentTotal.ToString("C")
+                        </div>
+
+                    </td>
+                    <td class="text-start ">
+                        <div class="@(crypto.UnrealizedProfit >= 0 ? "trend-up-color" : "trend-down-color")" title="Profit/Loss">
+                            @crypto.UnrealizedProfit.ToString("C")
+                        </div>
+                        <div class="td-main" title="Current Worth">
+                            @crypto.CurrentWorth.ToString("C")
+                        </div>
+
+                    </td>
+                    <td class="text-start">
+                        <div class="td-main" title="Current Price">
+                            @crypto.Price.ToString("C")
+                        </div>
+                        <div class="td-muted" title="24hr Price Change">
+                            @crypto.PercentChange24h.ToString("N2")%
+                            <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(crypto.PercentChange24h < 0 ? "display:none" : "")'></i>
+                            <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(crypto.PercentChange24h >= 0 ? "display:none" : "")'></i>
+                        </div>
+                    </td>
+                    <td class="text-start align-middle d-none d-lg-table-cell">
+                        <div class="" title="Average Buy Price">
+                            @crypto.AverageBuyPrice.ToString("C")
+                        </div>
+                    </td>
+                    <td class="text-start align-middle d-none d-md-table-cell">
+                        <div class="td-main" title="Number of Orders">
+                             @crypto.NumberOfOrders.ToString("N0")
+                        </div>
+                        <div class="td-muted" title="Units Owned">
+                            @crypto.Quantity.ToString("N4") <span class="td-muted">@crypto.TickerSymbol</span>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
-        <tfoot class="table-secondary">
-            <tr>
-                <td>@footerData?.CryptoName</td>
-                <th class="text-center" scope="row">@footerData?.TickerSymbol</th>
-                <td class="text-center">@footerData?.NumberOfOrders</td>
-                <td class="text-center">@footerData?.Quantity</td>
-                <td class="text-end">------</td>
-                <td class="text-end">------</td>
-                <td class="text-end text-success">@footerData?.InvestmentTotal</td>
-                <td class="text-end text-danger">@footerData?.FeeTotal</td>
-                <td class="text-end @(footerData?.UnrealizedProfit >= 0 ? "table-success" : "table-danger")">@footerData?.UnrealizedProfit</td>
-                <td class="text-end fw-bold">@footerData?.CurrentWorth</td>
-            </tr>
-        </tfoot>
     </table>
 
+</div>
+
+<h2>Charts</h2>
+<div class="container mb-5">
+    <div class="scrolling-wrapper">
+        <div class="scroll-card">
+            <!--Div for Asset Allocation Pie Chart-->
+            <div id="chartAssetAllocation"></div>
+        </div>
+        <div class="scroll-card" style="width: 500px;">
+            <!--Div for Asset Performance Column Chart-->
+            <div id="chartAssetPerformance"></div>
+        </div>
+        <div class="scroll-card">
+            <!--Div for Exchange Usage Pie Chart-->
+            <div id="chartExchangeUsage"></div>
+        </div>
+        <div class="scroll-card"><h2>KPI 4</h2></div>
+        <div class="scroll-card"><h2>KPI 5</h2></div>
+        <div class="scroll-card"><h2>KPI 6</h2></div>
+    </div>
 </div>
 
 <partial name="Partials/_UserMessage" />
@@ -107,17 +218,73 @@
 
 <script type="text/javascript">
 
-    // Load the Visualization API and the corechart package.
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.load('current', { 'packages': ['bar'] });
+    //* Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart','bar']});
 
-    // Set a callback to run when the Google Visualization API is loaded.
+    //* Set a callback to run when the Google Visualization API is loaded.
     google.charts.setOnLoadCallback(drawAssetAllocationChart);
     google.charts.setOnLoadCallback(drawAssetPerformanceChart);
     google.charts.setOnLoadCallback(drawExchangeUsageChart);
     google.charts.setOnLoadCallback(drawRunningTotalChart);
 
-    // Asset Allocation Pie Chart
+
+
+    //** Running Total Chart
+    function drawRunningTotalChart() {
+        let jsonData;
+
+        //* Get data
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetPortfolioRunningTotalByMonthData", "Dashboard")",
+            dataType: "json",
+            async: false,
+            success: function (d) {
+                jsonData = d;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error: " + textStatus, errorThrown);
+            }
+        });
+
+        //* Create our data table out of JSON data loaded from server.
+        let data = new google.visualization.arrayToDataTable(jsonData);
+
+        console.log(data);
+
+        var options = {
+            height: 400,
+            width: '100%',
+            title: 'Portfolio Performance (All time)',
+            titleTextStyle: {color: "#AAA"},
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            backgroundColor: "transparent",
+            colors: ["#2f5bfa", "#2ffa47"],
+            vAxis: {
+                baselineColor: "#666666",
+                gridlines: { color: '#666666' },
+                minorGridlines: { color: '#404040' },
+                textStyle: {color: "#FFF"},
+            },
+            hAxis: {
+                slantedText: true,
+                textPosition: 'out',
+                textStyle: {color: "#777"},
+            },
+            legend: {
+                textStyle: {color: "#FFF"},
+            },
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chartRunningTotal'));
+
+        chart.draw(data, options);
+    }
+
+
+    //** Asset Allocation Pie Chart
     function drawAssetAllocationChart() {
         let jsonData;
 
@@ -144,6 +311,7 @@
             width:400,
             height:300,
             pieHole: 0.3,
+            backgroundColor: '#EEE'
         };
 
         // Instantiate and draw our chart, passing in some options.
@@ -152,12 +320,12 @@
     }
    
     
-    // Asset Performance Column Chart
+    //** Asset Performance Column Chart
     function drawAssetPerformanceChart() {
 
         let jsonData;
 
-        // Get data
+        //* Get data
         $.ajax({
             type: "GET",
             url: "@Url.Action("GetAssetPerformanceData", "Dashboard")",
@@ -174,26 +342,49 @@
 
         let data = new google.visualization.arrayToDataTable(jsonData);
 
-        let options = {
-            chart: {
-                title: 'Crypto Investment Performance',
-                subtitle: 'Investements and Current Worth',
-               
+        var options = {
+            title: 'Crypto Investment Performance',
+            height: 320,
+            backgroundColor: '#EEE',
+            colors: ["#2f5bfa", "#18c429"],
+            chartArea: { width: '50%' },
+            annotations: {
+                alwaysOutside: true,
+                textStyle: {
+                    fontSize: 12,
+                    auraColor: 'none',
+                    color: '#555'
+                },
+                boxStyle: {
+                    stroke: '#ccc',
+                    strokeWidth: 1,
+                    gradient: {
+                        color1: '#f3e5f5',
+                        color2: '#f3e5f5',
+                        x1: '0%', y1: '0%',
+                        x2: '100%', y2: '100%'
+                    }
+                }
             },
-            colors: ['#3366cc', '#109618'],
-           
+            hAxis: {
+                title: 'Investements and Current Worth',
+                minValue: 0,
+            },
+            vAxis: {
+                title: 'Crypto'
+            }
         };
 
-        let chart = new google.charts.Bar(document.getElementById('chartAssetPerformance'));
-        chart.draw(data, google.charts.Bar.convertOptions(options));
+        var chart = new google.visualization.BarChart(document.getElementById('chartAssetPerformance'));
+        chart.draw(data, options);
     }
 
 
-    // Exchange Usage Pie Chart
+    //** Exchange Usage Pie Chart
     function drawExchangeUsageChart() {
         let jsonData;
 
-        // Get data
+        //* Get data
         $.ajax({
             type: "GET",
             url: "@Url.Action("GetExchangeUsageData", "Dashboard")",
@@ -207,56 +398,22 @@
             }
         });
 
-        // Create our data table out of JSON data loaded from server.
+        //* Create our data table out of JSON data loaded from server.
         let data = new google.visualization.arrayToDataTable(jsonData);
 
-        // Set chart options
+        //* Set chart options
         let options = {
-            'title': 'Exchange Usage',
-            'width': 400,
-            'height': 300,
-            'is3D': true
+            title: 'Exchange Usage',
+            width: 400,
+            height: 300,
+            is3D: true,
+            backgroundColor: '#EEE'
         };
 
-        // Instantiate and draw our chart, passing in some options.
+        //* Instantiate and draw our chart, passing in some options.
         let chart = new google.visualization.PieChart(document.getElementById('chartExchangeUsage'));
         chart.draw(data, options);
     }
-
-    function drawRunningTotalChart() {
-        let jsonData;
-
-        // Get data
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("GetPortfolioRunningTotalByMonthData", "Dashboard")",
-            dataType: "json",
-            async: false,
-            success: function (d) {
-                jsonData = d;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error("Error: " + textStatus, errorThrown);
-            }
-        });
-
-        // Create our data table out of JSON data loaded from server.
-        let data = new google.visualization.arrayToDataTable(jsonData);
-
-        console.log(data);
-
-        var options = {
-            title: 'Portfolio Performance',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('chartRunningTotal'));
-
-        chart.draw(data, options);
-    }
-
-
 
 </script>
 
