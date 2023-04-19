@@ -4,16 +4,22 @@
 @{
 }
 
+<div class="container">
 
-<ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Admin" asp-controller="MarketDataPlan" asp-action="Index">CoinMarketCap API Details</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Crypto" asp-action="Index">Crypto Maint</a>
-    </li>
-@*    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Exchange" asp-action="Index">Exchange Maint</a>
-    </li>*@
+    <h1 class="text-center">Administrator Features</h1>
 
-</ul>
+    <section class="section-container">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="MarketDataPlan" asp-action="Index">CoinMarketCap API Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Crypto" asp-action="Index">Crypto Maint</a>
+            </li>
+            @*    <li class="nav-item">
+            <a class="nav-link" asp-area="Admin" asp-controller="Exchange" asp-action="Index">Exchange Maint</a>
+            </li>*@
+
+        </ul>
+    </section>
+</div>

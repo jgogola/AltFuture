@@ -17,7 +17,78 @@ body {
   margin-bottom: 60px;
 }
 
+h1, h2, h3, h4, h5 {
+    color: #f0b90b;
+}
 
+.section-container {
+    padding-top: 15px;
+    margin-top: 2px;
+    border-top: 1px ridge #000;
+}
+
+
+.impact-label {
+    color: #AAA;
+    font-size: 1.2em;
+}
+
+.impact-value {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+
+.trend-up-color {
+    color: #00ff1e !important;
+}
+
+.trend-down-color {
+    color: #ff5e5e !important;
+}
+
+
+.table-dark  th {
+    color: #AAA;
+    font-size: 1.1em;
+}
+
+.td-main-data {
+    font-weight: bold;
+}
+
+.td-secondary-data {
+    font-weight: normal;
+    font-size: .8em;
+    color: #ccc;
+}
+
+/*** BEGIN: Horizontal Scrolling Content Container */
+        .horizontal-scrolling-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        height: 350px;
+        margin-bottom: 20px;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .horizontal-scrolling-container .scroll-card {
+            flex: 0 0 auto;
+            margin-right: 15px;
+            background-color: #EEE;
+            border: 5px solid #f0b90b;
+            min-width: 360px;
+            height: 350px;
+        }  
+
+        .horizontal-scrolling-container::-webkit-scrollbar {
+            display: none;
+        }
+
+/*** EMD: Horizontal Scrolling Content Container */
 
 /*** Begin: User Message Partial */
 

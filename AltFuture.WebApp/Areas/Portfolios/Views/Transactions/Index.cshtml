@@ -1,95 +1,94 @@
 ﻿@model IEnumerable<Transaction>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Transaction History";
 }
 
-<h1>Index</h1>
+<div class="container">
+    <h1 class="text-center">Transaction History</h1>
+    <p class="lead text-light text-center">
+        This is a list of all your portfolio's' transactions as collected from the exchanges you inputed data from.
+    </p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionReferenceNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Crypto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FromExchange)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ToExchange)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionReferenceNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppUser.AppUserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Crypto.CryptoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FromExchange.ExchangeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ToExchange.ExchangeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TransactionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <section class="section-container">
+        <div class="text-end">
+            <a asp-action="Create" class="btn btn-success">Create New <i class="fa-solid fa-plus" style="color: #ffffff;"></i></i></a>
+        </div>
+
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Crypto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InvestmentTotal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fee)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TransactionTotal)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.TransactionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FromExchange)
+                    </th>
+                    <th class="text-end">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @item.Crypto.CryptoName
+                    </td>
+                    <td>
+                            @item.Price.ToString("C")
+                    </td>
+                    <td>
+                            @item.Quantity.ToString("N4")
+                    </td>
+                    <td>
+                        @item.InvestmentTotal.ToString("C")
+                    </td>
+                    <td>
+                            @item.TransactionTotal.ToString("C")
+                    </td>
+                    <td>
+                        @item.Fee.ToString("C")
+                    </td>
+                    <td>
+                            @item.TransactionDate
+                    </td>
+                    <td>
+                        @item.FromExchange.ExchangeName
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@item.TransactionId" class="btn btn-primary btn-sm" title="View Details">
+                            <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@item.TransactionId" class="btn btn-success btn-sm" title="Edit Details">
+                            <i class="fa-solid fa-pencil" style="color: #ffffff;"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.TransactionId" class="btn btn-danger btn-sm" title="Delete" role="button">
+                            <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                        </a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </section>
+</div>

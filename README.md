@@ -276,3 +276,8 @@
 - Revamp table data and what columns should show at what view size.
 - Added SVG Icons for the crypto assets.
 - Migration "AlterCryptoAddCryptoIconField".
+
+### 4/17/2023 - 4/18/2023
+- Dark Mode Color Theme for UI
+- Styled all pages to adhere to new CSS styles.
+- Added Crypto logos
