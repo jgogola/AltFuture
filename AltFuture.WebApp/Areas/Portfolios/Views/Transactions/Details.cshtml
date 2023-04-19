@@ -1,84 +1,103 @@
 ﻿@model Transaction
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Transaction Details";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionReferenceNum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransactionReferenceNum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AppUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AppUser.AppUserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Crypto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Crypto.CryptoId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionTotal)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransactionTotal)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fee)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransactionDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FromExchange)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FromExchange.ExchangeId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ToExchange)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ToExchange.ExchangeId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-    </dl>
+<div class="container">
+    <h1 class="text-center">Transaction Details</h1>
+
+    <section class="section-container">
+        <dl class="row text-light mt-5">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Crypto)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Crypto.CryptoName
+                <div style="display: inline-block; width: 32px;">@Html.Raw(Model.Crypto.CryptoIcon)</div>
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TransactionReferenceNum)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.TransactionReferenceNum
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Price.ToString("C")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Quantity.ToString("N6")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TransactionTotal)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.TransactionTotal.ToString("C")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Fee)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Fee.ToString("C")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TransactionDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.TransactionDate
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FromExchange)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.FromExchange.ExchangeName
+            </dd>
+            @{
+                if (Model.ToExchange?.ExchangeName != null)
+                {
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.ToExchange)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @(Model.ToExchange?.ExchangeName ?? "")
+                    </dd>                
+                }
+            }
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.CreatedDate
+            </dd>
+
+            <dt class="col-sm-2 mt-5">
+                <a asp-action="Index" class="btn btn-info btn-sm me-1">
+                    <i class="fa-solid fa-right-to-bracket fa-rotate-180"></i>
+                    Back to List
+                </a>
+            </dt>
+            <dd class="col-sm-10 mt-5">
+                <a asp-action="Edit" asp-route-id="@Model?.TransactionId" class="btn btn-success btn-sm" title="Edit Details">
+                    <i class="fa-solid fa-pencil" style="color: #ffffff;"></i>
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model?.TransactionId" class="btn btn-danger btn-sm" title="Delete" role="button">
+                    <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                </a>
+            </dd>
+        </dl>
+
+        <div class="mt-5">
+
+
+
+        </div>
+</section>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.TransactionId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

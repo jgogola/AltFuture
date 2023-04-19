@@ -13,6 +13,7 @@
         user-select: none;
       }
 
+   
 
     /* CUSTOMIZE THE CAROUSEL
     -------------------------------------------------- */
@@ -21,15 +22,13 @@
     .carousel {
         margin-bottom: 4rem;
     }
-    /* Since positioning the image, we need to help out the caption */
+
     .carousel-caption {
-       /* bottom: 3rem;*/
        bottom: unset;
        top: 2rem;
-        z-index: 10;
+       z-index: 10;
     }
 
-    /* Declare heights because of positioning of img element */
     .carousel-item {
         height: 50rem;
     }
@@ -41,8 +40,6 @@
         right: 30%;
         top: 16rem;
         z-index: 1000;
-        color: #fff;
-
     }
 
     #fileUploadOption {
@@ -54,43 +51,93 @@
         opacity: 0;
     }
 
-    .noneTheme {
-        background-color: #cacfe0;
+    .exchangeInstructions {
+        text-align: left;
+        font-size: 1.1em;
     }
 
-    .coinbaseTheme {
-        background-color: #0052fe;
+    h2 {font-weight: bold;}
+
+    h2.smallGap {
+        margin-bottom: 90px;
     }
-
-    .coinbaseProTheme {
-        background-color: #333;
-    }
-
-    .etoroTheme {
-        background-color: #04c420;
-    }
-
-    .cryptoDotComTheme {
-        background-color: #061121;
-    }
-
-    .binanceTheme {
-        background-color: #f0b90b;
-    }
-
-    .exchangeInstructions {text-align: left; font-size: 1.1em;}
-
-    h2.smallGap {margin-bottom: 90px;}
 
     h2.largeGap {
         margin-bottom: 150px;
     }
-    
-    .carousel-caption p {font-size: 1.3em; font-weight: 700;}
+
+    .carousel-caption p {
+        font-size: 1.3em;
+        font-weight: 700;
+    }
+
+
+    /* Exhange Themes */
+    .noneTheme {
+        background-color: #AAA;
+        border: 4px solid #f0b90b;
+        
+    }
+        .noneTheme h2 {
+            color: #333;
+        }
+
+        .noneTheme p {
+            color: #333 !important;
+        }
+
+
+    .coinbaseTheme {
+        background-color: #0052fe;
+        border: 4px solid #fff;
+    }
+
+        .coinbaseTheme h2 {
+            color: #333;
+        }
+
+    .coinbaseProTheme {
+        background-color: #333;
+        border: 4px solid #0052fe;
+    }
+
+        .coinbaseProTheme h2 {
+            color: #0052fe;
+         }
+
+    .cryptoDotComTheme {
+        background-color: #061121;
+        border: 4px solid #1199fa;
+    }
+
+        .cryptoDotComTheme h2 {
+            color: #1199fa;
+        }
+
+
+    .etoroTheme {
+        background-color: #04c420;
+        border: 4px solid #FFF;
+    }
+
+        .etoroTheme h2 {
+            color: #FFF;
+        }
+
+    .binanceTheme {
+        background-color: #f0b90b;
+        border: 4px solid #777;
+    }
+
+        .binanceTheme h2 {
+            color: #000;
+        }
+
+
 </style>
 
 <div class="container">
-    <h1 class="mt-4 text-center text-nowrap">Import Exchange Transaction Data File</h1>
+    <h1 class="mt-4 text-center text-nowrap">Import Exchange Transactions</h1>
 
     <div id="exchangeCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">

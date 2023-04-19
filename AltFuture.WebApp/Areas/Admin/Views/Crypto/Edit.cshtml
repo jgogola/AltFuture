@@ -1,37 +1,42 @@
 ﻿@model CryptoViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Crypto";
 }
 
-<h1>Edit</h1>
+<div class="container">
+    <h1 class="text-center">Edit Crypto</h1>
 
-<h4>Crypto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CryptoId" />
-            <div class="form-group">
-                <label asp-for="CryptoName" class="control-label"></label>
-                <input asp-for="CryptoName" class="form-control" />
-                <span asp-validation-for="CryptoName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TickerSymbol" class="control-label"></label>
-                <input asp-for="TickerSymbol" class="form-control" />
-                <span asp-validation-for="TickerSymbol" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <section class="section-container">
+        <div class="row text-light mt-5">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="CryptoId" />
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                    <div class="form-group">
+                        <label asp-for="CryptoName" class="control-label"></label>
+                        <input asp-for="CryptoName" class="form-control" />
+                        <span asp-validation-for="CryptoName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TickerSymbol" class="control-label"></label>
+                        <input asp-for="TickerSymbol" class="form-control" />
+                        <span asp-validation-for="TickerSymbol" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3 text-center">
+                        <a asp-action="Index" class="btn btn-info btn-sm me-3">
+                            <i class="fa-solid fa-right-to-bracket fa-rotate-180"></i>
+                            Back to List
+                        </a>
+                        <input type="submit" value="Save" class="btn btn-success btn-sm ps-5 pe-5" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 </div>
 
 @section Scripts {

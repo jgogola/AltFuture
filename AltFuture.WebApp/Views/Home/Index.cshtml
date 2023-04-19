@@ -4,77 +4,77 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to AltFuture</h1>
-    <h2 class="display-8">A crypto asset tracker powered by CoinMarketCap API.</h2>
+<div class="text-center mb-5 ">
+    <h1 class="display-4">AltFuture</h1>
+    <p class="lead text-light">A crypto asset tracker powered by CoinMarketCap API.</p>
 </div>
 
-
-<table class="table table-striped">
-    <caption>Prices from CoinMarketCap as of @ViewBag.DateLastSynced</caption>
-    <thead class="table-dark">
-        <tr>
-            <th>
-                Crypto
-            </th>
-            <th>
-                Ticker
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                % Change 1h
-            </th>
-            <th>
-                % Change 24h
-            </th>
-            <th>
-                % Change 7d
-            </th>
-            <th>
-                % Change 30d
-            </th>
-            <th>
-                % Change 60d
-            </th>
-            <th>
-                % Change 90d
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<section class="section-container">
+    <h3>Latest Market Data <i class="fa-solid fa-chart-line"></i></h3>
+    <table class="table table-dark table-hover" style="font-size: 1.2rem;">
+        <caption>Prices from CoinMarketCap as of @ViewBag.DateLastSynced</caption>
+        <thead class="">
             <tr>
-                <th scope="row">
-                    @item.Crypto.CryptoName
-                </th>
-                <td>
-                    @item.Crypto.TickerSymbol
-                </td>
-                <td>
-                    @Math.Round(@item.Price,5)
-                </td>
-                <td class="@(@item.PercentChange1h >= 0 ? "text-success" : "text-danger")">
-                    @Math.Round(@item.PercentChange1h,3)
-                </td>
-                <td class="@(@item.PercentChange24h >= 0 ? "text-success" : "text-danger")">
-                    @Math.Round(@item.PercentChange24h,3)
-                </td>
-                <td class="@(@item.PercentChange7d >= 0 ? "text-success" : "text-danger")">
-                    @Math.Round(@item.PercentChange7d,3)
-                </td>
-                <td class="@(@item.PercentChange30d >= 0 ? "text-success" : "text-danger")">
-                    @Math.Round(@item.PercentChange30d,3)
-                </td>
-                <td class="@(@item.PercentChange60d >= 0 ? "text-success" : "text-danger")">
-                    @Math.Round(@item.PercentChange60d,3)
-                </td>
-                <td class="@(@item.PercentChange90d >= 0 ? "text-success" : "text-danger")">
-                    @Math.Round(@item.PercentChange90d,3)
-                </td>
+                <th colspan="2">Crypto</th>
+                <th>Price</th>
+
+                <th>24h Change</th>
+                <th>7d Change</th>
+                <th class="d-none d-sm-table-cell">30d Change</th>
+                <th class="d-none d-md-table-cell">60d Change</th>
+                <th class="d-none d-lg-table-cell">90d Change</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 48px;">
+                        @Html.Raw(item.Crypto.CryptoIcon)
+                    </td>
+                    <th scope="row">
+                        <div class="td-main-data">@item.Crypto.CryptoName</div>
+                        <div class="td-secondary-data">@item.Crypto.TickerSymbol</div>
+                    </th>
+                    <td class="fs-5">
+                        <div class="td-main-data">@item.Price.ToString("C5")</div>
+                        <div class="td-secondary-data @(@item.PercentChange1h >= 0 ? "trend-up-color" : "trend-down-color")">
+ 
+                            @Math.Round(@item.PercentChange1h,3)%
+                            <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange1h < 0 ? "display:none" : "")'></i>
+                            <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange1h >= 0 ? "display:none" : "")'></i>
+                            <span style="color: #AAA;" >
+                                1h
+                            </span>
+                        </div>
+                    </td>
+                    <td class="@(@item.PercentChange24h >= 0 ? "trend-up-color" : "trend-down-color")">
+                        @Math.Round(@item.PercentChange24h,3)%
+                        <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange24h < 0 ? "display:none" : "")'></i>
+                        <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange24h >= 0 ? "display:none" : "")'></i>
+                    </td>
+                    <td class="@(@item.PercentChange7d >= 0 ? "trend-up-color" : "trend-down-color")">
+                        @Math.Round(@item.PercentChange7d,3)%
+                        <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange7d < 0 ? "display:none" : "")'></i>
+                        <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange7d >= 0 ? "display:none" : "")'></i>
+                    </td>
+                    <td class="@(@item.PercentChange30d >= 0 ? "trend-up-color" : "trend-down-color") d-none d-sm-table-cell">
+                        @Math.Round(@item.PercentChange30d,3)%
+                        <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange30d < 0 ? "display:none" : "")'></i>
+                        <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange30d >= 0 ? "display:none" : "")'></i>
+                    </td>
+                    <td class="@(@item.PercentChange60d >= 0 ? "trend-up-color" : "trend-down-color") d-none d-md-table-cell">
+                        @Math.Round(@item.PercentChange60d,3)%
+                        <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange60d < 0 ? "display:none" : "")'></i>
+                        <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange60d >= 0 ? "display:none" : "")'></i>
+                    </td>
+                    <td class="@(@item.PercentChange90d >= 0 ? "trend-up-color" : "trend-down-color") d-none d-lg-table-cell">
+                        @Math.Round(@item.PercentChange90d,3)%
+                        <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange90d < 0 ? "display:none" : "")'></i>
+                        <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange90d >= 0 ? "display:none" : "")'></i>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

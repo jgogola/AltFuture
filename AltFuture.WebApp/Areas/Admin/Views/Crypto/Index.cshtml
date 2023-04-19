@@ -4,43 +4,53 @@
     ViewData["Title"] = "Crypto";
 }
 
-<h1>Crypto</h1>
+<div class="container">
+    <h1 class="text-center">Crypto Assets</h1>
+    <p class="lead text-light text-center">
+        This is a list of all the crypto assets that are currently supported by the system.
+    </p>
 
-<p>
-    <a asp-action="Create">Create New <i class="fas fa-plus"></i></a>
-</p>
+    <section class="section-container">
 
-<table class="table table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>
-                Crypto
-            </th>
-            <th>
-                Ticker
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.CryptoName
-            </td>
-            <td>
-                @item.TickerSymbol
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CryptoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CryptoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CryptoId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <div class="text-end">
+            <a asp-action="Create" class="btn btn-success">Create New <i class="fa-solid fa-plus" style="color: #ffffff;"></i></i></a>
+        </div>
 
-
+        <table class="table table-dark table-hover">
+            <thead class="">
+                <tr>
+                    <th colspan="2">
+                        Crypto
+                    </th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td style="width: 48px;">
+                        @Html.Raw(item.CryptoIcon)
+                    </td>
+                    <td class="text-nowrap " scope="row">
+                        <div class="td-main-data">@item.CryptoName</div>
+                        <div class="td-secondary-data">@item.TickerSymbol</div>
+                    </td>
+                    <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@item.CryptoId" class="btn btn-primary btn-sm" title="View Details">
+                                <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.CryptoId" class="btn btn-success btn-sm" title="Edit Details" >
+                                <i class="fa-solid fa-pencil" style="color: #ffffff;"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.CryptoId" class="btn btn-danger btn-sm" title="Delete" role="button">
+                                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                            </a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </section>
+</div>
 <partial name="Partials/_UserMessage" />
 

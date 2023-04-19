@@ -6,77 +6,12 @@
     var totalData = Model.Where(crypto => crypto.RowType == 99).ToList().FirstOrDefault();
 }
 
-
 <style>
-    h1, h2 {
-        color: #f0b90b; 
-    }
-    
 
-    .scrolling-wrapper {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-    }
-
-        .scrolling-wrapper .scroll-card {
-            flex: 0 0 auto;
-            margin-right: 15px;
-            background-color: #EEE;
-            border: 5px solid #f0b90b;
-            min-width: 360px;
-            height: 350px;
-        }
-
-    .scrolling-wrapper {
-        height: 350px;
-        margin-bottom: 20px;
-        width: 100%;
-        -webkit-overflow-scrolling: touch;
-    }
-
-        .scrolling-wrapper::-webkit-scrollbar {
-            display: none;
-        }
-
-
-        .kpi-figures {
-            width: 30%;
-        }
-
-        .td-main {
-            font-weight: bold;
-        }
-
-        .td-muted {
-            font-weight: normal;
-            font-size: .8em;
-            color: #ccc;
-        }
-
-    .trend-up-color {
-        color: #00ff1e !important;
-    }
-
-    .trend-down-color {
-        color: #ff5e5e !important;
-    }
-
-    .floating-label {color: #AAA; font-size: 1.2em;}
-
-    .floating-value {
-        color: #fff;
-        font-weight: bold;
-        font-size: 1.6em;
-    }
-
-    thead th {
-        color: #AAA;
-        font-size: 1.2em;
-    }
 
 </style>
-<h1>My Portfolio Dashboard</h1>
+
+<h1 class="text-center">My Portfolio</h1>
 
 <nav class="navbar navbar-expand-sm  ">
     <div class="container-fluid justify-content-end">
@@ -93,327 +28,343 @@
     </div>
 </nav>   
 
-<h2>Overview</h2>
+<section class="section-container">
+    <h2>Overview <i class="fa-solid fa-mountain-sun"></i> </h2>
 
-<div class="container mt-1 mb-5" style="min-height: 400px;">
-    <div class="flex-row d-flex ">
-        <div class="card bg-dark mx-3 d-inline-block">
-            <div class="floating-label">Investment</div>
-            <div class="floating-value">@totalData?.InvestmentTotal.ToString("C")</div>
-        </div>
-        <div class="card bg-dark mx-3 d-inline-block">
-            <div class="floating-label">Performance</div>
-            <div class="floating-value @(totalData?.UnrealizedProfit >= 0 ? "trend-up-color" : "trend-down-color")">
-                @totalData?.UnrealizedProfit.ToString("C")
+    <div class="container mt-1 mb-5" style="min-height: 400px;">
+        <div class="flex-row d-flex ">
+            <div class="card bg-dark mx-3 d-inline-block">
+                <div class="impact-label">Investment</div>
+                <div class="impact-value">@totalData?.InvestmentTotal.ToString("C")</div>
+            </div>
+            <div class="card bg-dark mx-3 d-inline-block">
+                <div class="impact-label">Performance</div>
+                <div class="impact-value @(totalData?.UnrealizedProfit >= 0 ? "trend-up-color" : "trend-down-color")">
+                    @totalData?.UnrealizedProfit.ToString("C")
+                </div>
+            </div>
+            <div class="card bg-dark mx-3 d-inline-block">
+                <div class="impact-label">Current Worth</div>
+                <div class="impact-value">
+                    @totalData?.CurrentWorth.ToString("C")
+                </div>
             </div>
         </div>
-        <div class="card bg-dark mx-3 d-inline-block">
-            <div class="floating-label">Current Worth</div>
-            <div class="floating-value">
-                @totalData?.CurrentWorth.ToString("C")
-            </div>
-        </div>
+
+        <div id="chartRunningTotal" ></div>
     </div>
-
-    <div id="chartRunningTotal" ></div>
-</div>
+</section>
 
 
-<h2>My Assets</h2>
-<div class="container mb-5">
-    <table class="table table-dark" style="font-size: 1.2rem;">
-        <thead class="">
-            <tr class="text-center">
-                <th scope="col" colspan="2">Crypto</th>
-                <th scope="col">Investment</th>
-                <th scope="col">Performance</th>
-                <th scope="col">Current Price</th>
-                <th scope="col" class="d-none d-lg-table-cell">Avg. Buy Price</th>
-                <th scope="col" class="d-none d-md-table-cell">Orders</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var crypto in detailData)
-            {
-                <tr>
-                    <td style="width: 48px;">
-                         @Html.Raw(crypto.CryptoIcon)
-                    </td>
-                    <td class="text-nowrap " scope="row">
-                        <div class="td-main">@crypto.CryptoName</div>
-                        <div class="td-muted">@crypto.TickerSymbol</div>
-                    </td>
-                    <td class="text-start">
-                        <div class="td-main" title="Investment Total">
-                            @crypto.InvestmentTotal.ToString("C")
-                        </div>
-
-                    </td>
-                    <td class="text-start ">
-                        <div class="@(crypto.UnrealizedProfit >= 0 ? "trend-up-color" : "trend-down-color")" title="Profit/Loss">
-                            @crypto.UnrealizedProfit.ToString("C")
-                        </div>
-                        <div class="td-main" title="Current Worth">
-                            @crypto.CurrentWorth.ToString("C")
-                        </div>
-
-                    </td>
-                    <td class="text-start">
-                        <div class="td-main" title="Current Price">
-                            @crypto.Price.ToString("C")
-                        </div>
-                        <div class="td-muted" title="24hr Price Change">
-                            @crypto.PercentChange24h.ToString("N2")%
-                            <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(crypto.PercentChange24h < 0 ? "display:none" : "")'></i>
-                            <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(crypto.PercentChange24h >= 0 ? "display:none" : "")'></i>
-                        </div>
-                    </td>
-                    <td class="text-start align-middle d-none d-lg-table-cell">
-                        <div class="" title="Average Buy Price">
-                            @crypto.AverageBuyPrice.ToString("C")
-                        </div>
-                    </td>
-                    <td class="text-start align-middle d-none d-md-table-cell">
-                        <div class="td-main" title="Number of Orders">
-                             @crypto.NumberOfOrders.ToString("N0")
-                        </div>
-                        <div class="td-muted" title="Units Owned">
-                            @crypto.Quantity.ToString("N4") <span class="td-muted">@crypto.TickerSymbol</span>
-                        </div>
-                    </td>
+<section class="section-container">
+    <h2>
+        My Assets
+        <svg height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle cx="16" cy="16" fill="#efb914" fill-rule="nonzero" r="16" /><path d="M21.002 9.855A7.947 7.947 0 0124 15.278l-2.847-.708a5.357 5.357 0 00-3.86-3.667c-2.866-.713-5.76.991-6.465 3.806s1.05 5.675 3.917 6.388a5.373 5.373 0 005.134-1.43l2.847.707a7.974 7.974 0 01-5.2 3.385L16.716 27l-2.596-.645.644-2.575a8.28 8.28 0 01-1.298-.323l-.643 2.575-2.596-.646.81-3.241c-2.378-1.875-3.575-4.996-2.804-8.081s3.297-5.281 6.28-5.823L15.323 5l2.596.645-.644 2.575a8.28 8.28 0 011.298.323l.643-2.575 2.596.646z" fill="#fff" /></g></svg>
+    </h2>
+    <div class="container mb-5">
+        <table class="table table-dark" style="font-size: 1.2rem;">
+            <thead class="">
+                <tr class="text-center">
+                    <th scope="col" colspan="2">Crypto</th>
+                    <th scope="col">Investment</th>
+                    <th scope="col">Performance</th>
+                    <th scope="col">Current Price</th>
+                    <th scope="col" class="d-none d-lg-table-cell">Avg. Buy Price</th>
+                    <th scope="col" class="d-none d-md-table-cell">Orders</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var crypto in detailData)
+                {
+                    <tr>
+                        <td style="width: 48px;">
+                             @Html.Raw(crypto.CryptoIcon)
+                        </td>
+                        <td class="text-nowrap " scope="row">
+                            <div class="td-main-data">@crypto.CryptoName</div>
+                            <div class="td-secondary-data">@crypto.TickerSymbol</div>
+                        </td>
+                        <td class="text-start">
+                            <div class="td-main-data" title="Investment Total">
+                                @crypto.InvestmentTotal.ToString("C")
+                            </div>
 
-</div>
-
-<h2>Charts</h2>
-<div class="container mb-5">
-    <div class="scrolling-wrapper">
-        <div class="scroll-card">
-            <!--Div for Asset Allocation Pie Chart-->
-            <div id="chartAssetAllocation"></div>
-        </div>
-        <div class="scroll-card" style="width: 500px;">
-            <!--Div for Asset Performance Column Chart-->
-            <div id="chartAssetPerformance"></div>
-        </div>
-        <div class="scroll-card">
-            <!--Div for Exchange Usage Pie Chart-->
-            <div id="chartExchangeUsage"></div>
-        </div>
-        <div class="scroll-card"><h2>KPI 4</h2></div>
-        <div class="scroll-card"><h2>KPI 5</h2></div>
-        <div class="scroll-card"><h2>KPI 6</h2></div>
+                        </td>
+                        <td class="text-start ">
+                            <div class="@(crypto.UnrealizedProfit >= 0 ? "trend-up-color" : "trend-down-color")" title="Profit/Loss">
+                                @crypto.UnrealizedProfit.ToString("C")
+                            </div>
+                            <div class="td-main-data" title="Current Worth">
+                                @crypto.CurrentWorth.ToString("C")
+                            </div>
+                        </td>
+                        <td class="text-start">
+                            <div class="td-main-data" title="Current Price">
+                                @crypto.Price.ToString("C")
+                            </div>
+                            <div class="td-secondary-data" title="24hr Price Change">
+                                @crypto.PercentChange24h.ToString("N2")%
+                                <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(crypto.PercentChange24h < 0 ? "display:none" : "")'></i>
+                                <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(crypto.PercentChange24h >= 0 ? "display:none" : "")'></i>
+                            </div>
+                        </td>
+                        <td class="text-start align-middle d-none d-lg-table-cell">
+                            <div class="" title="Average Buy Price">
+                                @crypto.AverageBuyPrice.ToString("C")
+                            </div>
+                        </td>
+                        <td class="text-start align-middle d-none d-md-table-cell">
+                            <div class="td-main-data" title="Number of Orders">
+                                 @crypto.NumberOfOrders.ToString("N0")
+                            </div>
+                            <div class="td-secondary-data" title="Units Owned">
+                                @crypto.Quantity.ToString("N4") <span class="td-secondary-data">@crypto.TickerSymbol</span>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-</div>
+</section>
+
+<section class="section-container">
+    <h2>Charts <i class="fa-solid fa-chart-pie"></i></h2>
+    <div class="container mt-4 mb-5">
+        <div class="horizontal-scrolling-container">
+            <div class="scroll-card">
+                <!--Div for Asset Allocation Pie Chart-->
+                <div id="chartAssetAllocation"></div>
+            </div>
+            <div class="scroll-card" style="width: 500px;">
+                <!--Div for Asset Performance Column Chart-->
+                <div id="chartAssetPerformance"></div>
+            </div>
+            <div class="scroll-card">
+                <!--Div for Exchange Usage Pie Chart-->
+                <div id="chartExchangeUsage"></div>
+            </div>
+            <div class="scroll-card"><h2>Staking Rewards</h2></div>
+            <div class="scroll-card"><h2>Loan Interest</h2></div>
+            <div class="scroll-card"><h2>KPI TBD...</h2></div>
+        </div>
+    </div>
+
+
+    <!--Load the Google Chart AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        //* Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+
+        //* Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawAssetAllocationChart);
+        google.charts.setOnLoadCallback(drawAssetPerformanceChart);
+        google.charts.setOnLoadCallback(drawExchangeUsageChart);
+        google.charts.setOnLoadCallback(drawRunningTotalChart);
+
+
+
+        //** Running Total Chart
+        function drawRunningTotalChart() {
+            let jsonData;
+
+            //* Get data
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetPortfolioRunningTotalByMonthData", "Dashboard")",
+                dataType: "json",
+                async: false,
+                success: function (d) {
+                    jsonData = d;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error: " + textStatus, errorThrown);
+                }
+            });
+
+            //* Create our data table out of JSON data loaded from server.
+            let data = new google.visualization.arrayToDataTable(jsonData);
+
+            console.log(data);
+
+            var options = {
+                height: 400,
+                width: '100%',
+                title: 'Portfolio Performance (All time)',
+                titleTextStyle: { color: "#AAA" },
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                backgroundColor: "transparent",
+                colors: ["#2f5bfa", "#2ffa47"],
+                vAxis: {
+                    baselineColor: "#666666",
+                    gridlines: { color: '#666666' },
+                    minorGridlines: { color: '#404040' },
+                    textStyle: { color: "#FFF" },
+                },
+                hAxis: {
+                    slantedText: true,
+                    textPosition: 'out',
+                    textStyle: { color: "#777" },
+                },
+                legend: {
+                    textStyle: { color: "#FFF" },
+                },
+
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chartRunningTotal'));
+
+            chart.draw(data, options);
+        }
+
+
+        //** Asset Allocation Pie Chart
+        function drawAssetAllocationChart() {
+            let jsonData;
+
+            // Get data
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAssetAllocationData", "Dashboard")",
+                dataType: "json",
+                async: false,
+                success: function (d) {
+                    jsonData = d;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error: " + textStatus, errorThrown);
+                }
+            });
+
+            // Create our data table out of JSON data loaded from server.
+            const data = new google.visualization.arrayToDataTable(jsonData);
+
+            // Set chart options
+            const options = {
+                title: 'Crypto Investment Allocation',
+                width: 400,
+                height: 300,
+                pieHole: 0.3,
+                backgroundColor: '#EEE'
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            const chart = new google.visualization.PieChart(document.getElementById('chartAssetAllocation'));
+            chart.draw(data, options);
+        }
+
+
+        //** Asset Performance Column Chart
+        function drawAssetPerformanceChart() {
+
+            let jsonData;
+
+            //* Get data
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAssetPerformanceData", "Dashboard")",
+                dataType: "json",
+                async: false,
+                success: function (d) {
+                    jsonData = d;
+                    console.log(jsonData);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error: " + textStatus, errorThrown);
+                }
+            });
+
+            let data = new google.visualization.arrayToDataTable(jsonData);
+
+            var options = {
+                title: 'Crypto Investment Performance',
+                height: 320,
+                backgroundColor: '#EEE',
+                colors: ["#2f5bfa", "#18c429"],
+                chartArea: { width: '50%' },
+                annotations: {
+                    alwaysOutside: true,
+                    textStyle: {
+                        fontSize: 12,
+                        auraColor: 'none',
+                        color: '#555'
+                    },
+                    boxStyle: {
+                        stroke: '#ccc',
+                        strokeWidth: 1,
+                        gradient: {
+                            color1: '#f3e5f5',
+                            color2: '#f3e5f5',
+                            x1: '0%', y1: '0%',
+                            x2: '100%', y2: '100%'
+                        }
+                    }
+                },
+                hAxis: {
+                    title: 'Investements and Current Worth',
+                    minValue: 0,
+                },
+                vAxis: {
+                    title: 'Crypto'
+                }
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chartAssetPerformance'));
+            chart.draw(data, options);
+        }
+
+
+        //** Exchange Usage Pie Chart
+        function drawExchangeUsageChart() {
+            let jsonData;
+
+            //* Get data
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetExchangeUsageData", "Dashboard")",
+                dataType: "json",
+                async: false,
+                success: function (d) {
+                    jsonData = d;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error: " + textStatus, errorThrown);
+                }
+            });
+
+            //* Create our data table out of JSON data loaded from server.
+            let data = new google.visualization.arrayToDataTable(jsonData);
+
+            //* Set chart options
+            let options = {
+                title: 'Exchange Usage',
+                width: 400,
+                height: 300,
+                is3D: true,
+                backgroundColor: '#EEE'
+            };
+
+            //* Instantiate and draw our chart, passing in some options.
+            let chart = new google.visualization.PieChart(document.getElementById('chartExchangeUsage'));
+            chart.draw(data, options);
+        }
+
+    </script>
+</section>
+
+
+<section class="section-container">
+    <h2>My Strategy Indicators <i class="fa-solid fa-bullseye"></i></h2>
+    <p class="text-light fst-italic">...Under Construction...</p>
+</section>
 
 <partial name="Partials/_UserMessage" />
 
 
-<!--Load the Google Chart AJAX API-->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
-<script type="text/javascript">
-
-    //* Load the Visualization API and the corechart package.
-    google.charts.load('current', {'packages':['corechart','bar']});
-
-    //* Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawAssetAllocationChart);
-    google.charts.setOnLoadCallback(drawAssetPerformanceChart);
-    google.charts.setOnLoadCallback(drawExchangeUsageChart);
-    google.charts.setOnLoadCallback(drawRunningTotalChart);
 
 
 
-    //** Running Total Chart
-    function drawRunningTotalChart() {
-        let jsonData;
-
-        //* Get data
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("GetPortfolioRunningTotalByMonthData", "Dashboard")",
-            dataType: "json",
-            async: false,
-            success: function (d) {
-                jsonData = d;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error("Error: " + textStatus, errorThrown);
-            }
-        });
-
-        //* Create our data table out of JSON data loaded from server.
-        let data = new google.visualization.arrayToDataTable(jsonData);
-
-        console.log(data);
-
-        var options = {
-            height: 400,
-            width: '100%',
-            title: 'Portfolio Performance (All time)',
-            titleTextStyle: {color: "#AAA"},
-            curveType: 'function',
-            legend: { position: 'bottom' },
-            backgroundColor: "transparent",
-            colors: ["#2f5bfa", "#2ffa47"],
-            vAxis: {
-                baselineColor: "#666666",
-                gridlines: { color: '#666666' },
-                minorGridlines: { color: '#404040' },
-                textStyle: {color: "#FFF"},
-            },
-            hAxis: {
-                slantedText: true,
-                textPosition: 'out',
-                textStyle: {color: "#777"},
-            },
-            legend: {
-                textStyle: {color: "#FFF"},
-            },
-
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('chartRunningTotal'));
-
-        chart.draw(data, options);
-    }
-
-
-    //** Asset Allocation Pie Chart
-    function drawAssetAllocationChart() {
-        let jsonData;
-
-        // Get data
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("GetAssetAllocationData", "Dashboard")",
-            dataType: "json",
-            async: false,
-             success: function (d) {
-                jsonData = d;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error("Error: " + textStatus, errorThrown);
-            }
-        });
-
-        // Create our data table out of JSON data loaded from server.
-        const data = new google.visualization.arrayToDataTable(jsonData);
-
-        // Set chart options 
-        const options = {
-            title: 'Crypto Investment Allocation',
-            width:400,
-            height:300,
-            pieHole: 0.3,
-            backgroundColor: '#EEE'
-        };
-
-        // Instantiate and draw our chart, passing in some options.
-        const chart = new google.visualization.PieChart(document.getElementById('chartAssetAllocation'));
-        chart.draw(data, options);
-    }
-   
-    
-    //** Asset Performance Column Chart
-    function drawAssetPerformanceChart() {
-
-        let jsonData;
-
-        //* Get data
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("GetAssetPerformanceData", "Dashboard")",
-            dataType: "json",
-            async: false,
-            success: function (d) {
-                jsonData = d;
-                console.log(jsonData);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error("Error: " + textStatus, errorThrown);
-            }
-        });
-
-        let data = new google.visualization.arrayToDataTable(jsonData);
-
-        var options = {
-            title: 'Crypto Investment Performance',
-            height: 320,
-            backgroundColor: '#EEE',
-            colors: ["#2f5bfa", "#18c429"],
-            chartArea: { width: '50%' },
-            annotations: {
-                alwaysOutside: true,
-                textStyle: {
-                    fontSize: 12,
-                    auraColor: 'none',
-                    color: '#555'
-                },
-                boxStyle: {
-                    stroke: '#ccc',
-                    strokeWidth: 1,
-                    gradient: {
-                        color1: '#f3e5f5',
-                        color2: '#f3e5f5',
-                        x1: '0%', y1: '0%',
-                        x2: '100%', y2: '100%'
-                    }
-                }
-            },
-            hAxis: {
-                title: 'Investements and Current Worth',
-                minValue: 0,
-            },
-            vAxis: {
-                title: 'Crypto'
-            }
-        };
-
-        var chart = new google.visualization.BarChart(document.getElementById('chartAssetPerformance'));
-        chart.draw(data, options);
-    }
-
-
-    //** Exchange Usage Pie Chart
-    function drawExchangeUsageChart() {
-        let jsonData;
-
-        //* Get data
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("GetExchangeUsageData", "Dashboard")",
-            dataType: "json",
-            async: false,
-            success: function (d) {
-                jsonData = d;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error("Error: " + textStatus, errorThrown);
-            }
-        });
-
-        //* Create our data table out of JSON data loaded from server.
-        let data = new google.visualization.arrayToDataTable(jsonData);
-
-        //* Set chart options
-        let options = {
-            title: 'Exchange Usage',
-            width: 400,
-            height: 300,
-            is3D: true,
-            backgroundColor: '#EEE'
-        };
-
-        //* Instantiate and draw our chart, passing in some options.
-        let chart = new google.visualization.PieChart(document.getElementById('chartExchangeUsage'));
-        chart.draw(data, options);
-    }
-
-</script>
 
