@@ -281,3 +281,12 @@
 - Dark Mode Color Theme for UI
 - Styled all pages to adhere to new CSS styles.
 - Added Crypto logos
+
+### 4/19/2023 - 4/20/2023
+#### Azure Hosting Setup
+- Did a clean refresh of all my EF migrations to consolidate the database migration process.
+- Set up AzureSQL resource
+- Set up Azure WebApp resource
+- For now setup a publish profile for deployments. Will change in future.
+- Modified Program.cs to read from Azure App Environment variables for sensitive connections/keys.
+- Successful deployment: https://altfuturecrypto.azurewebsites.net/
