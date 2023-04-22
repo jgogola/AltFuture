@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AltFuture.WebApp.Migrations
+namespace AltFuture.DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230416153803_AlterCryptoAddCryptoIconField")]
-    partial class AlterCryptoAddCryptoIconField
+    [Migration("20230421143824_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

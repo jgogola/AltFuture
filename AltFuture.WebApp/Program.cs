@@ -27,7 +27,8 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
 
 //* DB Context:
 var connection = String.Empty;
-if (builder.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment()) 
+
 {
     builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
     connection = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
