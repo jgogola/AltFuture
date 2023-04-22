@@ -29,6 +29,11 @@ namespace AltFuture.WebApp.Controllers
             return View(await _cryptoPricesRepository.GetLatestPricesAsync());
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

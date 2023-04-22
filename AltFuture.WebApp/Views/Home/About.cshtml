@@ -1,0 +1,88 @@
+﻿@model List<CryptoPrice>
+
+@{
+    ViewData["Title"] = "About AltFuture";
+}
+
+<div class="text-center mb-5 ">
+    <h1 class="display-4">About AltFuture</h1>
+    <p class="lead text-light">AltFuture is my personal passion project designed to bring together all of my crypto assets in one place. This demo showcases our Alpha release, which demonstrates how we can help you manage your cryptocurrency assets.</p>
+    
+</div>
+
+<section class="section-container row text-light">
+    <div class="col">
+        <h2>What is AltFuture?</h2>
+        <p class="text-light">Over the years, I have invested in cryptocurrencies and used various exchanges, platforms, and wallets to manage my assets. However, I found it challenging to keep track of their performance and gain analytical insights from these distributed sources.</p>
+        <p class="text-light">To address these issues, I created AltFuture, a platform that provides comprehensive support to manage your crypto assets. Our platform offers complete and integrated usage, making it easier to track, manage, and understand the performance of your complete asset portfolio.</p>
+        <p>In summary, AltFuture is a solution for individuals who have struggled to manage their crypto assets across various platforms. We are here to provide an all-in-one solution, making it simpler for you to keep track of your assets and gain insightful analytics.</p>
+        <br />
+        <h2>As You Explore Our Website</h2>
+        <ul>
+            <li>Feel free to interact with our platform as all displayed data is fictional seed data.</li>
+            <li>Current market data prices are real and sourced from the CoinMarketCap API.</li>
+            <li>Some features may not be fully polished or have complete validation or exception handling yet.</li>
+            <li>
+                Our primary focus has been on:
+                <ol>
+                    <li>Implementing a <a asp-area="Portfolios" asp-controller="TransactionImports" asp-action="Index">CSV transaction data import feature</a> supporting exchanges like Coinbase, Coinbase Pro, Crypto.com, Binance, and eToro.</li>
+                    <li>Aggregating and analyzing KPIs across all data for display in the <a asp-area="Portfolios" asp-controller="Dashboard" asp-action="Index">My Portfolio</a> feature.</li>
+            <li>
+                Our technical emphasis has been on:
+                <ol>
+                    <li>Maintaining a strong adherence to SOLID design principles, ensuring the separation of concerns. For example, we have an abstraction layer for consuming Market Data, making it easy to switch providers if needed.</li>
+                    <li>Utilizing OOP, Interfaces, Generics, and DRY principles to build the CSV import feature, ensuring that adding support for new CSV imports is streamlined and can be implemented in a robust way, ensuring entegrity of the data you trust us with.</li>
+                </ol>
+            </li>
+        </ul>
+    
+    </div>
+    <div class="col">
+        <h2>The Technicals</h2>
+        <p>Feel free to explore the code set that built this site: <a href="https://github.com/jgogola/AltFuture" target="_blank" ><i class="fa-brands fa-github fs-2"></i></a></p>
+        <ul>
+            <li>.Net 6</li>
+            <li>C#</li>
+            <li>MVC</li>
+            <li>Enitity Framwork</li>
+            <li>SQL Server</li>
+            <li>Stored Procedures</li>
+            <li>Javascript</li>
+            <li>Bootstrap</li>
+            <li>CSS</li>
+            <li>API Consumtion</li>
+            <li>CSV Data Import</li>
+            <li>Google Charts</li>
+            <li>Fontawesome</li>
+            <li>N-Teir Architecture</li>
+            <li>Strong use of OOP and SOLID</li>
+            <li>Azure Cloud Hosting</li>
+            <li>CsvHelper</li>
+            <li>AutoMapper</li>
+            <li>XUnit Testing</li>
+            <li>FluentAssertions</li>
+            <li>ChatGPT Pair Programming</li>
+        </ul>
+        <br />
+        <h2>Site Map</h2>
+        <ul>
+            <li>AltFuture Home</li>
+            <li>My Portfolio
+                <ul>
+                    <li>Transaction Details</li>
+                    <li>Import New Transaction Data</li>
+                </ul>
+            </li>
+            <li>About</li>
+            <li>Admin
+                <ul>
+                    <li>CoinMarketCap API Details</li>
+                    <li>Crypto Maintenance</li>
+                </ul>
+            </li>
+            <li>Privacy</li>
+        </ul>
+    </div>
+
+
+</section>

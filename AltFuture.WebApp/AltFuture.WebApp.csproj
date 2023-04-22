@@ -42,4 +42,10 @@
 		<ProjectReference Include="..\AltFuture.MarketDataConsumer\AltFuture.MarketDataConsumer.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 </Project>
