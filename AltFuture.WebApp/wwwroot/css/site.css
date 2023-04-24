@@ -1,5 +1,16 @@
+/*
+    Brand Color: #f0b90b;
+
+
+*/
+
+.nav-link.active, .navbar-brand.active {
+    border-bottom: #f0b90b 3px solid;
+}
+
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {

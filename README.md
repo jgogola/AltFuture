@@ -3,6 +3,10 @@
 
  ## Daily Programming Journal:
  
+ 
+ ### 4/23/2023
+ - Improvements to main menu navigation.
+ 
  ### 4/22/2023
 - New About page.
 - Main nav link to GitHub repository
