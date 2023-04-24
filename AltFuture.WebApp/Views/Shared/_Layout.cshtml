@@ -19,14 +19,30 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Portfolios" asp-controller="Dashboard" asp-action="Index">My Portfolio</a>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="#" id="myPortfolioDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My Portfolio
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-dark shadow-sm" aria-labelledby="myPortfolioDropdown">
+                                <a class="nav-link" asp-area="Portfolios" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" asp-area="Portfolios" asp-controller="TransactionImports" asp-action="Index">Import Transactions</a>
+                                <a class="nav-link" asp-area="Portfolios" asp-controller="Transactions" asp-action="Index">Transaction Details</a>
+                            </div>
                         </li>
-                         <li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Site Admin
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-dark shadow-sm" aria-labelledby="adminDropdown">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Menu</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link" asp-area="Admin" asp-controller="MarketDataPlan" asp-action="Index">CoinMarketCap API Details</a>
+                                <a class="nav-link" asp-area="Admin" asp-controller="Crypto" asp-action="Index">Crypto Maint</a>
+                            </div>
+                        </li>
+                        <li>
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
                         </li>
                         <li>
                             <a class="nav-link" href="https://github.com/jgogola/AltFuture" target="_blank" title="Explore the code that built this site."><i class="fa-brands fa-github"></i></a>
