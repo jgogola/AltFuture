@@ -1,9 +1,14 @@
-﻿using AltFuture.DataAccessLayer.Data;
+﻿using AltFuture.BusinessLogicLayer.ViewModels.Transactions;
+using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Models;
+using AltFuture.WebApp.Enums;
+using AltFuture.WebApp.Helpers;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
@@ -11,16 +16,22 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
     public class TransactionsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IExchangeTransactionTypeRepository _exchangeTransactionTypeRepository;
+        private readonly IMapper _mapper;
 
-        public TransactionsController(AppDbContext context)
+
+        public TransactionsController(AppDbContext context, IExchangeTransactionTypeRepository exchangeTransactionTypeRepository, IMapper mapper)
         {
             _context = context;
+            _exchangeTransactionTypeRepository = exchangeTransactionTypeRepository;
+            _mapper = mapper;
         }
 
         // GET: Portfolios/Transactions
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Transactions.Include(t => t.AppUser).Include(t => t.Crypto).Include(t => t.FromExchange).Include(t => t.ToExchange);
+            var userMessageJson = TempData["UserMessage"] as string;
+            var appDbContext = _context.Transactions.Include(t => t.AppUser).Include(t => t.Crypto).Include(t => t.FromExchange).Include(t => t.ToExchange).OrderByDescending(t => t.TransactionDate);
             return View(await appDbContext.ToListAsync());
         }
 
@@ -35,6 +46,7 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             var transaction = await _context.Transactions
                 .Include(t => t.AppUser)
                 .Include(t => t.Crypto)
+                .Include(t => t.ExchangeTransactionType)
                 .Include(t => t.FromExchange)
                 .Include(t => t.ToExchange)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
@@ -43,16 +55,35 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 return NotFound();
             }
 
-            return View(transaction);
+            var transactionDetail = _mapper.Map<TransactionDetail>(transaction);
+
+            return View(transactionDetail);
         }
 
         // GET: Portfolios/Transactions/Create
         public IActionResult Create()
         {
-            ViewData["AppUserId"] = new SelectList(_context.AppUsers, "AppUserId", "AppUserId");
-            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoId");
-            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId");
-            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId");
+
+            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoName").Prepend(new SelectListItem
+            {
+                Value = "",
+                Text = "Select a crypto currency..."
+            });
+            //ViewData["ExchangeTransactionTypeId"] = new SelectList(_context.ExchangeTransactionTypes, "ExchangeTransactionTypeId", "ExchangeTransactionTypeName").Prepend(new SelectListItem
+            //{
+            //    Value = "",
+            //    Text = "Select a transaction type..."
+            //});
+            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeName").Prepend(new SelectListItem
+            {
+                Value = "",
+                Text = "Select exchange transaction started from..."
+            });
+            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeName").Prepend(new SelectListItem
+            {
+                Value = "",
+                Text = "Select exchange transaction transfered to..."
+            }); 
             return View();
         }
 
@@ -61,19 +92,53 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionId,TransactionReferenceNum,AppUserId,CryptoId,Price,Quantity,TransactionTotal,Fee,TransactionDate,FromExchangeId,ToExchangeId,CreatedDate")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("TransactionReferenceNum,CryptoId,ExchangeTransactionTypeId,Price,Quantity,TransactionTotal,Fee,TransactionDate,FromExchangeId,ToExchangeId")] TransactionCreate transactionCreate)
         {
+            var appUserId = 1;
+
             if (ModelState.IsValid)
             {
-                _context.Add(transaction);
+                var transaction = _mapper.Map<Transaction>(transactionCreate);
+                transaction.CreatedDate = DateTime.Now;
+                transaction.AppUserId = appUserId;
+
+                 _context.Add(transaction);
                 await _context.SaveChangesAsync();
+
+
+                //* Display success message back to user on Dashboard Index
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.Success,
+                    $"Your transaction was successfully created.",
+                    8
+                );
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.AppUsers, "AppUserId", "AppUserId", transaction.AppUserId);
-            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoId", transaction.CryptoId);
-            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transaction.FromExchangeId);
-            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transaction.ToExchangeId);
-            return View(transaction);
+
+            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoName", transactionCreate.CryptoId).Prepend(new SelectListItem
+            {
+                Value = "",
+                Text = "Select a crypto currency..."
+            });
+            //ViewData["ExchangeTransactionTypeId"] = new SelectList(_context.ExchangeTransactionTypes, "ExchangeTransactionTypeId", "ExchangeTransactionTypeName").Prepend(new SelectListItem
+            //{
+            //    Value = "",
+            //    Text = "Select a transaction type..."
+            //});
+            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeName", transactionCreate.FromExchangeId).Prepend(new SelectListItem
+            {
+                Value = "",
+                Text = "Select exchange transaction started from..."
+            }); 
+            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeName", transactionCreate.ToExchangeId).Prepend(new SelectListItem
+            {
+                Value = "",
+                Text = "Select exchange transaction transfered to..."
+            }); 
+
+            return View(transactionCreate);
         }
 
         // GET: Portfolios/Transactions/Edit/5
@@ -89,11 +154,17 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppUserId"] = new SelectList(_context.AppUsers, "AppUserId", "AppUserId", transaction.AppUserId);
-            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoId", transaction.CryptoId);
-            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transaction.FromExchangeId);
-            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transaction.ToExchangeId);
-            return View(transaction);
+
+            var transactionEdit = _mapper.Map<TransactionEdit>(transaction);
+
+            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoName", transactionEdit.CryptoId);
+            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeName", transactionEdit.FromExchangeId);
+            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeName", transactionEdit.ToExchangeId).Prepend(new SelectListItem
+            {
+                Value = "0",
+                Text = "Select an Exchange"
+            });
+            return View(transactionEdit);
         }
 
         // POST: Portfolios/Transactions/Edit/5
@@ -101,9 +172,9 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TransactionId,TransactionReferenceNum,AppUserId,CryptoId,Price,Quantity,TransactionTotal,Fee,TransactionDate,FromExchangeId,ToExchangeId,CreatedDate")] Transaction transaction)
+        public async Task<IActionResult> Edit(int id, [Bind("TransactionId,ExchangeTransactionTypeId,TransactionReferenceNum,AppUserId,CryptoId,Price,Quantity,TransactionTotal,Fee,TransactionDate,FromExchangeId,ToExchangeId,CreatedDate")] TransactionEdit transactionEdit)
         {
-            if (id != transaction.TransactionId)
+            if (id != transactionEdit.TransactionId)
             {
                 return NotFound();
             }
@@ -112,12 +183,21 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             {
                 try
                 {
+                    var transaction = _mapper.Map<Transaction>(transactionEdit);
                     _context.Update(transaction);
                     await _context.SaveChangesAsync();
+
+                    //* Display success message back to user on Dashboard Index
+                    var userMessagePartial = new UserMessagePartial(TempData);
+                    userMessagePartial.SetUserMessage(
+                        UserMessageTypes.Success,
+                        $"Your transaction was successfully updated.",
+                        8
+                    );
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TransactionExists(transaction.TransactionId))
+                    if (!TransactionExists(transactionEdit.TransactionId))
                     {
                         return NotFound();
                     }
@@ -128,11 +208,11 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.AppUsers, "AppUserId", "AppUserId", transaction.AppUserId);
-            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoId", transaction.CryptoId);
-            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transaction.FromExchangeId);
-            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transaction.ToExchangeId);
-            return View(transaction);
+         //   ViewData["AppUserId"] = new SelectList(_context.AppUsers, "AppUserId", "AppUserId", transactionEdit.AppUserId);
+            ViewData["CryptoId"] = new SelectList(_context.Cryptos, "CryptoId", "CryptoId", transactionEdit.CryptoId);
+            ViewData["FromExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transactionEdit.FromExchangeId);
+            ViewData["ToExchangeId"] = new SelectList(_context.Exchanges, "ExchangeId", "ExchangeId", transactionEdit.ToExchangeId);
+            return View(transactionEdit);
         }
 
         // GET: Portfolios/Transactions/Delete/5
@@ -146,6 +226,7 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             var transaction = await _context.Transactions
                 .Include(t => t.AppUser)
                 .Include(t => t.Crypto)
+                .Include(t => t.ExchangeTransactionType)
                 .Include(t => t.FromExchange)
                 .Include(t => t.ToExchange)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
@@ -154,7 +235,9 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 return NotFound();
             }
 
-            return View(transaction);
+            var transactionDetail = _mapper.Map<TransactionDetail>(transaction);
+
+            return View(transactionDetail);
         }
 
         // POST: Portfolios/Transactions/Delete/5
@@ -173,12 +256,31 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             }
             
             await _context.SaveChangesAsync();
+
+            //* Display success message back to user on Dashboard Index
+            var userMessagePartial = new UserMessagePartial(TempData);
+            userMessagePartial.SetUserMessage(
+                UserMessageTypes.Success,
+                $"Your transaction was successfully deleted.",
+                8
+            );
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool TransactionExists(int id)
         {
           return _context.Transactions.Any(e => e.TransactionId == id);
+        }
+
+
+        [HttpGet]
+        public async Task<JsonResult> GetExchangeTransactionTypesByExchangeId(int exchangeId)
+        {
+            var exchangeTransactionTypes = await _exchangeTransactionTypeRepository.GetAllByExchangeIdAsync(exchangeId);
+
+            return Json(new SelectList(exchangeTransactionTypes, "ExchangeTransactionTypeId", "ExchangeTransactionTypeName"));
+
         }
     }
 }

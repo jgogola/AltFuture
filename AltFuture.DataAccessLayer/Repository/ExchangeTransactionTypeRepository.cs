@@ -20,6 +20,13 @@ namespace AltFuture.DataAccessLayer.Repository
             return await _context.ExchangeTransactionTypes.ToListAsync();
         }
 
+        public async Task<IEnumerable<ExchangeTransactionType>> GetAllByExchangeIdAsync(int exchangeId)
+        {
+            return await _context.ExchangeTransactionTypes
+                                .Where(e => e.ExchangeId == exchangeId)
+                                .ToListAsync();
+        }
+
         public async Task<ExchangeTransactionType> GetByIdAsync(int id)
         {
             return await _context.ExchangeTransactionTypes.FirstOrDefaultAsync(e => e.ExchangeTransactionTypeId == id);
@@ -54,6 +61,7 @@ namespace AltFuture.DataAccessLayer.Repository
             var saved = _context.SaveChanges();
             return saved > 0;
         }
+
 
     }
 }
