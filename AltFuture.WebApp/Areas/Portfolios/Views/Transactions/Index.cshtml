@@ -64,10 +64,11 @@
                         @item.InvestmentTotal.ToString("C")
                     </td>
                     <td>
-                            @item.TransactionTotal.ToString("C")
+                            @item.Fee.ToString("C")
                     </td>
                     <td>
-                        @item.Fee.ToString("C")
+                        
+                            @item.TransactionTotal.ToString("C")
                     </td>
                     <td>
                             @item.TransactionDate
@@ -92,3 +93,6 @@
         </table>
     </section>
 </div>
+
+
+<partial name="Partials/_UserMessage" />

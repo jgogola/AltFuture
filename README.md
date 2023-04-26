@@ -3,6 +3,12 @@
 
  ## Daily Programming Journal:
  
+ ### 4/26/2023
+ #### Fix/Finish the Transaction CRUD features
+ - Created ViewModels for Create, Edit, Details
+ - Set up validation
+ - Data formating done in ViewModels instead of in View.
+ - Created cascading ajax drop down list of options for ExchangeTransactionType base on user's choice of Exchange.
  
  ### 4/23/2023
  - Improvements to main menu navigation.

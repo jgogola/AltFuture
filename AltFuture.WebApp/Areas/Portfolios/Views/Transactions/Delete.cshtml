@@ -1,4 +1,5 @@
-﻿@model Transaction
+﻿@using AltFuture.BusinessLogicLayer.ViewModels.Transactions
+@model TransactionDetail
 
 @{
     ViewData["Title"] = "Delete Transaction";
@@ -7,71 +8,98 @@
 <div class="container">
     <h1 class="text-center">Delete Transaction</h1>
    
-    <p class="lead text-light text-center">Are you sure you want to delete this transaction history record from your portfolio?</p>
+    <p class="lead text-danger text-center"><em>Are you sure you want to delete this transaction history record from your portfolio?</em></p>
 
     <section class="section-container">
         <dl class="row text-light mt-5">
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Crypto)
+                @Html.DisplayNameFor(model => model.FromExchangeName)
             </dt>
             <dd class="col-sm-10">
-                @Model.Crypto.CryptoName
-                <div style="display: inline-block; width: 32px;">@Html.Raw(Model.Crypto.CryptoIcon)</div>
+                @Model.FromExchangeName
             </dd>
+
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.TransactionReferenceNum)
+                @Html.DisplayNameFor(model => model.ExchangeTransactionTypeName)
             </dt>
             <dd class="col-sm-10">
-                @Model.TransactionReferenceNum
+                @Model.ExchangeTransactionTypeName
+            </dd>
+
+            @{
+                if (Model.TransactionReferenceNum != 0)
+                {
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.TransactionReferenceNum)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.TransactionReferenceNum
+                    </dd>
+                }
+            }
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CryptoName)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.CryptoName
+                <div style="display: inline-block; width: 32px;">@Html.Raw(Model.CryptoIcon)</div>
             </dd>
 
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Price)
             </dt>
             <dd class="col-sm-10">
-                @Model.Price.ToString("C")
+                @Html.DisplayFor(model => model.Price)
             </dd>
+
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Quantity)
             </dt>
             <dd class="col-sm-10">
-                @Model.Quantity.ToString("N6")
+                @Html.DisplayFor(model => model.Quantity)
             </dd>
+
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.TransactionTotal)
+                @Html.DisplayNameFor(model => model.InvestmentTotal)
             </dt>
             <dd class="col-sm-10">
-                @Model.TransactionTotal.ToString("C")
+                @Html.DisplayFor(model => model.InvestmentTotal)
             </dd>
+
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Fee)
             </dt>
             <dd class="col-sm-10">
-                @Model.Fee.ToString("C")
+                @Html.DisplayFor(model => model.Fee)
             </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TransactionTotal)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TransactionTotal)
+            </dd>
+
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.TransactionDate)
             </dt>
             <dd class="col-sm-10">
                 @Model.TransactionDate
             </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.FromExchange)
-            </dt>
-            <dd class="col-sm-10">
-                @Model.FromExchange.ExchangeName
-            </dd>
+
             @{
-                if (Model.ToExchange?.ExchangeName != null)
+                if (Model.ToExchangeName is not null)
                 {
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.ToExchange)
+                        @Html.DisplayNameFor(model => model.ToExchangeName)
                     </dt>
                     <dd class="col-sm-10">
-                        @(Model.ToExchange?.ExchangeName ?? "")
+                        @(Model.ToExchangeName ?? "")
                     </dd>
                 }
             }
+
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.CreatedDate)
             </dt>
@@ -87,7 +115,7 @@
             <dd class="col-sm-10 pt-5">
                 <form asp-action="Delete" class="d-inline">
                     <input type="hidden" asp-for="TransactionId" />
-                    <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+                    <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm " />
                 </form>
             </dd>
         </dl>

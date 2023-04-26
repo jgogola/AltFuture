@@ -1,4 +1,5 @@
-﻿@model Transaction
+﻿@using AltFuture.BusinessLogicLayer.ViewModels.Transactions
+@model TransactionCreate
 
 @{
     ViewData["Title"] = "Create Transaction";
@@ -15,46 +16,58 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 
                     <div class="form-group">
+                        <label asp-for="FromExchangeId" class="control-label"></label>
+                        <select asp-for="FromExchangeId" class="form-select" asp-items="ViewBag.FromExchangeId" id="FromExchangeDDL"></select>
+                        <span asp-validation-for="FromExchangeId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label asp-for="ExchangeTransactionTypeId" class="control-label"></label>
+                        <select asp-for="ExchangeTransactionTypeId" class="form-select" asp-items="ViewBag.ExchangeTransactionTypeId" id="ExchangeTransactionTypeDDL">
+                            <option value="">First select an Exchange...</option>
+                        </select>
+                        <span asp-validation-for="ExchangeTransactionTypeId" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group mt-2">
                         <label asp-for="TransactionReferenceNum" class="control-label"></label>
-                        <input asp-for="TransactionReferenceNum" class="form-control" />
+                        <input asp-for="TransactionReferenceNum" class="form-control" placeholder="-optional-" />
                         <span asp-validation-for="TransactionReferenceNum" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="CryptoId" class="control-label"></label>
-                        <select asp-for="CryptoId" class ="form-control" asp-items="ViewBag.CryptoId"></select>
+                        <select asp-for="CryptoId" class="form-select" asp-items="ViewBag.CryptoId"></select>
+                        <span asp-validation-for="CryptoId" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="Price" class="control-label"></label>
-                        <input asp-for="Price" class="form-control" />
+                        <input asp-for="Price" class="form-control" placeholder="#.##"/>
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="Quantity" class="control-label"></label>
-                        <input asp-for="Quantity" class="form-control" />
+                        <input asp-for="Quantity" class="form-control" placeholder="#.##" />
                         <span asp-validation-for="Quantity" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="Fee" class="control-label"></label>
-                        <input asp-for="Fee" class="form-control" />
+                        <input asp-for="Fee" class="form-control" placeholder="#.##" />
                         <span asp-validation-for="Fee" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="TransactionTotal" class="control-label"></label>
-                        <input asp-for="TransactionTotal" class="form-control" />
+                        <input asp-for="TransactionTotal" class="form-control" placeholder="#.##" />
                         <span asp-validation-for="TransactionTotal" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="TransactionDate" class="control-label"></label>
                         <input asp-for="TransactionDate" class="form-control" />
                         <span asp-validation-for="TransactionDate" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="FromExchangeId" class="control-label"></label>
-                        <select asp-for="FromExchangeId" class ="form-control" asp-items="ViewBag.FromExchangeId"></select>
-                    </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="ToExchangeId" class="control-label"></label>
-                        <select asp-for="ToExchangeId" class ="form-control" asp-items="ViewBag.ToExchangeId"></select>
+                        <select asp-for="ToExchangeId" class="form-select" asp-items="ViewBag.ToExchangeId"></select>
                     </div>
                     <div class="form-group mt-5 text-center">
                         <a asp-action="Index" class="btn btn-info btn-sm me-3">
@@ -70,5 +83,24 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}     
+
+    <script>
+        $(document).ready(function () {
+            $("#FromExchangeDDL").change(function () {
+                var exchangeId = $(this).val();
+                $.getJSON("@Url.Action("GetExchangeTransactionTypesByExchangeId", "Transactions")", { exchangeId: exchangeId }, function (data) {
+
+                    console.log(data);
+                    var items = "<option value=''>Select a transaction type...</option>";
+                    $.each(data, function (i, exchangeTransactionType) {
+                        items += "<option value='" + exchangeTransactionType.value + "'>" + exchangeTransactionType.text + "</option>";
+                    });
+                    $("#ExchangeTransactionTypeDDL").html(items);
+                });
+            });
+        });
+    </script>
 }
+
+

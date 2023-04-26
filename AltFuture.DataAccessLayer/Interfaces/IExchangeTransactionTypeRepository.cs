@@ -6,6 +6,8 @@ namespace AltFuture.DataAccessLayer.Interfaces
     {
         Task<IEnumerable<ExchangeTransactionType>> GetAllAsync();
 
+        Task<IEnumerable<ExchangeTransactionType>> GetAllByExchangeIdAsync(int exchangeId);
+
         Task<ExchangeTransactionType> GetByIdAsync(int id);
 
         Task<int> GetCountAsync();
