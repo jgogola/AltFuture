@@ -32,6 +32,18 @@ h1, h2, h3, h4, h5 {
     color: #f0b90b;
 }
 
+.section-page-header {
+    position: relative;
+}
+
+    .section-page-header .close-page {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        color: #f0b90b;
+        font-size: 1.7rem;
+    }
+
 .section-container {
     padding-top: 15px;
     margin-top: 2px;
@@ -98,6 +110,10 @@ h1, h2, h3, h4, h5 {
         .horizontal-scrolling-container::-webkit-scrollbar {
             display: none;
         }
+
+            .horizontal-scrolling-container.grabbing {
+                cursor: grabbing;
+            }
 
 /*** EMD: Horizontal Scrolling Content Container */
 
