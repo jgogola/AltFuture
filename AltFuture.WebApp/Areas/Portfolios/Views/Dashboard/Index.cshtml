@@ -6,27 +6,16 @@
     var totalData = Model.Where(crypto => crypto.RowType == 99).ToList().FirstOrDefault();
 }
 
-<style>
 
+<section class="section-page-header">
+    <h1 class="text-center">My Portfolio</h1>
 
-</style>
-
-<h1 class="text-center">My Portfolio</h1>
-
-<nav class="navbar navbar-expand-sm  ">
-    <div class="container-fluid justify-content-end">
-        <div id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Transactions" asp-action="Index">Transaction Details</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="TransactionImports" asp-action="Index">Import New Transactions</a>
-                </li>
-            </ul>
-        </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+        <a class="btn btn-sm btn-outline-primary" asp-controller="Transactions" asp-action="Index"><i class="fa-solid fa-list"></i> Transaction Details</a>
+        <a class="btn btn-sm btn-outline-primary" asp-controller="TransactionImports" asp-action="Index"><i class="fa-solid fa-file-import"></i> Import New Transactions</a>
     </div>
-</nav>   
+     
+</section>
 
 <section class="section-container">
     <h2>Overview <i class="fa-solid fa-mountain-sun"></i> </h2>
@@ -149,9 +138,6 @@
             <div class="scroll-card"><h2>KPI TBD...</h2></div>
         </div>
     </div>
-
-
-
 </section>
 
 
@@ -165,6 +151,7 @@
 
 
 @section Scripts {
+
     <!--Load the Google Chart AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">

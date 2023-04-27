@@ -3,12 +3,21 @@
 
  ## Daily Programming Journal:
  
+ ### 4/27/2023
+ #### Navigation UI/UX Improvements
+ - Sub pages now have a close button in the top right corner to exit out back to the high level parent page.
+ - Sub menu links are now styled
+ - Fixed the setting of the main nav link that is marked with the "active" class. Pages deaper then 2 levels were not highlighting the main nav.
+ - Added jquery code to all horizontal scrolling content containers to allow the user to grab and scrub left or right with their mouse.
+ 
+ 
  ### 4/26/2023
  #### Fix/Finish the Transaction CRUD features
  - Created ViewModels for Create, Edit, Details
  - Set up validation
  - Data formating done in ViewModels instead of in View.
  - Created cascading ajax drop down list of options for ExchangeTransactionType base on user's choice of Exchange.
+ - Created new method in ExchangeTransactionTypeRepository to get all types by given ExchangeId.
  
  ### 4/23/2023
  - Improvements to main menu navigation.

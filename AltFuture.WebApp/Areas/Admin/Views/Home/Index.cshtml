@@ -1,20 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
+﻿
 <div class="container">
 
     <h1 class="text-center">Administrator Features</h1>
 
     <section class="section-container">
+
+        <div class="d-grid gap-2 col-6 mx-auto mt-5">
+            <a class="btn btn-primary " asp-area="Admin" asp-controller="MarketDataPlan" asp-action="Index"><i class="fa-solid fa-money-bill-trend-up"></i> CoinMarketCap API Details</a>
+            <a class="btn btn-primary " asp-area="Admin" asp-controller="Crypto" asp-action="Index"><i class="fa-solid fa-list"></i> Crypto Assets Maintenance</a>
+        </div>
+
+
         <ul class="navbar-nav flex-grow-1">
             <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="MarketDataPlan" asp-action="Index">CoinMarketCap API Details</a>
+                
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="Crypto" asp-action="Index">Crypto Maint</a>
+                
             </li>
             @*    <li class="nav-item">
             <a class="nav-link" asp-area="Admin" asp-controller="Exchange" asp-action="Index">Exchange Maint</a>
