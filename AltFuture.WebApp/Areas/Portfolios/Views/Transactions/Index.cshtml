@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Transaction>
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@model IPagedList<Transaction>
 
 @{
     ViewData["Title"] = "Transaction History";
@@ -18,82 +21,103 @@
             <a asp-action="Create" class="btn btn-success">Create New <i class="fa-solid fa-plus" style="color: #ffffff;"></i></i></a>
         </div>
 
-        <table class="table table-dark table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Crypto)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Quantity)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.InvestmentTotal)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Fee)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TransactionTotal)
-                    </th>
+        @{
+            if(Model.Count == 0)
+            {
+                <div class="alert alert-info mt-4" role="alert">
+                    <h4 class="alert-heading">No Transactions Found</h4>
+                    <p>
+                        You have no transactions in your portfolio. You can add transactions by clicking the "Create New" button above.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-dark table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].Crypto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].Quantity)
+                            </th>
+                            <th>
+                                Invested <span class="d-none d-lg-inline">Amount</span>
+                            </th>
+                            <th class="d-none d-lg-table-cell">
+                                @Html.DisplayNameFor(model => model[0].Fee)
+                            </th>
+                            <th class="d-none d-lg-table-cell">
+                                Transaction Total
+                            </th>
+                            <th>
+                                <span class="d-none d-lg-inline">Transaction</span> Date
+                            </th>
+                            <th>
+                                Exchange
+                            </th>
+                            <th class="text-end">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Crypto.CryptoName
+                                </td>
+                                <td>
+                                    @item.Price.ToString("C")
+                                </td>
+                                <td>
+                                    @item.Quantity.ToString("N4")
+                                </td>
+                                <td>
+                                    @item.InvestmentTotal.ToString("C")
+                                </td>
+                                <td class="d-none d-lg-table-cell">
+                                    @item.Fee.ToString("C")
+                                </td>
+                                <td class="d-none d-lg-table-cell">
+                                    @item.TransactionTotal.ToString("C")
+                                </td>
+                                <td>
+                                    @item.TransactionDate
+                                </td>
+                                <td>
+                                    @item.FromExchange.ExchangeName
+                                </td>
+                                <td class="text-end">
+                                    <a asp-action="Details" asp-route-id="@item.TransactionId" class="btn btn-primary btn-sm" title="View Details">
+                                        <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.TransactionId" class="btn btn-success btn-sm" title="Edit Details">
+                                        <i class="fa-solid fa-pencil" style="color: #ffffff;"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.TransactionId" class="btn btn-danger btn-sm" title="Delete" role="button">
+                                        <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.TransactionDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FromExchange)
-                    </th>
-                    <th class="text-end">
-                        Actions
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-        @foreach (var item in Model) {
-                <tr>
-                    <td>
-                        @item.Crypto.CryptoName
-                    </td>
-                    <td>
-                            @item.Price.ToString("C")
-                    </td>
-                    <td>
-                            @item.Quantity.ToString("N4")
-                    </td>
-                    <td>
-                        @item.InvestmentTotal.ToString("C")
-                    </td>
-                    <td>
-                            @item.Fee.ToString("C")
-                    </td>
-                    <td>
-                        
-                            @item.TransactionTotal.ToString("C")
-                    </td>
-                    <td>
-                            @item.TransactionDate
-                    </td>
-                    <td>
-                        @item.FromExchange.ExchangeName
-                    </td>
-                    <td class="text-end">
-                        <a asp-action="Details" asp-route-id="@item.TransactionId" class="btn btn-primary btn-sm" title="View Details">
-                            <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
-                        </a>
-                        <a asp-action="Edit" asp-route-id="@item.TransactionId" class="btn btn-success btn-sm" title="Edit Details">
-                            <i class="fa-solid fa-pencil" style="color: #ffffff;"></i>
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@item.TransactionId" class="btn btn-danger btn-sm" title="Delete" role="button">
-                            <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
-                        </a>
-                    </td>
-                </tr>
+                @Html.PagedListPager( @Model, page => Url.Action("Index", new { page }),
+                    new X.PagedList.Web.Common.PagedListRenderOptions {
+                    LiElementClasses = new string[] {"page-item"},
+                    PageClasses = new string[] {"page-link"},
+                    }
+                )
+            }
         }
-            </tbody>
-        </table>
+
     </section>
 </div>
 

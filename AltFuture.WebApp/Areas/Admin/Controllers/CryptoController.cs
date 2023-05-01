@@ -5,6 +5,7 @@ using AltFuture.WebApp.Enums;
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Models;
+using X.PagedList;
 
 namespace AltFuture.WebApp.Areas.Admin.Controllers
 {
@@ -21,11 +22,16 @@ namespace AltFuture.WebApp.Areas.Admin.Controllers
         }
 
         // GET: Admin/Crypto
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             var userMessageJson = TempData["UserMessage"] as string;
 
-            return View(await _cryptoRepository.GetAllAsync());
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+            var cryptos = await _cryptoRepository.GetAllAsync();
+            var pagedCryptos = await cryptos.ToPagedListAsync(pageNumber, pageSize);
+
+            return View(pagedCryptos);
         }
 
         // GET: Admin/Crypto/Details/5
