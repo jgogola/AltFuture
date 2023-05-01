@@ -1,4 +1,6 @@
-﻿@model List<Crypto>
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@model IPagedList<Crypto>
 
 @{
     ViewData["Title"] = "Crypto";
@@ -19,40 +21,64 @@
             <a asp-action="Create" class="btn btn-success">Create New <i class="fa-solid fa-plus" style="color: #ffffff;"></i></i></a>
         </div>
 
-        <table class="table table-dark table-hover">
-            <thead class="">
-                <tr>
-                    <th colspan="2">
-                        Crypto
-                    </th>
-                    <th class="text-end">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-        @foreach (var item in Model) {
-                <tr>
-                    <td style="width: 48px;">
-                        @Html.Raw(item.CryptoIcon)
-                    </td>
-                    <td class="text-nowrap " scope="row">
-                        <div class="td-main-data">@item.CryptoName</div>
-                        <div class="td-secondary-data">@item.TickerSymbol</div>
-                    </td>
-                    <td class="text-end">
-                            <a asp-action="Details" asp-route-id="@item.CryptoId" class="btn btn-primary btn-sm" title="View Details">
-                                <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
-                            </a>
-                            <a asp-action="Edit" asp-route-id="@item.CryptoId" class="btn btn-success btn-sm" title="Edit Details" >
-                                <i class="fa-solid fa-pencil" style="color: #ffffff;"></i>
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@item.CryptoId" class="btn btn-danger btn-sm" title="Delete" role="button">
-                                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
-                            </a>
-                    </td>
-                </tr>
+       @{
+            if(Model.Count == 0)
+            {
+                <div class="alert alert-info mt-4" role="alert">
+                    <h4 class="alert-heading">No Crypto Currencies Found</h4>
+                    <p>
+                        There are no crypto currencies in the system. You can add a crypto currency by clicking the "Create New" button above.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-dark table-hover">
+                    <thead class="">
+                        <tr>
+                            <th colspan="2">
+                                Crypto
+                            </th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="width: 48px;">
+                                    @Html.Raw(item.CryptoIcon)
+                                </td>
+                                <td class="text-nowrap " scope="row">
+                                    <div class="td-main-data">@item.CryptoName</div>
+                                    <div class="td-secondary-data">@item.TickerSymbol</div>
+                                </td>
+                                <td class="text-end">
+                                    <a asp-action="Details" asp-route-id="@item.CryptoId" class="btn btn-primary btn-sm" title="View Details">
+                                        <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.CryptoId" class="btn btn-success btn-sm" title="Edit Details">
+                                        <i class="fa-solid fa-pencil" style="color: #ffffff;"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.CryptoId" class="btn btn-danger btn-sm" title="Delete" role="button">
+                                        <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @Html.PagedListPager( @Model, page => Url.Action("Index", new { page }),
+                    new X.PagedList.Web.Common.PagedListRenderOptions {
+                    LiElementClasses = new string[] {"page-item"},
+                    PageClasses = new string[] {"page-link"},
+                    }
+                )
+            }
         }
-            </tbody>
-        </table>
+
+ 
     </section>
 </div>
 <partial name="Partials/_UserMessage" />

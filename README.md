@@ -3,6 +3,12 @@
 
  ## Daily Programming Journal:
  
+ ### 5/1/2023
+ #### Added pagination to data lists
+ - Installed X.PagedList package.
+ - Added paging to Transaction Index
+ - Added paging to Crypto Index
+ 
  ### 4/27/2023
  #### Navigation UI/UX Improvements
  - Sub pages now have a close button in the top right corner to exit out back to the high level parent page.

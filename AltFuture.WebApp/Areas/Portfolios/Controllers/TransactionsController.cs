@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using X.PagedList;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
@@ -28,12 +29,24 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         }
 
         // GET: Portfolios/Transactions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             var userMessageJson = TempData["UserMessage"] as string;
-            var appDbContext = _context.Transactions.Include(t => t.AppUser).Include(t => t.Crypto).Include(t => t.FromExchange).Include(t => t.ToExchange).OrderByDescending(t => t.TransactionDate);
-            return View(await appDbContext.ToListAsync());
+            var transactions = _context.Transactions
+                                       .Include(t => t.AppUser)
+                                       .Include(t => t.Crypto)
+                                       .Include(t => t.FromExchange)
+                                       .Include(t => t.ToExchange)
+                                       .OrderByDescending(t => t.TransactionDate);
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+            var pagedTransactions = await transactions.ToPagedListAsync(pageNumber, pageSize);
+
+
+            return View(pagedTransactions);
         }
+
+
 
         // GET: Portfolios/Transactions/Details/5
         public async Task<IActionResult> Details(int? id)
