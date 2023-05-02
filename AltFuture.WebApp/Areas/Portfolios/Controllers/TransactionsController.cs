@@ -1,4 +1,4 @@
-﻿using AltFuture.BusinessLogicLayer.ViewModels.Transactions;
+﻿using AltFuture.WebApp.Areas.Portfolios.ViewModels;
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.DataAccessLayer.Interfaces;
 using AltFuture.DataAccessLayer.Models;
@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using X.PagedList;
+using AltFuture.WebApp.Areas.Portfolios.AutoMapper;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
@@ -72,6 +73,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
             return View(transactionDetail);
         }
+
+
 
         // GET: Portfolios/Transactions/Create
         public IActionResult Create()
@@ -153,6 +156,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
             return View(transactionCreate);
         }
+
+
 
         // GET: Portfolios/Transactions/Edit/5
         public async Task<IActionResult> Edit(int? id)

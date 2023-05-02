@@ -15,6 +15,7 @@ using AltFuture.BusinessLogicLayer.AutoMapper;
 using AltFuture.BusinessLogicLayer.Services.MarketData;
 using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
 using AltFuture.BusinessLogicLayer.Services.ExchangeTransactions;
+using AltFuture.WebApp.Areas.Portfolios.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,25 +54,12 @@ builder.Services.AddSingleton<Func<IServiceScope>>(_ => () => builder.Services.B
 builder.Services.AddSingleton<IExchangeTransactionTypeDataService, ExchangeTransactionTypeDataService>();
 builder.Services.AddSingleton<ICryptoDataService, CryptoDataService>();
 
-//* IOptions:
 
 
-
-
-//* Named HttpClients for API calls:
-//builder.Services.AddHttpClient();
-//builder.Services.AddHttpClient("CoinMarketCapPro", config =>
-//{
-//    config.BaseAddress = new Uri(builder.Configuration.GetValue<string>("CoinMarketCapSettings:BaseUrls:Pro"));
-//    config.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", builder.Configuration.GetValue<string>("CoinMarketCapSettings:ApiKeys:Pro"));
-//    //config.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip");
-//});
-//builder.Services.AddHttpClient("CoinMarketCapSandbox", config =>
-//{
-//    config.BaseAddress = new Uri(builder.Configuration.GetValue<string>("CoinMarketCapSettings:BaseUrls:Sandbox"));
-//    config.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", builder.Configuration.GetValue<string>("CoinMarketCapSettings:ApiKeys:Sandbox"));
-//    //config.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip");
-//});
+//* WebApp Layer:
+builder.Services.AddAutoMapper(typeof(TransactionTransactionCreateProfile));
+builder.Services.AddAutoMapper(typeof(TransactionTransactionDetailProfile));
+builder.Services.AddAutoMapper(typeof(TransactionTransactionEditProfile));
 
 
 
@@ -88,14 +76,16 @@ builder.Services.AddAutoMapper(typeof(MarketDataPriceToCryptoPriceProfile));
 //* MarketDataClient Layer:
 builder.Services.AddAutoMapper(typeof(CoinMarektCapPlanUsageProfile));
 builder.Services.AddAutoMapper(typeof(CoinMarketCapPriceDataProfile));
-builder.Services.Configure<CoinMarketCapEndPointOptions>(builder.Configuration.GetSection(CoinMarketCapEndPointOptions.SettingsSection));
-
+builder.Services.Configure<CoinMarketCapEndPointOptions>(builder.Configuration.GetSection(CoinMarketCapEndPointOptions.SettingsSection)); //* IOptions
 builder.Services.AddScoped<IMarketDataClient, CoinMarketCapDataClient>();
 builder.Services.AddHttpClient<IMarketDataClient, CoinMarketCapDataClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("CoinMarketCapSettings:BaseUrls:Pro"));
     client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", builder.Configuration.GetValue<string>("CoinMarketCapSettings:ApiKeys:Pro"));
 });
+
+
+
 
 var app = builder.Build();
 

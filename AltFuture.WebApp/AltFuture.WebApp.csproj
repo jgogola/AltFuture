@@ -46,8 +46,4 @@
 	  </Content>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Areas\Portfolios\ViewModels\" />
-	</ItemGroup>
-
 </Project>

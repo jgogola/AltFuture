@@ -3,6 +3,10 @@
 
  ## Daily Programming Journal:
  
+ ### 5/2/2023
+ #### Fix Transaction ViewModel Locations
+ - Moved Transaction ViewModels and AutoMapper Profiles from BLL to Web Layer
+ 
  ### 5/1/2023
  #### Added pagination to data lists
  - Installed X.PagedList package.
