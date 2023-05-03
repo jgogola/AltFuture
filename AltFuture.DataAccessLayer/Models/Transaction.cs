@@ -34,7 +34,7 @@ namespace AltFuture.DataAccessLayer.Models
         public decimal Price { get; set; } = decimal.Zero;
 
 
-        [Column(TypeName = "decimal(18,10)")]
+        [Column(TypeName = "decimal(20,10)")]
         public decimal Quantity { get; set; } = decimal.Zero;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

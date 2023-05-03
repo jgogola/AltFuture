@@ -16,6 +16,7 @@ using AltFuture.BusinessLogicLayer.Services.MarketData;
 using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
 using AltFuture.BusinessLogicLayer.Services.ExchangeTransactions;
 using AltFuture.WebApp.Areas.Portfolios.AutoMapper;
+using AltFuture.BusinessLogicLayer.MoonShot;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,6 +72,7 @@ builder.Services.AddScoped<IExchangeTransactionCsvImport, ExchangeTransactionCsv
 builder.Services.AddScoped<IPortfolioChartData, PortfolioChartData>(); 
 builder.Services.AddScoped<IMarketDataService, MarketDataService>();
 builder.Services.AddAutoMapper(typeof(MarketDataPriceToCryptoPriceProfile));
+builder.Services.AddTransient<IMoonShotFactory, MoonShotFactory>();
 
 
 //* MarketDataClient Layer:

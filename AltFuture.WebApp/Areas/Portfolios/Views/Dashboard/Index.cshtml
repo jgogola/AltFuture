@@ -1,4 +1,5 @@
-﻿@using AltFuture.DataAccessLayer.Models.StoredProcs;
+﻿@using AltFuture.BusinessLogicLayer.MoonShot;
+@using AltFuture.DataAccessLayer.Models.StoredProcs;
 @model IEnumerable<PortfolioSummary>
 @{
     ViewData["Title"] = "Portfolio Dashboard";
@@ -37,6 +38,31 @@
                 <div class="impact-value">
                     @totalData?.CurrentWorth.ToString("C")
                 </div>
+            </div>
+            <div class="flex-grow-1 text-light text-end" >
+                <div class="impact-label me-3">Take a Moon Shot!</div>
+                @if (ViewBag.ShibaInuMoonShotExists)
+                {
+                    @using (Html.BeginForm("ResetMoonShot", "Dashboard", FormMethod.Post))
+                    {
+                        @Html.Hidden("moonShotType", MoonShotTypeEnum.ShibaInu)
+                        <button type="submit" class="" >
+                            <i class="fa-solid fa-rocket fa-rotate-180"></i>
+                            <span>Reset Shiba Inu Moon Shot</span>
+                        </button>
+                    }
+                }
+                else
+                {
+                    @using (Html.BeginForm("AddMoonShot", "Dashboard", FormMethod.Post))
+                    {
+                        @Html.Hidden("moonShotType", MoonShotTypeEnum.ShibaInu)
+                        <button type="submit" class="" title="What if you invested $10,000 in Shiba Inu just before the Oct. 2021 moon shot in price?">
+                            <i class="fas fa-rocket"></i>
+                            <span>Shiba Inu Moon Shot</span>
+                        </button>
+                    }
+                }
             </div>
         </div>
 
