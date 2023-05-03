@@ -3,6 +3,16 @@
 
  ## Daily Programming Journal:
  
+ ### 5/3/2023
+ #### Created Moon Shot Feature
+ - Created MoonShotFactory and MoonShot classes.
+ - Added UI and Action handlers to the Dashboard Controler and Index View.
+ - MoonShot feature allows for a Shiba Inu and Bitcoin moon shot. 
+ - MoonShots can be reverted by the user. They can do it as many times as they like.
+ - Currently only Shiba Inu is availabe to the user.
+ - Increased the size of Transactions.Quantity to decimal 20,10.
+ - Script-Migrated database changes to the Azure demo site.
+ 
  ### 5/2/2023
  #### Fix Transaction ViewModel Locations
  - Moved Transaction ViewModels and AutoMapper Profiles from BLL to Web Layer
