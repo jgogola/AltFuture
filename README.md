@@ -12,6 +12,10 @@
  - Currently only Shiba Inu is availabe to the user.
  - Increased the size of Transactions.Quantity to decimal 20,10.
  - Script-Migrated database changes to the Azure demo site.
+ #### Housecleaning
+ - Created a Enum Extention that allows the annotation Display Name to be retrieved in the code.
+ - Added JS to the UserMessage partial to automatically hide the message after the given FadeOutSeconds.
+ - Added some hover style to the main nave dropdown links
  
  ### 5/2/2023
  #### Fix Transaction ViewModel Locations

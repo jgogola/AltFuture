@@ -7,7 +7,7 @@
 <div class="text-center mb-5 ">
     <h1 class="display-4" style="position: relative;">AltFuture <sup class="font-italic fs-6" style="position: relative; top: -35px; right: 70px;">(demo)</sup></h1>
     <p class="lead text-light">A crypto asset tracker powered by CoinMarketCap API.</p>
-    <p class="text-light">Hello guests, please review the <a asp-area="" asp-controller="Home" asp-action="About">About</a> page before you begin to demo the product. <br />~Thank you, Jason Gogola</p>"
+    <p class="text-light">Hello guests, please review the <a asp-area="" asp-controller="Home" asp-action="About">About</a> page before you begin to demo the product. <br />~Thank you, Jason G.</p>"
 </div>
 
 <section class="section-container">
@@ -20,7 +20,7 @@
                 <th>Price</th>
 
                 <th>24h Change</th>
-                <th>7d Change</th>
+                <th class="d-none d-sm-table-cell">7d Change</th>
                 <th class="d-none d-sm-table-cell">30d Change</th>
                 <th class="d-none d-md-table-cell">60d Change</th>
                 <th class="d-none d-lg-table-cell">90d Change</th>
@@ -54,7 +54,7 @@
                         <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange24h < 0 ? "display:none" : "")'></i>
                         <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange24h >= 0 ? "display:none" : "")'></i>
                     </td>
-                    <td class="@(@item.PercentChange7d >= 0 ? "trend-up-color" : "trend-down-color")">
+                    <td class="@(@item.PercentChange7d >= 0 ? "trend-up-color" : "trend-down-color") d-none d-sm-table-cell">
                         @Math.Round(@item.PercentChange7d,3)%
                         <i class="fa-solid fa-arrow-trend-up trend-up-color" style='@(item.PercentChange7d < 0 ? "display:none" : "")'></i>
                         <i class="fa-solid fa-arrow-trend-down trend-down-color" style='@(item.PercentChange7d >= 0 ? "display:none" : "")'></i>
