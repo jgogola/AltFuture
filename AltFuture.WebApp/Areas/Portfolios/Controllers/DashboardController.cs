@@ -7,6 +7,7 @@ using AltFuture.WebApp.Enums;
 using AltFuture.WebApp.Helpers;
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.BusinessLogicLayer.MoonShot;
+using AltFuture.DataAccessLayer.Extensions;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
@@ -66,8 +67,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 //* Display success message back to user on Dashboard Index           
                 userMessagePartial.SetUserMessage(
                     UserMessageTypes.Success,
-                    $"{moonShotType} moon-shot transaction was successfully reset.",
-                    8
+                    $"{moonShotType.GetDisplayName()} moon-shot transaction was successfully reset.",
+                    5
                 );
 
                 return RedirectToAction(nameof(Index));
@@ -77,7 +78,7 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 //* Display warning message back to user on Dashboard Index           
                 userMessagePartial.SetUserMessage(
                     UserMessageTypes.Warning,
-                    $"{moonShotType} moon-shot transaction was not found. Reset request canceled.",
+                    $"{moonShotType.GetDisplayName()} moon-shot transaction was not found. Reset request canceled.",
                     8
                 );
 
@@ -101,8 +102,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 //* Display success message back to user on Dashboard Index           
                 userMessagePartial.SetUserMessage(
                     UserMessageTypes.Success,
-                    $"{moonShotType} moon-shot transaction was successfully added.",
-                    8
+                    $"{moonShotType.GetDisplayName()} moon-shot transaction was successfully added.",
+                    5
                 );
 
                 return RedirectToAction(nameof(Index));
@@ -112,7 +113,7 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                 //* Display warning message back to user on Dashboard Index           
                 userMessagePartial.SetUserMessage(
                     UserMessageTypes.Warning,
-                    $"{moonShotType} moon-shot transaction already exists. Please reset and try again.",
+                    $"{moonShotType.GetDisplayName()} moon-shot transaction already exists. Please reset and try again.",
                     8
                 );
 

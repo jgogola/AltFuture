@@ -53,4 +53,13 @@
         </div>
     </div>
     <script>document.querySelector('.userMsgContainer').classList.add('active');</script>
+
+    if (userMessage.FadeOutSeconds > 0)
+    {
+        <script>
+            setTimeout(function () {
+                document.querySelector('.userMsgContainer').classList.remove('active');
+            }, @userMessage.FadeOutSeconds * 1000);
+        </script>
+    }
 }

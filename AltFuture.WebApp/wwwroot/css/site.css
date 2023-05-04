@@ -7,7 +7,10 @@
 .nav-link.active, .navbar-brand.active {
     border-bottom: #f0b90b 3px solid;
 }
-
+.navbar .dropdown-menu .nav-link:hover {
+    background-color: #f0b90b;
+    color: #000;
+}
 
 html {
     font-size: 14px;
