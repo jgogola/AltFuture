@@ -8,19 +8,41 @@
 }
 
 
-<section class="section-page-header">
+<section class="section-page-header mb-3">
     <h1 class="text-center">My Portfolio</h1>
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
         <a class="btn btn-sm btn-outline-primary" asp-controller="Transactions" asp-action="Index"><i class="fa-solid fa-list"></i> Transaction Details</a>
         <a class="btn btn-sm btn-outline-primary" asp-controller="TransactionImports" asp-action="Index"><i class="fa-solid fa-file-import"></i> Import New Transactions</a>
     </div>
-     
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link dashboard-section-link active" aria-current="page" href="#Overview">
+                Overview <i class="fa-solid fa-mountain-sun"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link dashboard-section-link" href="#MyAssets">
+                My Assets <i class="fa-solid fa-coins"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link dashboard-section-link" href="#Charts">
+                Charts <i class="fa-solid fa-chart-pie"></i>
+            </a>
+        </li>
+        <li class="nav-item d-none d-md-table-cell">
+            <a class="nav-link dashboard-section-link disabled" href="#StrategyIndicators" tabindex="-1" aria-disabled="true" title="Not available yet.">
+                Strategy Indicators <i class="fa-solid fa-bullseye"></i>
+            </a>
+        </li>
+    </ul>
 </section>
 
-<section class="section-container">
-    <h2>Overview <i class="fa-solid fa-mountain-sun"></i> </h2>
-
+<section id="overview-section" class="section-container no-border-top">
+@*    <h2>Overview <i class="fa-solid fa-mountain-sun"></i> </h2>
+*@
     <div class="container mt-1 mb-5" style="min-height: 400px;">
         <div class="flex-row d-flex ">
             <div class="card bg-dark mx-3 d-inline-block">
@@ -71,11 +93,11 @@
 </section>
 
 
-<section class="section-container">
-    <h2>
+<section id="myassets-section" class="section-container no-border-top">
+@*    <h2>
         My Assets
         <svg height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle cx="16" cy="16" fill="#efb914" fill-rule="nonzero" r="16" /><path d="M21.002 9.855A7.947 7.947 0 0124 15.278l-2.847-.708a5.357 5.357 0 00-3.86-3.667c-2.866-.713-5.76.991-6.465 3.806s1.05 5.675 3.917 6.388a5.373 5.373 0 005.134-1.43l2.847.707a7.974 7.974 0 01-5.2 3.385L16.716 27l-2.596-.645.644-2.575a8.28 8.28 0 01-1.298-.323l-.643 2.575-2.596-.646.81-3.241c-2.378-1.875-3.575-4.996-2.804-8.081s3.297-5.281 6.28-5.823L15.323 5l2.596.645-.644 2.575a8.28 8.28 0 011.298.323l.643-2.575 2.596.646z" fill="#fff" /></g></svg>
-    </h2>
+    </h2>*@
     <div class="container mb-5">
         <table class="table table-dark" style="font-size: 1.2rem;">
             <thead class="">
@@ -143,31 +165,43 @@
     </div>
 </section>
 
-<section class="section-container">
-    <h2>Charts <i class="fa-solid fa-chart-pie"></i></h2>
+<section id="charts-section" class="section-container no-border-top">
+@*    <h2>Charts <i class="fa-solid fa-chart-pie"></i></h2>*@
     <div class="container mt-4 mb-5">
-        <div class="horizontal-scrolling-container">
-            <div class="scroll-card">
-                <!--Div for Asset Allocation Pie Chart-->
-                <div id="chartAssetAllocation"></div>
+
+        <div class="horizontal-scrolling-wrapper">
+
+            <div class="scroll-btn scroll-btn-left">
+                <i class="fa-solid fa-circle-chevron-left"></i>
             </div>
-            <div class="scroll-card" style="width: 500px;">
-                <!--Div for Asset Performance Column Chart-->
-                <div id="chartAssetPerformance"></div>
+
+            <div class="horizontal-scrolling-container">
+                <div class="scroll-card">
+                    <!--Div for Asset Allocation Pie Chart-->
+                    <div id="chartAssetAllocation"></div>
+                </div>
+                <div class="scroll-card" style="width: 500px;">
+                    <!--Div for Asset Performance Column Chart-->
+                    <div id="chartAssetPerformance"></div>
+                </div>
+                <div class="scroll-card">
+                    <!--Div for Exchange Usage Pie Chart-->
+                    <div id="chartExchangeUsage"></div>
+                </div>
+                <div class="scroll-card"><h2>Staking Rewards</h2></div>
+                <div class="scroll-card"><h2>Loan Interest</h2></div>
+                <div class="scroll-card"><h2>KPI TBD...</h2></div>
             </div>
-            <div class="scroll-card">
-                <!--Div for Exchange Usage Pie Chart-->
-                <div id="chartExchangeUsage"></div>
+
+            <div class="scroll-btn scroll-btn-right">
+                <i class="fa-solid fa-circle-chevron-right"></i>
             </div>
-            <div class="scroll-card"><h2>Staking Rewards</h2></div>
-            <div class="scroll-card"><h2>Loan Interest</h2></div>
-            <div class="scroll-card"><h2>KPI TBD...</h2></div>
         </div>
     </div>
 </section>
 
 
-<section class="section-container">
+<section id="strategyindicators-section" class="section-container no-border-top">
     <h2>My Strategy Indicators <i class="fa-solid fa-bullseye"></i></h2>
     <p class="text-light fst-italic">...Under Construction...</p>
 </section>
@@ -178,7 +212,39 @@
 
 @section Scripts {
 
-    <!--Load the Google Chart AJAX API-->
+    <!-- Tab menu script -->
+    <script>
+        $(document).ready(function () {
+            // Get the anchor value from the URL
+            var anchorValue = window.location.hash;
+            toggleSection(anchorValue);
+        });
+
+        $(window).on('hashchange', function () {
+            // Get the anchor value from the URL
+            var anchorValue = window.location.hash;
+            toggleSection(anchorValue);
+        });
+
+        function toggleSection(anchorValue){
+            // If no anchor value, set default
+            if (anchorValue == "") {
+                anchorValue = "#Overview";
+            }
+
+            // Update Tab display
+            $(".dashboard-section-link").removeClass("active");
+            $(`a.dashboard-section-link[href="${anchorValue}"]`).addClass("active");
+
+            // Update Section display
+            const anchorValueLowerCase = anchorValue.toLowerCase();
+            $(".section-container").hide();
+            $(anchorValueLowerCase + "-section").fadeIn(500);
+        }
+    </script>
+
+
+    <!-- Google Chart AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
@@ -186,11 +252,22 @@
         google.charts.load('current', { 'packages': ['corechart', 'bar'] });
 
         //* Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawAssetAllocationChart);
         google.charts.setOnLoadCallback(drawAssetPerformanceChart);
+        google.charts.setOnLoadCallback(drawAssetAllocationChart);
         google.charts.setOnLoadCallback(drawExchangeUsageChart);
         google.charts.setOnLoadCallback(drawRunningTotalChart);
 
+        //* Re-load drawRunningTotalChart when window width is resized
+        let previousWidth = $(window).width();
+        $(window).on('resize', function () {
+            var currentWidth = $(window).width();
+            var widthChangePercentage = Math.abs((currentWidth - previousWidth) / previousWidth) * 100;
+
+            if (widthChangePercentage >= 10) {
+                drawRunningTotalChart();
+                previousWidth = currentWidth;
+            }
+        });
 
 
         //** Running Total Chart

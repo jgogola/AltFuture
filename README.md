@@ -3,6 +3,13 @@
 
  ## Daily Programming Journal:
  
+ ### 5/4/2023
+ #### Enhance Dashboard UI/UX
+ - Added a Tabbed menu with links to each page section.
+ - JS to toggle visibility per section based on active tab.
+ - JS to resize the Portfolio Performance line chart when viewport width is changed.
+ - Modified the Charts horizontal content to have left and right arrows for the user to scroll horizontally.
+ 
  ### 5/3/2023
  #### Created Moon Shot Feature
  - Created MoonShotFactory and MoonShot classes.

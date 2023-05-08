@@ -1,16 +1,9 @@
 /*
     Brand Color: #f0b90b;
-
+    Link Color: #0d6efd;
 
 */
 
-.nav-link.active, .navbar-brand.active {
-    border-bottom: #f0b90b 3px solid;
-}
-.navbar .dropdown-menu .nav-link:hover {
-    background-color: #f0b90b;
-    color: #000;
-}
 
 html {
     font-size: 14px;
@@ -35,6 +28,34 @@ h1, h2, h3, h4, h5 {
     color: #f0b90b;
 }
 
+/*** BEGIN: Navigation Customization */
+.nav-link.active, .navbar-brand.active {
+    border-bottom: #f0b90b 3px solid;
+}
+
+.navbar .dropdown-menu .nav-link:hover {
+    background-color: #f0b90b;
+    color: #000;
+}
+
+.nav-tabs .nav-item a.active {
+    background-color: #f0b90b;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+}
+
+.nav-tabs {
+    border-bottom: #f0b90b 2px solid;
+}
+
+    .nav-tabs .nav-item a.nav-link:not(.active):hover {
+        color: #f0b90b;
+    }
+
+/*** END: Navigation Customization */
+
 .section-page-header {
     position: relative;
 }
@@ -52,6 +73,9 @@ h1, h2, h3, h4, h5 {
     margin-top: 2px;
     border-top: 1px ridge #000;
 }
+    .section-container.no-border-top {
+        border-top: none;
+    }
 
 
 .impact-label {
@@ -91,7 +115,13 @@ h1, h2, h3, h4, h5 {
 }
 
 /*** BEGIN: Horizontal Scrolling Content Container */
-        .horizontal-scrolling-container {
+
+.horizontal-scrolling-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+    .horizontal-scrolling-container {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -101,22 +131,48 @@ h1, h2, h3, h4, h5 {
         -webkit-overflow-scrolling: touch;
     }
 
-        .horizontal-scrolling-container .scroll-card {
-            flex: 0 0 auto;
-            margin-right: 15px;
-            background-color: #EEE;
-            border: 5px solid #f0b90b;
-            min-width: 360px;
-            height: 350px;
-        }  
-
         .horizontal-scrolling-container::-webkit-scrollbar {
             display: none;
         }
 
-            .horizontal-scrolling-container.grabbing {
-                cursor: grabbing;
-            }
+        .horizontal-scrolling-container.grabbing {
+            cursor: grabbing;
+        }
+
+.scroll-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #0d6efd;
+}
+
+    .scroll-btn:hover {
+        color: #f0b90b;
+        background-color: #0d6efd;
+    }
+    .scroll-btn.scroll-btn-left {
+            margin-right: 10px;
+        }
+
+        .scroll-btn.scroll-btn-right {
+            margin-left: 10px;
+        }
+
+    .scroll-card {
+        flex: 0 0 auto;
+        margin-right: 15px;
+        background-color: #EEE;
+        border: 5px solid #f0b90b;
+        min-width: 360px;
+        height: 350px;
+    }  
+
+
 
 /*** EMD: Horizontal Scrolling Content Container */
 
