@@ -1,6 +1,6 @@
 ﻿
 
-// Set the active class to the current page's menu item and dropdown menu
+//* Set the active class to the current page's menu item and dropdown menu
 $(function () {
     let currentPath = window.location.pathname;
 
@@ -11,8 +11,43 @@ $(function () {
     $(`nav a[href="${currentPath}"]`).parents('.nav-item.dropdown').find('.dropdown-toggle:first').addClass('active');
 });
 
+//* Horizontal scrolling buttons (left and right)
+$(document).ready(function () {
+    var scrollInterval;
 
-// Horizontal grab scrolling
+    function startScrolling(direction) {
+        var scrollSpeed = 10; // Adjust the scroll speed in pixels
+        var $container = $(".horizontal-scrolling-container");
+
+        scrollInterval = setInterval(function () {
+            var scrollAmount = $container.scrollLeft();
+
+            if (direction === "left") {
+                $container.scrollLeft(scrollAmount - scrollSpeed);
+            } else if (direction === "right") {
+                $container.scrollLeft(scrollAmount + scrollSpeed);
+            }
+        }, 20); // Adjust the interval time in milliseconds
+    }
+
+    function stopScrolling() {
+        clearInterval(scrollInterval);
+    }
+
+    $(".scroll-btn-left").on("mousedown", function () {
+        startScrolling("left");
+    });
+
+    $(".scroll-btn-right").on("mousedown", function () {
+        startScrolling("right");
+    });
+
+    $(".scroll-btn").on("mouseup mouseleave", function () {
+        stopScrolling();
+    });
+});
+
+//* Horizontal grab scrolling
 $(document).ready(function () {
     const container = $('.horizontal-scrolling-container');
     let isMouseDown = false;
