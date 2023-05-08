@@ -46,6 +46,16 @@ namespace AltFuture.DataAccessLayer.Repository
             return await _context.Transactions.Where(t => t.AppUserId == userId).CountAsync();
         }
 
+        public async Task<DateTime> GetLatestTransactionDateAsync(int userId)
+        {
+            return await _context.Transactions.Where(t => t.AppUserId == userId).MaxAsync(t => t.TransactionDate);
+        }
+
+        public async Task<DateTime> GetLatestTransactionDateAsync(int userId, int exchangeId)
+        {
+            return await _context.Transactions.Where(t => t.AppUserId == userId & t.FromExchangeId == exchangeId).MaxAsync(t => t.TransactionDate);
+        }
+
         public async Task<bool> AddRangeAsync(IEnumerable<Transaction> transactions)
         {
             await _context.AddRangeAsync(transactions);
