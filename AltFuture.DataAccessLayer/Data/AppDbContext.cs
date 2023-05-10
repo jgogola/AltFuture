@@ -17,8 +17,8 @@ namespace AltFuture.DataAccessLayer.Data
         public DbSet<ExchangeTransactionType> ExchangeTransactionTypes { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<CryptoPrice> CryptoPrices { get; set; }
+        public DbSet<ExchangeApiProfile> ExchangeApiProfiles { get; set; }
 
-        public DbSet<ExchangeApi> ExchangeApis { get; set; }
 
         // Note: All Stored Procs and Views are defined in partial class: AppDbContextStoredProcs.cs
         //       All Enum Entities are defined in partial class: AppDbContextEnums.cs

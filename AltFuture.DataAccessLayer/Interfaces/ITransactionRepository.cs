@@ -14,9 +14,9 @@ namespace AltFuture.DataAccessLayer.Interfaces
 
         Task<int> GetCountForUserAsync(int userId);
 
-        Task<DateTime> GetLatestTransactionDate(int userId);
+        Task<DateTime> GetLatestTransactionDateAsync(int userId);
 
-        Task<DateTime> GetLatestTransactionDate(int userId, int exchangeId);
+        Task<DateTime> GetLatestTransactionDateAsync(int userId, int exchangeId);
 
         Task<bool> AddRangeAsync(IEnumerable<Transaction> transactions);
 
