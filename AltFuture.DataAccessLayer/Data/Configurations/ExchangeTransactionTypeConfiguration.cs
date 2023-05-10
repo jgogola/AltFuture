@@ -123,6 +123,16 @@ namespace AltFuture.DataAccessLayer.Data.Configurations
                     ExchangeId = (int)ExchangeEnum.Binance,
                     TransactionTypeId = (int)TransactionTypeEnum.Buy,
                     DataImportTypeId = (int)DataImportTypeEnum.CSV
+                },
+
+                //Coinbase API Transaction Types:
+                new ExchangeTransactionType
+                {
+                    ExchangeTransactionTypeId = 14,
+                    ExchangeTransactionTypeName = "BUY",
+                    ExchangeId = (int)ExchangeEnum.Coinbase,
+                    TransactionTypeId = (int)TransactionTypeEnum.Buy,
+                    DataImportTypeId = (int)DataImportTypeEnum.API
                 }
 
 

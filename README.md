@@ -3,6 +3,22 @@
 
  ## Daily Programming Journal:
  
+ ### 5/9/2023
+ ### Created Coinbase Account API call 
+ - Renamed ExchangeApi Model to ExchangeApiProfile.
+	- Updated dependencies as needed.
+ - Created migration CreateTable-ExchangeApiProfile.
+ - Created controller TransactionApiProfile
+	- Index action has code to do proof of API call to Coinbase.
+	- Will analyze optional parameters and JSON schema to move code to an abstraction.
+ 
+ ### 5/8/2023
+ #### Develop ExchangeApi Data Layer
+ - Created ExchangeApi Model
+ - Added ExchangeApi to AppDbContext
+ - Created ExchangeApiRepository and IExchangeApiRepository
+ - Update TransactionRepository to have 2 new methods for returning the latest transaction date by user id and oeverloaded exchange id.
+ 
  ### 5/4/2023
  #### Enhance Dashboard UI/UX
  - Added a Tabbed menu with links to each page section.

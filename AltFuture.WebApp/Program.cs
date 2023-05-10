@@ -61,7 +61,7 @@ builder.Services.AddSingleton<ICryptoDataService, CryptoDataService>();
 builder.Services.AddAutoMapper(typeof(TransactionTransactionCreateProfile));
 builder.Services.AddAutoMapper(typeof(TransactionTransactionDetailProfile));
 builder.Services.AddAutoMapper(typeof(TransactionTransactionEditProfile));
-
+builder.Services.AddHttpClient();
 
 
 
