@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Compile Remove="ExchangeTransactionCsvImport\Models\CryptoDotComTransactionDto.cs" />
+    <Compile Remove="ExchangTransactionApiImport\Dtos\IExchangeTransactionApiDto.cs" />
     <Compile Remove="Services\TransactionCsvImports.cs" />
   </ItemGroup>
 
@@ -25,6 +26,10 @@
   <ItemGroup>
     <ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
     <ProjectReference Include="..\AltFuture.MarketDataConsumer\AltFuture.MarketDataConsumer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ExchangTransactionApiImport\Dtos\" />
   </ItemGroup>
 
 </Project>

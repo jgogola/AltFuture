@@ -17,6 +17,7 @@ using AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces;
 using AltFuture.BusinessLogicLayer.Services.ExchangeTransactions;
 using AltFuture.WebApp.Areas.Portfolios.AutoMapper;
 using AltFuture.BusinessLogicLayer.MoonShot;
+using AltFuture.BusinessLogicLayer.ExchangTransactionApiImport.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IExchangeTransactionTypeRepository, ExchangeTransacti
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IPortfolioSummaryRepository, PortfolioSummaryRepository>();
 builder.Services.AddScoped<IPortfolioRunningTotalRepository, PortfolioRunningTotalRepository>();
+builder.Services.AddScoped<IExchangeApiProfileRepository, ExchangeApiProfileRepository>();
 
 //* Singletons:
 builder.Services.AddSingleton<Func<IServiceScope>>(_ => () => builder.Services.BuildServiceProvider().CreateScope());
@@ -69,6 +71,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IExchangeTransactionCsvParser, ExchangeTransactionCsvParser>();
 builder.Services.AddScoped<IExchangeTransactionMapper, ExchangeTransactionMapper>();
 builder.Services.AddScoped<IExchangeTransactionCsvImport, ExchangeTransactionCsvImport>();
+builder.Services.AddScoped<IExchangeTransactionApiDataSync, ExchangeTransactionApiDataSync>();
 builder.Services.AddScoped<IPortfolioChartData, PortfolioChartData>(); 
 builder.Services.AddScoped<IMarketDataService, MarketDataService>();
 builder.Services.AddAutoMapper(typeof(MarketDataPriceToCryptoPriceProfile));
