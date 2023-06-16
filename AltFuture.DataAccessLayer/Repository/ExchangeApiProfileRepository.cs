@@ -14,10 +14,16 @@ public class ExchangeApiProfileRepository : IExchangeApiProfileRepository
         _context = context;
     }
 
-    // Get All by UserId and ExchangeId
-    public async Task<IEnumerable<ExchangeApiProfile>> GetAllByUserIdExchangeIdAsync(int appUserId, int exchangeId)
+    // Get All by UserId
+    public IEnumerable<ExchangeApiProfile> GetAllByUserId(int appUserId)
     {
-        return await _context.ExchangeApiProfiles.Where(ea => ea.AppUserId == appUserId & ea.ExchangeId == exchangeId).ToListAsync();
+        return  _context.ExchangeApiProfiles.Where(ea => ea.AppUserId == appUserId).AsEnumerable();
+    }
+
+    // Get All by UserId and ExchangeId
+    public IEnumerable<ExchangeApiProfile> GetAllByUserIdExchangeId(int appUserId, int exchangeId)
+    {
+        return _context.ExchangeApiProfiles.Where(ea => ea.AppUserId == appUserId & ea.ExchangeId == exchangeId).AsEnumerable();
     }
 
     // Get By Id
