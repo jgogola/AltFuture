@@ -49,6 +49,7 @@ public class ExchangeTransactionApiDataSync : IExchangeTransactionApiDataSync
             var exchangeTransactionApiClientFactory = new ExchangeTransactionApiClientFactory();
             var exchangeTransactionApiClient = exchangeTransactionApiClientFactory.CreateApiClient(exchangeApiType, _httpClient, _transactionRepository);
 
+            //*** TODO: Create Factory for delivering JsonConverter based on ExchangeId
 
             //***  Get Json Data from ApiClient
             var jsonExchangeTransactions = await exchangeTransactionApiClient.GetJsonDataAsync(exchangeApiProfile);
@@ -56,8 +57,12 @@ public class ExchangeTransactionApiDataSync : IExchangeTransactionApiDataSync
             //***  Parse Json Data
             List<Transaction> transactions = JsonConvert.DeserializeObject<List<Transaction>>(jsonExchangeTransactions.ToString(), new CoinbaseJsonConverter(appUserId, createdDate, _cryptoAssets, _exchangeTransactionTypes));
 
+            //!!! TODO: Analyize "size" field in Coinbase Json Data.  
+
             //***  Save Transactions to Database
             var x = 1;
+            //_transactionRepository.AddRangeAsync(transactions);
+            //_transactionRepository.Save();
 
        }
 
