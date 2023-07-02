@@ -43,28 +43,28 @@ public class ExchangeTransactionApiDataSync : IExchangeTransactionApiDataSync
 
        foreach (var exchangeApiProfile in exchangeApiProfiles)
        {
-            //***  Create ApiClient based on ExchangeId
-            var exchangeApiType = (ExchangeEnum)exchangeApiProfile.ExchangeId;
+            //*** Create ApiClient based on ExchangeId
+            var exchangeType = (ExchangeEnum)exchangeApiProfile.ExchangeId;
 
             var exchangeTransactionApiClientFactory = new ExchangeTransactionApiClientFactory();
-            var exchangeTransactionApiClient = exchangeTransactionApiClientFactory.CreateApiClient(exchangeApiType, _httpClient, _transactionRepository);
+            var exchangeTransactionApiClient = exchangeTransactionApiClientFactory.CreateApiClient(exchangeType, _httpClient, _transactionRepository);
 
-            //*** TODO: Create Factory for delivering JsonConverter based on ExchangeId
+            //*** Create Factory for delivering JsonConverter based on ExchangeId
+            var exchangeTransactionJsonConverterFactory = new ExchangeTransactionJsonConverterFactory();
+            var exchangeTransactionJsonConverter = exchangeTransactionJsonConverterFactory.CreateJsonConverter(exchangeType, appUserId, createdDate, _cryptoAssets, _exchangeTransactionTypes);
 
-            //***  Get Json Data from ApiClient
+            //*** Get Json Data from ApiClient
             var jsonExchangeTransactions = await exchangeTransactionApiClient.GetJsonDataAsync(exchangeApiProfile);
 
-            //***  Parse Json Data
-            List<Transaction> transactions = JsonConvert.DeserializeObject<List<Transaction>>(jsonExchangeTransactions.ToString(), new CoinbaseJsonConverter(appUserId, createdDate, _cryptoAssets, _exchangeTransactionTypes));
+            //*** Parse Json Data
+            List<Transaction> transactions = JsonConvert.DeserializeObject<List<Transaction>>(jsonExchangeTransactions.ToString(), exchangeTransactionJsonConverter);
 
-            //!!! TODO: Analyize "size" field in Coinbase Json Data.  
-
-            //***  Save Transactions to Database
-            var x = 1;
-            //_transactionRepository.AddRangeAsync(transactions);
-            //_transactionRepository.Save();
-
-       }
+            //*** Save Transactions to Database                     
+            if(transactions is not null && transactions.Count() > 0){ 
+                await _transactionRepository.AddRangeAsync(transactions);
+                await _transactionRepository.SaveAsync();
+            }
+    } 
 
         
     }
