@@ -37,7 +37,7 @@ namespace AltFuture.BusinessLogicLayer.ExchangTransactionApiImport.JsonConverter
             transaction.CryptoId = cryptoAssetResolver.Resolve(ExchangeEnum.Coinbase, json["product_id"].ToString());
             transaction.ExchangeTransactionTypeId = exchangeTransactionTypeResolver.Resolve(ExchangeEnum.Coinbase, json["side"].ToString());
             transaction.Price = (decimal)json["price"];
-            transaction.Quantity = (decimal)json["size"] / (decimal)json["price"];
+            transaction.Quantity = calcQuantity((bool)json["size_in_quote"], (decimal)json["size"], (decimal)json["price"]);
             transaction.Fee = (decimal)json["commission"];
             transaction.TransactionTotal = transaction.Price * transaction.Quantity + transaction.Fee;
             transaction.TransactionDate = (DateTime)json["trade_time"];
@@ -48,5 +48,17 @@ namespace AltFuture.BusinessLogicLayer.ExchangTransactionApiImport.JsonConverter
         {
             throw new NotImplementedException();
         }
+
+        private decimal calcQuantity(bool size_in_quote, decimal size, decimal price)
+        {
+            if (size_in_quote)
+            {
+                return size / price;
+            }
+            else
+            {
+                return size;
+            }
+        }   
     }
 }
