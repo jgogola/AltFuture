@@ -8,6 +8,11 @@ using AltFuture.WebApp.Helpers;
 using AltFuture.DataAccessLayer.Data;
 using AltFuture.BusinessLogicLayer.MoonShot;
 using AltFuture.DataAccessLayer.Extensions;
+using AltFuture.BusinessLogicLayer.Services.MarketData;
+using AltFuture.BusinessLogicLayer.ExchangTransactionApiImport.Services;
+using AltFuture.WebApp.ViewModels;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 {
@@ -21,6 +26,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         private readonly ITransactionRepository _transactionRepository;
         private readonly IMoonShotFactory _moonShotFactory;
         private readonly AppDbContext _context;
+        private readonly IExchangeTransactionApiDataSync _exchangeTransactionApiDataSync;
+        private readonly IMarketDataService _marketDataService;
 
         private const int _bitcoinMoonShotReferenceNum = 777777777;
         private const int _shibaInuMoonShotReferenceNum = 66666666;
@@ -31,7 +38,9 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
                                    IPortfolioChartData portfolioChartData,
                                    ITransactionRepository transactionRepository,
                                    IMoonShotFactory moonShotFactory,
-                                   AppDbContext context)
+                                   AppDbContext context,
+                                   IExchangeTransactionApiDataSync exchangeTransactionApiDataSync,
+                                   IMarketDataService marketDataService)
         {
             _portfolioSummaryRepository = portfolioSummaryRepository;
             _cryptoRepository = cryptoRepository;
@@ -40,13 +49,46 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             _transactionRepository = transactionRepository;
             _moonShotFactory = moonShotFactory;
             _context = context;
+            _marketDataService = marketDataService;
+            _exchangeTransactionApiDataSync = exchangeTransactionApiDataSync;
         }
+    
 
         public async Task<IActionResult> Index()
         {
-            var userMessageJson = TempData["UserMessage"] as string;
+
             var appUserId = 1;
 
+            //* Import current market data:
+            var timeCheck = DateTime.Now;
+            var marketDataLastSynced = await _marketDataService.SyncMarketPricesCacheAsync();
+
+            //* Import all exchange api profile data:
+            (int ImportCount, string ImportMessage) exchangeSyncResult = await _exchangeTransactionApiDataSync.ImportDataAsync(appUserId);
+
+            //* Display messages back to user on Dashboard Index
+            var userMessage = new StringBuilder();
+
+            if (marketDataLastSynced >= timeCheck)
+                userMessage.Append($"<li>Market data was synced at {marketDataLastSynced}.</li>");
+
+            if(exchangeSyncResult.ImportCount > 0)
+                userMessage.Append($"<li>{exchangeSyncResult.ImportMessage}</li>");
+           
+
+            if(userMessage.Length > 0)
+            {
+                userMessage.Insert(0, "<ul style='padding-left: 3px;'>");
+                userMessage.Append("</ul>");
+                var userMessagePartial = new UserMessagePartial(TempData);
+                userMessagePartial.SetUserMessage(
+                    UserMessageTypes.System,
+                    userMessage.ToString(),
+                    8
+                );
+            }
+
+            //* Initialize MoonShot state:
             MoonShot moonShot = _moonShotFactory.Create(MoonShotTypeEnum.ShibaInu, appUserId);
             ViewBag.ShibaInuMoonShotExists = moonShot.MoonShotExists;
 

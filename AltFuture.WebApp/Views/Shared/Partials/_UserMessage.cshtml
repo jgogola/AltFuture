@@ -49,7 +49,7 @@
             <a class="fa-solid fa-times userMsgClose" aria-label="Close User Message" onclick="document.querySelector('.userMsgContainer').classList.remove('active');"></a>
         </div>
         <div class="userMsg @userMsgTypeClass" style="--bs-bg-opacity: .9;">
-            @userMessage.UserMessage
+            @Html.Raw(userMessage.UserMessage)
         </div>
     </div>
     <script>document.querySelector('.userMsgContainer').classList.add('active');</script>

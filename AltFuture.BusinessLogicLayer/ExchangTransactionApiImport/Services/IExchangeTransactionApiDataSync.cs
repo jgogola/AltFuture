@@ -4,6 +4,6 @@ namespace AltFuture.BusinessLogicLayer.ExchangTransactionApiImport.Services
 {
     public interface IExchangeTransactionApiDataSync
     {
-        Task ImportDataAsync(int appUserId, int exchangeId = 0);
+        Task<(int ImportCount, string ImportMessage)> ImportDataAsync(int appUserId, int exchangeId = 0);
     }
 }

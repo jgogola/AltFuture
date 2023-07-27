@@ -35,25 +35,21 @@ namespace AltFuture.BusinessLogicLayer.Services.MarketData
         {
             var dateLastSynced = await _cryptoPriceRepository.GetLastSyncedDate();
 
-            var isApiSyncAllowed = false;
-            if (dateLastSynced.AddHours(_marketDataClient.RateLimitHours) <= DateTime.Now)
+            if (dateLastSynced.AddHours(_marketDataClient.RateLimitHours) > DateTime.Now)
             {
-                isApiSyncAllowed = true;
+                return dateLastSynced;
             }
 
-            if (isApiSyncAllowed)
+            dateLastSynced = DateTime.Now;
+            var tickerDictionary = _cryptos.ToDictionary(crypto => crypto.CryptoId, crypto => crypto.TickerSymbol);
+            var incommingMarketDataPrices = await _marketDataClient.GetLatestMarketPriceDataAsync(tickerDictionary);
+
+            if (incommingMarketDataPrices != null)
             {
-                dateLastSynced = DateTime.Now;
-                var tickerDictionary = _cryptos.ToDictionary(crypto => crypto.CryptoId, crypto => crypto.TickerSymbol);
-                var incommingMarketDataPrices = await _marketDataClient.GetLatestMarketPriceDataAsync(tickerDictionary);
-
-                if (incommingMarketDataPrices != null)
-                {
-                    var mappedCryptoPrices = _mapper.Map<List<CryptoPrice>>(incommingMarketDataPrices);
+                var mappedCryptoPrices = _mapper.Map<List<CryptoPrice>>(incommingMarketDataPrices);
 
 
-                    _ = await _cryptoPriceRepository.AddRangeAsync(mappedCryptoPrices);
-                }
+                _ = await _cryptoPriceRepository.AddRangeAsync(mappedCryptoPrices);
             }
 
             return dateLastSynced;
