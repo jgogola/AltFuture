@@ -51,6 +51,7 @@ builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IPortfolioSummaryRepository, PortfolioSummaryRepository>();
 builder.Services.AddScoped<IPortfolioRunningTotalRepository, PortfolioRunningTotalRepository>();
 builder.Services.AddScoped<IExchangeApiProfileRepository, ExchangeApiProfileRepository>();
+builder.Services.AddScoped<IResortUnitWeekRepository, ResortUnitWeekRepository>();
 
 //* Singletons:
 builder.Services.AddSingleton<Func<IServiceScope>>(_ => () => builder.Services.BuildServiceProvider().CreateScope());
