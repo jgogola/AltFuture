@@ -35,6 +35,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\AltFuture.Api\AltFuture.Api.csproj" />
 		<ProjectReference Include="..\AltFuture.BusinessLogicLayer\AltFuture.BusinessLogicLayer.csproj" />
 		<ProjectReference Include="..\AltFuture.DataAccessLayer\AltFuture.DataAccessLayer.csproj" />
 		<ProjectReference Include="..\AltFuture.MarketDataConsumer\AltFuture.MarketDataConsumer.csproj" />

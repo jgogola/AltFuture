@@ -18,6 +18,7 @@ namespace AltFuture.DataAccessLayer.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<CryptoPrice> CryptoPrices { get; set; }
         public DbSet<ExchangeApiProfile> ExchangeApiProfiles { get; set; }
+        public DbSet<ResortUnitWeek> ResortUnitWeeks { get; set; }
 
 
         // Note: All Stored Procs and Views are defined in partial class: AppDbContextStoredProcs.cs
@@ -64,6 +65,11 @@ namespace AltFuture.DataAccessLayer.Data
             modelBuilder.Entity<Transaction>()
                 .Property(t => t.InvestmentTotal)
                 .HasComputedColumnSql("Price * Quantity");
+
+            modelBuilder.Entity<ResortUnitWeek>(entity =>
+            {
+                entity.HasNoKey();
+            });
 
 
             modelBuilder.ApplyConfiguration(new CryptoConfiguration());
