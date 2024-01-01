@@ -31,7 +31,7 @@ self.addEventListener('fetch', event => {
                 // Check if the cache is available and not older than 1 minute
                 if (cacheResponse) {
                     const fetchTime = cacheResponse.headers.get('sw-fetch-time');
-                    if (fetchTime && (Date.now() - fetchTime) <= 60000) {
+                    if (fetchTime && (Date.now() - fetchTime) <= MAX_CACHE_AGE) {
                         console.log('Cache loaded.');
                         return cacheResponse; // Cache is fresh, return it
                     }
