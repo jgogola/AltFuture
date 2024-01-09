@@ -18,6 +18,7 @@ internal class CryptoAssetResolver
         switch(exchangeId)
         {
             case ExchangeEnum.Coinbase:
+                cryptoAsset = cryptoAsset.Replace("-USDC", "");
                 cryptoAsset = cryptoAsset.Replace("-USD","");
                 break;
         }
