@@ -2,6 +2,7 @@
 
 namespace AltFuture.DataAccessLayer.Data.Enums
 {
+    //* Note: Adding a value requires a Database Migration.
     public enum TransactionTypeEnum
     {
         None = 0,

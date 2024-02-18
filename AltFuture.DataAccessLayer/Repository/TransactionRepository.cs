@@ -16,22 +16,22 @@ namespace AltFuture.DataAccessLayer.Repository
 
 
 
-        public async Task<IEnumerable<Transaction>> GetAllAsync()
+        public async Task<IEnumerable<TransactionWithInvestmentTotals>> GetAllAsync()
         {
-            return await _context.Transactions.ToListAsync();
+            return await _context.TransactionWithInvestmentTotals.ToListAsync();
         }
 
-        public async Task<IEnumerable<Transaction>> GetAllForUserAsync(int userId)
+        public async Task<IEnumerable<TransactionWithInvestmentTotals>> GetAllForUserAsync(int userId)
         {
-            return await _context.Transactions.Include(t => t.FromExchange)
-                                              .Include(t => t.ExchangeTransactionType)
-                                              .Where(t => t.AppUserId == userId)
-                                              .ToListAsync();
+            return await _context.TransactionWithInvestmentTotals.Include(t => t.FromExchange)
+                                            .Include(t => t.ExchangeTransactionType)
+                                            .Where(t => t.AppUserId == userId)
+                                            .ToListAsync();
         }
 
-        public async Task<Transaction> GetByIdAsync(int id)
+        public async Task<TransactionWithInvestmentTotals> GetByIdAsync(int id)
         {
-            return await _context.Transactions.FirstOrDefaultAsync(t => t.TransactionId == id);
+            return await _context.TransactionWithInvestmentTotals.FirstOrDefaultAsync(t => t.TransactionId == id);
         }
 
         public async Task<int> GetCountAsync()
