@@ -44,10 +44,10 @@ namespace AltFuture.BusinessLogicLayer.Services.ExchangeTransactions
 
         }
 
-        public async Task<int> ImportCsvToDb<T>(StreamReader csvData, int appUserId, int[] transactionTypeFilter, string delimiter = ",") where T : IExchangeTransactionDto
+        public async Task<int> ImportCsvToDb<T>(StreamReader csvData, int appUserId, int exchangeId, int[] transactionTypeFilter, string delimiter = ",") where T : IExchangeTransactionDto
         {
             // Step 1: CSV -> DTO
-            var csvExchangeTransactionDtoList = (List<T>)await _exchangeTransactionCsvParser.ParseExchangeTransactionCsvToDto<T>(csvData, transactionTypeFilter, delimiter);
+            var csvExchangeTransactionDtoList = (List<T>)await _exchangeTransactionCsvParser.ParseExchangeTransactionCsvToDto<T>(csvData, exchangeId, transactionTypeFilter, delimiter);
 
             // Step 2: DTO -> Map
             var mappedTransactionList = await _exchangeTransactionMapper.MapExchangeTransactionDtoToTransaction(csvExchangeTransactionDtoList, appUserId);

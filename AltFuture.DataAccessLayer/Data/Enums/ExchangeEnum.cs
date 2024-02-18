@@ -16,6 +16,8 @@ namespace AltFuture.DataAccessLayer.Data.Enums
         [Display(Name = "Crypto.com")]
         CryptoDotCom = 3,
         Etoro = 4,
-        Binance = 5
+        Binance = 5,
+        [Display(Name = "Yoroi Wallet")]
+        YoroiWallet = 6
     }
 }

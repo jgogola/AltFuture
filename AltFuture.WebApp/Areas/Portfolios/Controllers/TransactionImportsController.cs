@@ -181,5 +181,34 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
 
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> YoroiWallet(IFormFile csvFile)
+        {
+            if (csvFile is null || csvFile.Length == 0)
+            {
+                return RedirectToAction("YoroiWallet");
+            }
+
+            int appUserId = 1;
+            int exchangeId = (int)ExchangeEnum.YoroiWallet;
+            int[] transactionTypeFilter = new int[] { (int)TransactionTypeEnum.StakingReward };
+
+            using var csvData = new StreamReader(csvFile.OpenReadStream());
+            var numTransactionsImported = await _exchangeTransactionCsvImport.ImportCsvToDb<YoroiWalletTransactionDto>(csvData, appUserId, exchangeId, transactionTypeFilter);
+
+
+
+            //* Display success message back to user on Dashboard Index
+            var userMessagePartial = new UserMessagePartial(TempData);
+            userMessagePartial.SetUserMessage(
+                UserMessageTypes.Success,
+                $"{numTransactionsImported} Yoroi Wallet transactions were successfully imported.",
+                8
+            );
+
+            return RedirectToAction(nameof(Index), "Dashboard");
+        }
+
     }
 }
