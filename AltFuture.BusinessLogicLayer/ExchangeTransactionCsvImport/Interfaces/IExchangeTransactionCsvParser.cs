@@ -7,7 +7,7 @@ namespace AltFuture.BusinessLogicLayer.ExchangeTransactionCsvImport.Interfaces
 
         Task<IEnumerable<T>> ParseExchangeTransactionCsvToDto<T>(StreamReader csvData, string delimiter = ",") where T : IExchangeTransactionDto;
        
-        Task<IEnumerable<T>> ParseExchangeTransactionCsvToDto<T>(StreamReader csvData, int[] transactionTypeFilter, string delimiter = ",") where T : IExchangeTransactionDto;
+        Task<IEnumerable<T>> ParseExchangeTransactionCsvToDto<T>(StreamReader csvData, int exchageId, int[] transactionTypeFilter, string delimiter = ",") where T : IExchangeTransactionDto;
 
         Task<(IEnumerable<T1> type1Transactions, IEnumerable<T2> type2Transactions)> ParseExchangeTransactionCsvToDto<T1, T2>(StreamReader csvData,
                                                                                                                                       int exchageId,

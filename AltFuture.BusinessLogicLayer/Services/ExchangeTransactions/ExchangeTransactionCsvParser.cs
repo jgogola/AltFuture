@@ -4,7 +4,7 @@ using AltFuture.DataAccessLayer.Models;
 using CsvHelper.Configuration;
 using CsvHelper;
 using System.Globalization;
-
+using AltFuture.DataAccessLayer.Data.Enums;
 
 namespace AltFuture.BusinessLogicLayer.Services.ExchangeTransactions
 {
@@ -31,14 +31,16 @@ namespace AltFuture.BusinessLogicLayer.Services.ExchangeTransactions
         }
 
 
-        public async Task<IEnumerable<T>> ParseExchangeTransactionCsvToDto<T>(StreamReader csvData, int[] transactionTypeFilter, string delimiter = ",") where T : IExchangeTransactionDto
+        public async Task<IEnumerable<T>> ParseExchangeTransactionCsvToDto<T>(StreamReader csvData, int exchageId, int[] transactionTypeFilter, string delimiter = ",") where T : IExchangeTransactionDto
         {
             return await Task.Run(() =>
             {
 
                 using var csvReader = new CsvReader(csvData, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = delimiter });
 
-                var exchangeTransactionTypeFilter = _exchangeTransactionTypeLookup.Where(t => transactionTypeFilter.Contains(t.TransactionTypeId))
+                var exchangeTransactionTypeFilter = _exchangeTransactionTypeLookup.Where(t => t.DataImportTypeId == (int)DataImportTypeEnum.CSV
+                                                                                              && t.ExchangeId == exchageId
+                                                                                              && transactionTypeFilter.Contains(t.TransactionTypeId))
                                                                                   .Select(t => t.ExchangeTransactionTypeName).ToList();
 
                 var incomingExchangeTransactionDtos = csvReader.GetRecords<T>().Where(t => exchangeTransactionTypeFilter.Contains(t.ExchangeTransactionTypeName)).ToList();
@@ -58,12 +60,14 @@ namespace AltFuture.BusinessLogicLayer.Services.ExchangeTransactions
             {
 
 
-                var exchangeTransactionTypeFilter1 = _exchangeTransactionTypeLookup.Where(t => transactionTypeFilter[1].Contains(t.TransactionTypeId)
-                                                                                                && t.ExchangeId == exchageId)
+                var exchangeTransactionTypeFilter1 = _exchangeTransactionTypeLookup.Where(t => t.DataImportTypeId == (int)DataImportTypeEnum.CSV
+                                                                                               && t.ExchangeId == exchageId
+                                                                                               && transactionTypeFilter[1].Contains(t.TransactionTypeId))
                                                                                     .Select(t => t.ExchangeTransactionTypeName).ToList();
 
-                var exchangeTransactionTypeFilter2 = _exchangeTransactionTypeLookup.Where(t => transactionTypeFilter[2].Contains(t.TransactionTypeId)
-                                                                                                && t.ExchangeId == exchageId)
+                var exchangeTransactionTypeFilter2 = _exchangeTransactionTypeLookup.Where(t => t.DataImportTypeId == (int)DataImportTypeEnum.CSV
+                                                                                               && t.ExchangeId == exchageId
+                                                                                               && transactionTypeFilter[2].Contains(t.TransactionTypeId))
                                                                                     .Select(t => t.ExchangeTransactionTypeName).ToList();
 
                 var incomingType1ExchangeTransactionDtos = new List<T1>();
