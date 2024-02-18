@@ -4,11 +4,11 @@ namespace AltFuture.DataAccessLayer.Interfaces
 {
     public interface ITransactionRepository
     {
-        Task<IEnumerable<Transaction>> GetAllAsync();
+        Task<IEnumerable<TransactionWithInvestmentTotals>> GetAllAsync();
 
-        Task<IEnumerable<Transaction>> GetAllForUserAsync(int userId);
+        Task<IEnumerable<TransactionWithInvestmentTotals>> GetAllForUserAsync(int userId);
 
-        Task<Transaction> GetByIdAsync(int id);
+        Task<TransactionWithInvestmentTotals> GetByIdAsync(int id);
 
         Task<int> GetCountAsync();
 

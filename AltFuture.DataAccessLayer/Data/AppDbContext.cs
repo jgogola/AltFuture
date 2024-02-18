@@ -18,6 +18,7 @@ namespace AltFuture.DataAccessLayer.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<CryptoPrice> CryptoPrices { get; set; }
         public DbSet<ExchangeApiProfile> ExchangeApiProfiles { get; set; }
+        public DbSet<TransactionWithInvestmentTotals> TransactionWithInvestmentTotals { get; set; }
         public DbSet<ResortUnitWeek> ResortUnitWeeks { get; set; }
 
 
@@ -62,14 +63,17 @@ namespace AltFuture.DataAccessLayer.Data
                 entity.HasNoKey().ToTable("PortfolioRunningTotalByDay", t => t.ExcludeFromMigrations());
             });
 
-            modelBuilder.Entity<Transaction>()
-                .Property(t => t.InvestmentTotal)
-                .HasComputedColumnSql("Price * Quantity");
+            //modelBuilder.Entity<Transaction>()
+            //    .Property(t => t.InvestmentTotal)
+            //    .HasComputedColumnSql("Price * Quantity");
 
             modelBuilder.Entity<ResortUnitWeek>(entity =>
             {
                 entity.HasNoKey();
             });
+
+            //* Matches to a read-only View in the database:
+            modelBuilder.Entity<TransactionWithInvestmentTotals>().HasNoKey().ToView("v_TransactionWithInvestmentTotals");
 
 
             modelBuilder.ApplyConfiguration(new CryptoConfiguration());
