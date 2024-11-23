@@ -61,7 +61,7 @@
                     @totalData?.CurrentWorth.ToString("C")
                 </div>
             </div>
-            <div class="flex-grow-1 text-light text-end" >
+@*             <div class="flex-grow-1 text-light text-end" >
                 <div class="impact-label me-3">Take a Moon Shot!</div>
                 @if (ViewBag.ShibaInuMoonShotExists)
                 {
@@ -85,7 +85,7 @@
                         </button>
                     }
                 }
-            </div>
+            </div> *@
         </div>
 
         <div id="chartRunningTotal" ></div>
@@ -252,10 +252,10 @@
         google.charts.load('current', { 'packages': ['corechart', 'bar'] });
 
         //* Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawAssetPerformanceChart);
-        // google.charts.setOnLoadCallback(drawAssetAllocationChart);
+        //google.charts.setOnLoadCallback(drawAssetPerformanceChart);
+       // google.charts.setOnLoadCallback(drawAssetAllocationChart);
         // google.charts.setOnLoadCallback(drawExchangeUsageChart);
-        // google.charts.setOnLoadCallback(drawRunningTotalChart);
+         google.charts.setOnLoadCallback(drawRunningTotalChart);
 
         //* Re-load drawRunningTotalChart when window width is resized
         let previousWidth = $(window).width();
