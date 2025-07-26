@@ -21,18 +21,61 @@ namespace AltFuture.MarketDataConsumer.Models.CoinMarketCap
         public long? TotalSupply { get; set; } = 0;
 
         [JsonProperty("cmc_rank")]
-        public int CmcRank { get; set; } = 0;
+        public int? CmcRank { get; set; } = 0;
 
         //[JsonProperty("tvl_ratio")]
         //public object TvlRatio { get; set; }
 
-        public FiatPrice FiatPrice { get; set; }
+        //public FiatPrice FiatPrice { get; set; }
+        public PriceQuote quote { get; set; }
+    }
+
+    public class PriceQuote
+    {
+        public UsdQuote USD { get; set; } = new UsdQuote();
+    }
+
+    public class UsdQuote
+    {
+        public string FiatSymbol => "USD";
+        public decimal? Price { get; set; } = decimal.Zero;
+
+        [JsonProperty("volume_24h")]
+        public decimal? Volume24h { get; set; } = decimal.Zero;
+
+        [JsonProperty("volume_change_24h")]
+        public decimal? VolumeChange24h { get; set; } = decimal.Zero;
+
+        [JsonProperty("percent_change_1h")]
+        public decimal? PercentChange1h { get; set; } = decimal.Zero;
+
+        [JsonProperty("percent_change_24h")]
+        public decimal? PercentChange24h { get; set; } = decimal.Zero;
+
+        [JsonProperty("percent_change_7d")]
+        public decimal? PercentChange7d { get; set; } = decimal.Zero;
+
+        [JsonProperty("percent_change_30d")]
+        public decimal? PercentChange30d { get; set; } = decimal.Zero;
+
+        [JsonProperty("percent_change_60d")]
+        public decimal? PercentChange60d { get; set; } = decimal.Zero;
+
+        [JsonProperty("percent_change_90d")]
+        public decimal? PercentChange90d { get; set; } = decimal.Zero;
+
+        [JsonProperty("market_cap")]
+        public decimal? MarketCap { get; set; } = decimal.Zero;
+
+        [JsonProperty("market_cap_dominance")]
+        public decimal? MarketCapDominance { get; set; } = decimal.Zero;
+
     }
 
     public class FiatPrice
     {
         public string FiatSymbol { get; set; } = string.Empty;
-        public decimal Price { get; set; } = decimal.Zero;
+        public decimal? Price { get; set; } = decimal.Zero;
 
         [JsonProperty("volume_24h")]
         public decimal? Volume24h { get; set; } = decimal.Zero;

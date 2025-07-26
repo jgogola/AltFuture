@@ -61,17 +61,10 @@ namespace AltFuture.MarketDataConsumer.Services
                 var marketPrice = JsonConvert.DeserializeObject<CoinMarketCapPriceData>(jsonResponce["data"][tickerDictionary.ElementAt(i).Value][0].ToString());
                 marketPrice.CryptoId = tickerDictionary.ElementAt(i).Key;
 
-
-                //data:BTC[0]:quote:USD[0]
-                var fiatPrice = JsonConvert.DeserializeObject<FiatPrice>(jsonResponce["data"][tickerDictionary.ElementAt(i).Value][0]["quote"][fiatSymbol].ToString());
-
-                fiatPrice.FiatSymbol = fiatSymbol;
-                marketPrice.FiatPrice = fiatPrice;
-
                 incommingMarketPriceData.Add(marketPrice);
             }
 
-            var mappedMarketPriceData = _mapper.Map<IEnumerable<MarketPriceData>>(incommingMarketPriceData);
+            var mappedMarketPriceData = _mapper.Map<IEnumerable<MarketPriceData>>(incommingMarketPriceData, opts => { opts.Items["Timestamp"] = DateTime.Now; });
 
             return mappedMarketPriceData;
         }

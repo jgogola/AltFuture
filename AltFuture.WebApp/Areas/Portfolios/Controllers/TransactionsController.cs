@@ -19,13 +19,15 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IExchangeTransactionTypeRepository _exchangeTransactionTypeRepository;
+        private readonly ITransactionRepository _transactionRepository;
         private readonly IMapper _mapper;
 
 
-        public TransactionsController(AppDbContext context, IExchangeTransactionTypeRepository exchangeTransactionTypeRepository, IMapper mapper)
+        public TransactionsController(AppDbContext context, IExchangeTransactionTypeRepository exchangeTransactionTypeRepository, ITransactionRepository transactionRepository, IMapper mapper)
         {
             _context = context;
             _exchangeTransactionTypeRepository = exchangeTransactionTypeRepository;
+            _transactionRepository = transactionRepository;
             _mapper = mapper;
         }
 
@@ -33,12 +35,13 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
         public async Task<IActionResult> Index(int? page)
         {
             var userMessageJson = TempData["UserMessage"] as string;
-            var transactions = _context.Transactions
+            var transactions = _context.TransactionWithInvestmentTotals
                                        .Include(t => t.AppUser)
                                        .Include(t => t.Crypto)
                                        .Include(t => t.FromExchange)
                                        .Include(t => t.ToExchange)
                                        .OrderByDescending(t => t.TransactionDate);
+
             var pageNumber = page ?? 1;
             var pageSize = 10;
             var pagedTransactions = await transactions.ToPagedListAsync(pageNumber, pageSize);
