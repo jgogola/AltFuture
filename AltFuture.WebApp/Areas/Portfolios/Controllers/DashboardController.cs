@@ -92,7 +92,8 @@ namespace AltFuture.WebApp.Areas.Portfolios.Controllers
             MoonShot moonShot = _moonShotFactory.Create(MoonShotTypeEnum.ShibaInu, appUserId);
             ViewBag.ShibaInuMoonShotExists = moonShot.MoonShotExists;
 
-            return View(await _portfolioSummaryRepository.GetAllAsync(appUserId));
+            var summary = await _portfolioSummaryRepository.GetAllAsync(appUserId);
+            return View(summary);
         }
 
         [HttpPost]

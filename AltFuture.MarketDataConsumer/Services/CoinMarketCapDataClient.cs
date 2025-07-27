@@ -25,6 +25,7 @@ namespace AltFuture.MarketDataConsumer.Services
         }
 
         public int RateLimitHours => _endPointOptions.RateLimitHours;
+        public int RateLimitMinutes => _endPointOptions.RateLimitMinutes;
 
         public async Task<DataPlanUsage> GetDataPlanUsageAsync()
         {

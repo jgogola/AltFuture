@@ -1,6 +1,7 @@
 ﻿
 using AltFuture.BusinessLogicLayer.Interfaces;
 using AltFuture.DataAccessLayer.Interfaces;
+using AltFuture.DataAccessLayer.Models;
 using AltFuture.WebApp.Enums;
 using AltFuture.WebApp.Helpers;
 using AltFuture.WebApp.ViewModels;
@@ -27,22 +28,39 @@ namespace AltFuture.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
 
-            //* Import current market data:
-            var timeCheck = DateTime.Now;
-            var marketDataLastSynced = await _marketDataService.SyncMarketPricesCacheAsync();
-            ViewBag.DateLastSynced = marketDataLastSynced;
+            try
+            {
 
-            if (marketDataLastSynced >= timeCheck)
+                //* Import current market data:
+                var timeCheck = DateTime.Now;
+                var marketDataLastSynced = await _marketDataService.SyncMarketPricesCacheAsync();
+                ViewBag.DateLastSynced = marketDataLastSynced;
+
+                if (marketDataLastSynced >= timeCheck)
+                {
+                    var userMessagePartial = new UserMessagePartial(TempData);
+                    userMessagePartial.SetUserMessage(
+                        UserMessageTypes.System,
+                        $"<li>Market data was synced at {marketDataLastSynced}.",
+                        8
+                    );
+                }
+
+                var latestPrices = await _cryptoPricesRepository.GetLatestPricesAsync();
+                return View(latestPrices.OrderBy(p => p.Crypto.SortRank).ToList());
+            }
+            catch (Exception ex)
             {
                 var userMessagePartial = new UserMessagePartial(TempData);
                 userMessagePartial.SetUserMessage(
-                    UserMessageTypes.System,
-                    $"<li>Market data was synced at {marketDataLastSynced}.",
+                    UserMessageTypes.Alert,
+                    $"Error: {ex.Message}.",
                     8
                 );
-            }
 
-            return View(await _cryptoPricesRepository.GetLatestPricesAsync());
+                return View(new List<CryptoPrice>());
+            }
+            
         }
 
         public IActionResult About()

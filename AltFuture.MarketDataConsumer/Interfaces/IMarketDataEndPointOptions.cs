@@ -5,6 +5,8 @@ namespace AltFuture.MarketDataConsumer.Interfaces
     {
         int RateLimitHours { get; set; }
 
+        int RateLimitMinutes { get; set; }
+
         string DataPlanUsage { get; set; }
 
         string MarketPriceData { get; set; }

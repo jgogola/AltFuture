@@ -6,6 +6,8 @@ namespace AltFuture.MarketDataConsumer.Interfaces
     {
         int RateLimitHours { get; }
 
+        int RateLimitMinutes { get; }
+
         Task<DataPlanUsage> GetDataPlanUsageAsync();
 
         Task<IEnumerable<MarketPriceData>> GetLatestMarketPriceDataAsync(Dictionary<int, string> tickerDictionary);

@@ -22,10 +22,11 @@ namespace AltFuture.DataAccessLayer.Repository
 
         public async Task<IEnumerable<CryptoPrice>> GetLatestPricesAsync()
         {
+            var latestDateRecorded = await GetLastSyncedDate();
+
             return await _context.CryptoPrices
+                                 .Where(c => c.DateRecorded == latestDateRecorded)
                                  .Include(c => c.Crypto)
-                                 .GroupBy(cp => cp.CryptoId)
-                                 .Select(g => g.OrderByDescending(cp => cp.DateRecorded).First())
                                  .ToListAsync();
         }
 

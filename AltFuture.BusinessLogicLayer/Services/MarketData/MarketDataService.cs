@@ -35,7 +35,7 @@ namespace AltFuture.BusinessLogicLayer.Services.MarketData
         {
             var dateLastSynced = await _cryptoPriceRepository.GetLastSyncedDate();
 
-            if (dateLastSynced.AddHours(_marketDataClient.RateLimitHours) > DateTime.Now)
+            if (dateLastSynced.AddMinutes(_marketDataClient.RateLimitMinutes) > DateTime.Now)
             {
                 return dateLastSynced;
             }
